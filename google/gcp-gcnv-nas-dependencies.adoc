@@ -1,0 +1,335 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-nas-dependencies.html 
+keywords: kerberos keytab rotation, ldap, network ports, bind, asymmetric name mapping, antivirus 
+summary: Bei der Verwendung von Google Cloud NetApp Volumes für NAS-Freigaben sind möglicherweise externe Abhängigkeiten für die ordnungsgemäße Funktionalität erforderlich.  Diese Abhängigkeiten kommen unter bestimmten Umständen zum Tragen. 
+---
+= Andere Dienstabhängigkeiten der NAS-Infrastruktur (KDC, LDAP und DNS)
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Verwendung von Google Cloud NetApp Volumes für NAS-Freigaben sind möglicherweise externe Abhängigkeiten für die ordnungsgemäße Funktionalität erforderlich.  Diese Abhängigkeiten kommen unter bestimmten Umständen zum Tragen.  Die folgende Tabelle zeigt verschiedene Konfigurationsoptionen und welche Abhängigkeiten ggf. erforderlich sind.
+
+|===
+| Konfiguration | Erforderliche Abhängigkeiten 
+
+
+| Nur NFSv3 | Keine 
+
+
+| Nur NFSv3 Kerberos | Windows Active Directory: * KDC * DNS * LDAP 
+
+
+| Nur NFSv4.1 | Client-ID-Mapping-Konfiguration (/etc/idmap.conf) 
+
+
+| Nur NFSv4.1 Kerberos  a| 
+* Client-ID-Mapping-Konfiguration (/etc/idmap.conf)
+* Windows Active Directory: KDC DNS LDAP
+
+
+
+
+| Nur SMB | Active Directory: * KDC * DNS 
+
+
+| Multiprotokoll-NAS (NFS und SMB)  a| 
+* Client-ID-Mapping-Konfiguration (nur NFSv4.1; /etc/idmap.conf)
+* Windows Active Directory: KDC DNS LDAP
+
+
+|===
+
+
+== Kerberos-Keytab-Rotation/Kennwortrücksetzung für Maschinenkontoobjekte
+
+Bei SMB-Maschinenkonten plant Google Cloud NetApp Volumes regelmäßige Kennwortzurücksetzungen für das SMB-Maschinenkonto.  Diese Kennwortzurücksetzungen erfolgen mithilfe der Kerberos-Verschlüsselung und werden jeden vierten Sonntag zu einer zufälligen Uhrzeit zwischen 23:00 und 01:00 Uhr durchgeführt.  Diese Kennwortzurücksetzungen ändern die Kerberos-Schlüsselversionen, rotieren die auf dem Google Cloud NetApp Volumes System gespeicherten Keytabs und tragen dazu bei, ein höheres Maß an Sicherheit für SMB-Server aufrechtzuerhalten, die in Google Cloud NetApp Volumes ausgeführt werden.  Die Passwörter der Computerkonten werden nach dem Zufallsprinzip erstellt und sind den Administratoren nicht bekannt.
+
+Bei NFS-Kerberos-Maschinenkonten werden Passwörter nur zurückgesetzt, wenn ein neuer Keytab erstellt bzw. mit dem KDC ausgetauscht wird.  Derzeit ist dies in Google Cloud NetApp Volumes nicht möglich.
+
+
+
+== Netzwerkports zur Verwendung mit LDAP und Kerberos
+
+Wenn Sie LDAP und Kerberos verwenden, sollten Sie die von diesen Diensten verwendeten Netzwerkports ermitteln.  Eine vollständige Liste der von Google Cloud NetApp Volumes verwendeten Ports finden Sie im https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["Google Cloud NetApp Volumes -Dokumentation zu Sicherheitsaspekten"^] .
+
+
+
+== LDAP
+
+Google Cloud NetApp Volumes fungiert als LDAP-Client und verwendet standardmäßige LDAP-Suchabfragen für Benutzer- und Gruppensuchen nach UNIX-Identitäten.  LDAP ist erforderlich, wenn Sie Benutzer und Gruppen außerhalb der von Google Cloud NetApp Volumes bereitgestellten Standardbenutzer verwenden möchten.  LDAP ist auch erforderlich, wenn Sie NFS Kerberos mit Benutzerprinzipalen (z. B. user1@domain.com) verwenden möchten.  Derzeit wird nur LDAP mit Microsoft Active Directory unterstützt.
+
+Um Active Directory als UNIX-LDAP-Server zu verwenden, müssen Sie die erforderlichen UNIX-Attribute für Benutzer und Gruppen angeben, die Sie für UNIX-Identitäten verwenden möchten.  Google Cloud NetApp Volumes verwendet eine Standard-LDAP-Schemavorlage, die Attribute basierend auf https://tools.ietf.org/id/draft-howard-rfc2307bis-01.txt["RFC-2307-bis"^] .  Daher zeigt die folgende Tabelle die unbedingt erforderlichen Active Directory-Attribute zum Ausfüllen für Benutzer und Gruppen und wofür jedes Attribut verwendet wird.
+
+Weitere Informationen zum Festlegen von LDAP-Attributen in Active Directory finden Sie unter https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["Verwalten des Dualprotokollzugriffs."^]
+
+|===
+| Attribut | Was es bewirkt 
+
+
+| UID* | Gibt den UNIX-Benutzernamen an 
+
+
+| uidNummer* | Gibt die numerische ID des UNIX-Benutzers an 
+
+
+| gidNummer* | Gibt die numerische ID der primären Gruppe des UNIX-Benutzers an 
+
+
+| Objektklasse* | Gibt an, welcher Objekttyp verwendet wird. Google Cloud NetApp Volumes erfordert, dass „Benutzer“ in der Liste der Objektklassen enthalten ist (ist in den meisten Active Directory-Bereitstellungen standardmäßig enthalten). 
+
+
+| Name | Allgemeine Informationen zum Konto (richtiger Name, Telefonnummer usw. – auch bekannt als Gecos) 
+
+
+| unixUserPassword | Dies muss nicht festgelegt werden; wird bei UNIX-Identitätssuchen für die NAS-Authentifizierung nicht verwendet.  Durch diese Einstellung wird der konfigurierte Wert von „unixUserPassword“ im Klartext ausgegeben. 
+
+
+| UnixHomeDirectory | Definiert den Pfad zu UNIX-Home-Verzeichnissen, wenn sich ein Benutzer von einem Linux-Client aus gegenüber LDAP authentifiziert.  Legen Sie dies fest, wenn Sie LDAP für die UNIX-Home-Verzeichnisfunktion verwenden möchten. 
+
+
+| loginShell | Definiert den Pfad zur Bash-/Profil-Shell für Linux-Clients, wenn sich ein Benutzer gegenüber LDAP authentifiziert. 
+|===
+*Bezeichnet, dass das Attribut für die ordnungsgemäße Funktionalität mit Google Cloud NetApp Volumes erforderlich ist.  Die verbleibenden Attribute sind nur für die Verwendung auf der Clientseite bestimmt.
+
+|===
+| Attribut | Was es bewirkt 
+
+
+| cn* | Gibt den UNIX-Gruppennamen an.  Bei Verwendung von Active Directory für LDAP wird dies beim ersten Erstellen des Objekts festgelegt, kann aber später geändert werden.  Dieser Name darf nicht mit dem anderer Objekte identisch sein.  Wenn Ihr UNIX-Benutzer mit dem Namen „user1“ beispielsweise zu einer Gruppe mit dem Namen „user1“ auf Ihrem Linux-Client gehört, lässt Windows nicht zwei Objekte mit demselben cn-Attribut zu.  Um dies zu umgehen, benennen Sie den Windows-Benutzer in einen eindeutigen Namen um (z. B. „user1-UNIX“). LDAP in Google Cloud NetApp Volumes verwendet das Attribut „uid“ für UNIX-Benutzernamen. 
+
+
+| gidNummer* | Gibt die numerische ID der UNIX-Gruppe an. 
+
+
+| Objektklasse* | Gibt an, welcher Objekttyp verwendet wird. Google Cloud NetApp Volumes erfordert, dass die Gruppe in der Liste der Objektklassen enthalten ist (dieses Attribut ist in den meisten Active Directory-Bereitstellungen standardmäßig enthalten). 
+
+
+| Mitglieds-ID | Gibt an, welche UNIX-Benutzer Mitglieder der UNIX-Gruppe sind.  Mit Active Directory LDAP in Google Cloud NetApp Volumes ist dieses Feld nicht erforderlich.  Das LDAP-Schema von Google Cloud NetApp Volumes verwendet das Feld „Mitglied“ für Gruppenmitgliedschaften. 
+
+
+| Mitglied* | Erforderlich für Gruppenmitgliedschaften/sekundäre UNIX-Gruppen.  Dieses Feld wird ausgefüllt, indem Windows-Benutzer zu Windows-Gruppen hinzugefügt werden.  Wenn die UNIX-Attribute der Windows-Gruppen jedoch nicht ausgefüllt sind, werden sie nicht in die Gruppenmitgliedschaftslisten der UNIX-Benutzer aufgenommen.  Alle Gruppen, die in NFS verfügbar sein müssen, müssen die in dieser Tabelle aufgeführten erforderlichen UNIX-Gruppenattribute ausfüllen. 
+|===
+*Bezeichnet, dass das Attribut für die ordnungsgemäße Funktionalität mit Google Cloud NetApp Volumes erforderlich ist.  Die verbleibenden Attribute sind nur für die Verwendung auf der Clientseite bestimmt.
+
+
+
+=== LDAP-Bindungsinformationen
+
+Um Benutzer in LDAP abzufragen, muss Google Cloud NetApp Volumes eine Bindung (Anmeldung) zum LDAP-Dienst herstellen.  Diese Anmeldung verfügt über schreibgeschützte Berechtigungen und wird zum Abfragen von LDAP-UNIX-Attributen für Verzeichnissuchen verwendet.  Derzeit sind LDAP-Bindungen nur über ein SMB-Computerkonto möglich.
+
+Sie können LDAP nur aktivieren für `NetApp Volumes-Performance` Instanzen und verwenden Sie es für NFSv3-, NFSv4.1- oder Dualprotokoll-Volumes.  Für die erfolgreiche Bereitstellung des LDAP-fähigen Volumes muss eine Active Directory-Verbindung in derselben Region wie das Google Cloud NetApp Volumes -Volume hergestellt werden.
+
+Wenn LDAP aktiviert ist, geschieht in bestimmten Szenarien Folgendes.
+
+* Wenn für das Google Cloud NetApp Volumes -Projekt nur NFSv3 oder NFSv4.1 verwendet wird, wird im Active Directory-Domänencontroller ein neues Computerkonto erstellt und der LDAP-Client in Google Cloud NetApp Volumes stellt mithilfe der Anmeldeinformationen des Computerkontos eine Bindung zu Active Directory her.  Für das NFS-Volume und die standardmäßigen versteckten administrativen Freigaben werden keine SMB-Freigaben erstellt (siehe Abschnittlink:gcp-gcnv-smb.html#default-hidden-shares["Standardmäßig ausgeblendete Freigaben"] ) wurden Freigabe-ACLs entfernt.
+* Wenn für das Google Cloud NetApp Volumes Projekt Dual-Protokoll-Volumes verwendet werden, wird nur das für den SMB-Zugriff erstellte Einzelmaschinenkonto verwendet, um den LDAP-Client in Google Cloud NetApp Volumes an Active Directory zu binden.  Es werden keine zusätzlichen Maschinenkonten erstellt.
+* Wenn dedizierte SMB-Volumes separat erstellt werden (entweder vor oder nach der Aktivierung von NFS-Volumes mit LDAP), wird das Computerkonto für LDAP-Bindungen mit dem SMB-Computerkonto geteilt.
+* Wenn auch NFS Kerberos aktiviert ist, werden zwei Computerkonten erstellt – eines für SMB-Freigaben und/oder LDAP-Bindungen und eines für die NFS Kerberos-Authentifizierung.
+
+
+
+
+=== LDAP-Abfragen
+
+Obwohl LDAP-Bindungen verschlüsselt sind, werden LDAP-Abfragen im Klartext über den gemeinsamen LDAP-Port 389 übertragen.  Dieser bekannte Port kann derzeit in Google Cloud NetApp Volumes nicht geändert werden.  Dies hat zur Folge, dass jemand mit Zugriff auf die Paketüberwachung im Netzwerk Benutzer- und Gruppennamen, numerische IDs und Gruppenmitgliedschaften sehen kann.
+
+Google Cloud-VMs können jedoch den Unicast-Verkehr anderer VMs nicht abhören.  Nur VMs, die aktiv am LDAP-Verkehr teilnehmen (d. h. eine Bindung herstellen können), können den Verkehr vom LDAP-Server sehen.  Weitere Informationen zum Packet Sniffing in Google Cloud NetApp Volumes finden Sie im Abschnittlink:gcp-gcnv-arch-detail.html#packet-sniffing["Überlegungen zum Paket-Sniffing/Trace."]
+
+
+
+=== LDAP-Client-Konfigurationsvorgaben
+
+Wenn LDAP in einer Google Cloud NetApp Volumes Instanz aktiviert ist, wird standardmäßig eine LDAP-Clientkonfiguration mit bestimmten Konfigurationsdetails erstellt.  In einigen Fällen gelten Optionen entweder nicht für Google Cloud NetApp Volumes (werden nicht unterstützt) oder sind nicht konfigurierbar.
+
+|===
+| LDAP-Client-Option | Was es bewirkt | Standardwert | Kann sich ändern? 
+
+
+| LDAP-Serverliste | Legt die für Abfragen zu verwendenden LDAP-Servernamen oder IP-Adressen fest.  Dies wird nicht für Google Cloud NetApp Volumes verwendet.  Stattdessen wird die Active Directory-Domäne zum Definieren von LDAP-Servern verwendet. | Nicht festgelegt | Nein 
+
+
+| Active Directory-Domäne | Legt die Active Directory-Domäne fest, die für LDAP-Abfragen verwendet werden soll.  Google Cloud NetApp Volumes nutzt SRV-Einträge für LDAP in DNS, um LDAP-Server in der Domäne zu finden. | Auf die in der Active Directory-Verbindung angegebene Active Directory-Domäne einstellen. | Nein 
+
+
+| Bevorzugte Active Directory-Server | Legt die bevorzugten Active Directory-Server für die Verwendung von LDAP fest.  Wird von Google Cloud NetApp Volumes nicht unterstützt.  Verwenden Sie stattdessen Active Directory-Sites, um die LDAP-Serverauswahl zu steuern. | Nicht festgelegt. | Nein 
+
+
+| Binden mit SMB-Server-Anmeldeinformationen | Bindet an LDAP unter Verwendung des SMB-Computerkontos.  Derzeit ist dies die einzige unterstützte LDAP-Bindungsmethode in Google Cloud NetApp Volumes. | WAHR | Nein 
+
+
+| Schemavorlage | Die für LDAP-Abfragen verwendete Schemavorlage. | MS-AD-BIS | Nein 
+
+
+| LDAP-Server-Port | Die für LDAP-Abfragen verwendete Portnummer.  Google Cloud NetApp Volumes verwendet derzeit nur den Standard-LDAP-Port 389.  LDAPS/Port 636 wird derzeit nicht unterstützt. | 389 | Nein 
+
+
+| Ist LDAPS aktiviert? | Steuert, ob LDAP über Secure Sockets Layer (SSL) für Abfragen und Bindungen verwendet wird.  Wird derzeit von Google Cloud NetApp Volumes nicht unterstützt. | FALSCH | Nein 
+
+
+| Abfrage-Timeout (Sek.) | Zeitüberschreitung für Abfragen.  Wenn Abfragen länger als der angegebene Wert dauern, schlagen die Abfragen fehl. | 3 | Nein 
+
+
+| Minimale Bind-Authentifizierungsebene | Die minimal unterstützte Bindungsebene.  Da Google Cloud NetApp Volumes Maschinenkonten für LDAP-Bindungen verwendet und Active Directory anonyme Bindungen standardmäßig nicht unterstützt, spielt diese Option aus Sicherheitsgründen keine Rolle. | Anonym | Nein 
+
+
+| Bind-DN | Der Benutzername/Distinguished Name (DN), der für Bindungen verwendet wird, wenn eine einfache Bindung verwendet wird.  Google Cloud NetApp Volumes verwendet Maschinenkonten für LDAP-Bindungen und unterstützt derzeit keine einfache Bindungsauthentifizierung. | Nicht festgelegt | Nein 
+
+
+| Basis-DN | Der für LDAP-Suchen verwendete Basis-DN. | Die für die Active Directory-Verbindung verwendete Windows-Domäne im DN-Format (d. h. DC=Domäne, DC=Lokal). | Nein 
+
+
+| Basissuchbereich | Der Suchbereich für Basis-DN-Suchen.  Zu den Werten können „Basis“, „Eine Ebene“ oder „Unterbaum“ gehören.  Google Cloud NetApp Volumes unterstützt nur Unterbaumsuchen. | Teilbaum | Nein 
+
+
+| Benutzer-DN | Definiert den DN, bei dem Benutzersuchen für LDAP-Abfragen beginnen.  Wird derzeit für Google Cloud NetApp Volumes nicht unterstützt, daher beginnen alle Benutzersuchen beim Basis-DN. | Nicht festgelegt | Nein 
+
+
+| Benutzersuchbereich | Der Suchbereich für Benutzer-DN-Suchen.  Zu den Werten können „Basis“, „Eine Ebene“ oder „Unterbaum“ gehören.  Google Cloud NetApp Volumes unterstützt das Festlegen des Benutzersuchbereichs nicht. | Teilbaum | Nein 
+
+
+| Gruppen-DN | Definiert den DN, bei dem Gruppensuchen für LDAP-Abfragen beginnen.  Wird derzeit für Google Cloud NetApp Volumes nicht unterstützt, daher beginnen alle Gruppensuchen beim Basis-DN. | Nicht festgelegt | Nein 
+
+
+| Gruppensuchbereich | Der Suchbereich für Gruppen-DN-Suchen.  Zu den Werten können „Basis“, „Eine Ebene“ oder „Unterbaum“ gehören.  Google Cloud NetApp Volumes unterstützt das Festlegen des Gruppensuchbereichs nicht. | Teilbaum | Nein 
+
+
+| Netzgruppen-DN | Definiert den DN, bei dem die Netzgruppensuche für LDAP-Abfragen beginnt.  Wird derzeit für Google Cloud NetApp Volumes nicht unterstützt, daher beginnen alle Netgroup-Suchen beim Basis-DN. | Nicht festgelegt | Nein 
+
+
+| Netgroup-Suchbereich | Der Suchbereich für Netgroup-DN-Suchen.  Zu den Werten können „Basis“, „Eine Ebene“ oder „Unterbaum“ gehören.  Google Cloud NetApp Volumes unterstützt das Festlegen des Netgroup-Suchbereichs nicht. | Teilbaum | Nein 
+
+
+| Verwenden Sie start_tls über LDAP | Nutzt Start TLS für zertifikatsbasierte LDAP-Verbindungen über Port 389.  Wird derzeit von Google Cloud NetApp Volumes nicht unterstützt. | FALSCH | Nein 
+
+
+| Aktivieren Sie die Netgroup-by-Host-Suche | Ermöglicht die Suche nach Netzgruppen nach Hostnamen, anstatt die Netzgruppen zu erweitern, um alle Mitglieder aufzulisten.  Wird derzeit von Google Cloud NetApp Volumes nicht unterstützt. | FALSCH | Nein 
+
+
+| Netgroup-by-Host-DN | Definiert den DN, bei dem Netgroup-by-Host-Suchen für LDAP-Abfragen beginnen.  Netgroup-by-Host wird derzeit für Google Cloud NetApp Volumes nicht unterstützt. | Nicht festgelegt | Nein 
+
+
+| Netgroup-by-Host-Suchbereich | Der Suchbereich für Netgroup-by-Host-DN-Suchen.  Die Werte können „Basis“, „Eine Ebene“ oder „Unterbaum“ umfassen.  Netgroup-by-Host wird derzeit für Google Cloud NetApp Volumes nicht unterstützt. | Teilbaum | Nein 
+
+
+| Sicherheit der Clientsitzung | Definiert, welche Ebene der Sitzungssicherheit von LDAP verwendet wird (Signieren, Siegel oder keine).  Die LDAP-Signierung wird von NetApp Volumes-Performance unterstützt, sofern dies von Active Directory angefordert wird.  NetApp Volumes-SW unterstützt keine LDAP-Signierung.  Für beide Diensttypen wird die Versiegelung derzeit nicht unterstützt. | Keine | Nein 
+
+
+| LDAP-Verweise verfolgen | Bei der Verwendung mehrerer LDAP-Server ermöglicht die Verweisverfolgung dem Client, auf andere LDAP-Server in der Liste zu verweisen, wenn auf dem ersten Server kein Eintrag gefunden wird.  Dies wird derzeit von Google Cloud NetApp Volumes nicht unterstützt. | FALSCH | Nein 
+
+
+| Gruppenmitgliedschaftsfilter | Bietet einen benutzerdefinierten LDAP-Suchfilter, der beim Suchen der Gruppenmitgliedschaft von einem LDAP-Server verwendet werden kann.  Wird derzeit nicht mit Google Cloud NetApp Volumes unterstützt. | Nicht festgelegt | Nein 
+|===
+
+
+=== Verwenden von LDAP für die asymmetrische Namenszuordnung
+
+Google Cloud NetApp Volumes ordnet standardmäßig Windows-Benutzer und UNIX-Benutzer mit identischen Benutzernamen bidirektional zu, ohne dass eine spezielle Konfiguration erforderlich ist.  Solange Google Cloud NetApp Volumes einen gültigen UNIX-Benutzer (mit LDAP) finden kann, erfolgt eine 1:1-Namenszuordnung.  Wenn beispielsweise ein Windows-Benutzer `johnsmith` verwendet wird, dann, wenn Google Cloud NetApp Volumes einen UNIX-Benutzer namens finden kann `johnsmith` in LDAP, die Namenszuordnung für diesen Benutzer erfolgreich ist, alle Dateien/Ordner, die von `johnsmith` zeigen die korrekte Benutzereigentümerschaft und alle ACLs an, die `johnsmith` werden unabhängig vom verwendeten NAS-Protokoll berücksichtigt.  Dies wird als symmetrische Namenszuordnung bezeichnet.
+
+Eine asymmetrische Namenszuordnung liegt vor, wenn die Identität des Windows-Benutzers und des UNIX-Benutzers nicht übereinstimmt.  Wenn beispielsweise ein Windows-Benutzer `johnsmith` hat eine UNIX-Identität von `jsmith` , Google Cloud NetApp Volumes benötigt eine Möglichkeit, über die Abweichung informiert zu werden.  Da Google Cloud NetApp Volumes derzeit die Erstellung statischer Namenszuordnungsregeln nicht unterstützt, muss LDAP verwendet werden, um die Identität der Benutzer sowohl für Windows- als auch für UNIX-Identitäten nachzuschlagen und so den ordnungsgemäßen Besitz von Dateien und Ordnern sowie die erwarteten Berechtigungen sicherzustellen.
+
+Standardmäßig umfasst Google Cloud NetApp Volumes `LDAP` im NS-Switch der Instanz für die Namenszuordnungsdatenbank, sodass Sie zur Bereitstellung der Namenszuordnungsfunktionalität durch Verwendung von LDAP für asymmetrische Namen nur einige der Benutzer-/Gruppenattribute ändern müssen, um widerzuspiegeln, wonach Google Cloud NetApp Volumes sucht.
+
+Die folgende Tabelle zeigt, welche Attribute in LDAP für die asymmetrische Namenszuordnungsfunktion ausgefüllt werden müssen.  In den meisten Fällen ist Active Directory bereits entsprechend konfiguriert.
+
+|===
+| Google Cloud NetApp Volumes Attribut | Was es bewirkt | Von Google Cloud NetApp Volumes für die Namenszuordnung verwendeter Wert 
+
+
+| Windows zu UNIX Objektklasse | Gibt den Typ des verwendeten Objekts an.  (Das heißt, Benutzer, Gruppe, POSIX-Konto usw.) | Muss den Benutzer enthalten (kann bei Bedarf mehrere andere Werte enthalten). 
+
+
+| Windows-zu-UNIX-Attribut | das den Windows-Benutzernamen bei der Erstellung definiert.  Google Cloud NetApp Volumes verwendet dies für Windows-zu-UNIX-Lookups. | Hier ist keine Änderung erforderlich; sAMAccountName ist derselbe wie der Windows-Anmeldename. 
+
+
+| UID | Definiert den UNIX-Benutzernamen. | Gewünschter UNIX-Benutzername. 
+|===
+Google Cloud NetApp Volumes verwendet derzeit keine Domänenpräfixe in LDAP-Lookups, sodass LDAP-Umgebungen mit mehreren Domänen bei LDAP-Namemap-Lookups nicht ordnungsgemäß funktionieren.
+
+Das folgende Beispiel zeigt einen Benutzer mit dem Windows-Namen `asymmetric` , der UNIX-Name `unix-user` und das Verhalten beim Schreiben von Dateien sowohl von SMB als auch von NFS.
+
+Die folgende Abbildung zeigt, wie LDAP-Attribute vom Windows-Server aussehen.
+
+image:ncvs-gc-020.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Von einem NFS-Client aus können Sie den UNIX-Namen, aber nicht den Windows-Namen abfragen:
+
+....
+# id unix-user
+uid=1207(unix-user) gid=1220(sharedgroup) groups=1220(sharedgroup)
+# id asymmetric
+id: asymmetric: no such user
+....
+Wenn eine Datei von NFS als `unix-user` , das Folgende ist das Ergebnis des NFS-Clients:
+
+....
+sh-4.2$ pwd
+/mnt/home/ntfssh-4.2$ touch unix-user-file
+sh-4.2$ ls -la | grep unix-user
+-rwx------  1 unix-user sharedgroup     0 Feb 28 12:37 unix-user-nfs
+sh-4.2$ id
+uid=1207(unix-user) gid=1220(sharedgroup) groups=1220(sharedgroup)
+....
+Auf einem Windows-Client können Sie sehen, dass der Eigentümer der Datei auf den richtigen Windows-Benutzer eingestellt ist:
+
+....
+PS C:\ > Get-Acl \\demo\home\ntfs\unix-user-nfs | select Owner
+Owner
+-----
+NTAP\asymmetric
+....
+Umgekehrt können Dateien, die vom Windows-Benutzer erstellt wurden, `asymmetric` von einem SMB-Client den richtigen UNIX-Besitzer anzeigen, wie im folgenden Text gezeigt.
+
+KMU:
+
+....
+PS Z:\ntfs> echo TEXT > asymmetric-user-smb.txt
+....
+NFS:
+
+....
+sh-4.2$ ls -la | grep asymmetric-user-smb.txt
+-rwx------  1 unix-user         sharedgroup   14 Feb 28 12:43 asymmetric-user-smb.txt
+sh-4.2$ cat asymmetric-user-smb.txt
+TEXT
+....
+
+
+=== LDAP-Kanalbindung
+
+Aufgrund einer Sicherheitslücke in Windows Active Directory-Domänencontrollern https://msrc.microsoft.com/update-guide/vulnerability/ADV190023["Microsoft-Sicherheitsempfehlung ADV190023"^] ändert, wie DCs LDAP-Bindungen zulassen.
+
+Die Auswirkungen auf Google Cloud NetApp Volumes sind dieselben wie für jeden LDAP-Client.  Google Cloud NetApp Volumes unterstützt derzeit keine Kanalbindung.  Da Google Cloud NetApp Volumes standardmäßig die LDAP-Signierung durch Aushandlung unterstützt, sollte die LDAP-Kanalbindung kein Problem darstellen.  Wenn bei der Bindung an LDAP bei aktivierter Kanalbindung Probleme auftreten, befolgen Sie die Abhilfeschritte in ADV190023, damit LDAP-Bindungen von Google Cloud NetApp Volumes erfolgreich sind.
+
+
+
+== DNS
+
+Sowohl Active Directory als auch Kerberos sind für die Auflösung von Hostnamen zu IP bzw. von IP zu Hostnamen von DNS abhängig.  DNS erfordert, dass Port 53 geöffnet ist.  Google Cloud NetApp Volumes nimmt keine Änderungen an DNS-Einträgen vor und unterstützt derzeit auch nicht die Verwendung von https://support.google.com/domains/answer/6147083?hl=en["dynamisches DNS"^] auf Netzwerkschnittstellen.
+
+Sie können Active Directory DNS konfigurieren, um einzuschränken, welche Server DNS-Einträge aktualisieren können. Weitere Informationen finden Sie unter  https://docs.microsoft.com/en-us/learn/modules/secure-windows-server-domain-name-system/["Sicheres Windows DNS"^] .
+
+Beachten Sie, dass Ressourcen innerhalb eines Google-Projekts standardmäßig Google Cloud DNS verwenden, das nicht mit Active Directory DNS verbunden ist.  Clients, die Cloud DNS verwenden, können die von Google Cloud NetApp Volumes zurückgegebenen UNC-Pfade nicht auflösen.  Windows-Clients, die der Active Directory-Domäne beigetreten sind, sind für die Verwendung von Active Directory DNS konfiguriert und können solche UNC-Pfade auflösen.
+
+Um einen Client mit Active Directory zu verbinden, müssen Sie seine DNS-Konfiguration so konfigurieren, dass Active Directory DNS verwendet wird.  Optional können Sie Cloud DNS so konfigurieren, dass Anfragen an Active Directory DNS weitergeleitet werden.  Sehen https://cloud.google.com/architecture/partners/netapp-cloud-volumes/faqs-netapp["Warum kann mein Client den SMB-NetBIOS-Namen nicht auflösen?"^] für weitere Informationen.
+
+
+NOTE: Google Cloud NetApp Volumes unterstützt derzeit kein DNSSEC und DNS-Abfragen werden im Klartext durchgeführt.
+
+
+
+== Dateizugriffsüberwachung
+
+Wird derzeit für Google Cloud NetApp Volumes nicht unterstützt.
+
+
+
+== Virenschutz
+
+Sie müssen auf dem Client einer NAS-Freigabe einen Virenscan in Google Cloud NetApp Volumes durchführen.  Derzeit gibt es keine native Antivirenintegration mit Google Cloud NetApp Volumes.

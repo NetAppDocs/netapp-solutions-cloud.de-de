@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-pm-rosa-additional.html 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
+summary:  
+---
+= Zusätzliche NetApp Hybrid Multicloud-Lösungen für Red Hat OpenShift-Workloads
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+
+
+== Zusätzliche Lösungen
+
+Weitere Lösungen sind in den folgenden Abschnitten verfügbar:
+
+Informationen zu Red Hat OpenShift Container-Lösungen finden Sie unterlink:https://docs.netapp.com/us-en/netapp-solutions-containers/openshift/os-solution-overview.html["hier,"^] .
+
+Informationen zu lokalen Red Hat OpenShift-Virtualisierungslösungen finden Sie unterlink:https://docs.netapp.com/us-en/netapp-solutions-virtualization/openshift/osv-deployment-prerequisites.html["hier,"^] .

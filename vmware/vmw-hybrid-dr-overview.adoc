@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-dr-overview.html 
+keywords: dr, draas, bluexp, disaster recovery, vmfs datastore, nfs datastore, overview 
+summary: In diesem Abschnitt des Dokuments wird die Konfiguration von BlueXP DRaaS zum Einrichten der Notfallwiederherstellung für lokale VMware-VMs an einem anderen bestimmten Standort beschrieben. 
+---
+= Überblick
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Notfallwiederherstellung hat für jeden VMware-Administrator oberste Priorität.  Da VMware ganze Server in einer Reihe von Dateien kapselt, aus denen die virtuelle Maschine besteht, nutzen Administratoren blockspeicherbasierte Techniken wie Klone, Snapshots und Replikate, um diese VMs zu schützen.  ONTAP -Arrays bieten integrierte Replikation zum Übertragen von Volume-Daten und damit der virtuellen Maschinen, die sich auf den angegebenen Datastore-LUNs befinden, von einem Standort zum anderen.  BlueXP DRaaS lässt sich in vSphere integrieren und automatisiert den gesamten Workflow für nahtloses Failover und Failback im Katastrophenfall.  Durch die Kombination von Speicherreplikation mit intelligenter Automatisierung verfügen Administratoren jetzt über eine handhabbare Möglichkeit, Notfallwiederherstellungspläne nicht nur zu konfigurieren, zu automatisieren und zu testen, sondern sie im Katastrophenfall auch problemlos auszuführen.
+
+Der zeitaufwändigste Teil eines DR-Failovers in einer VMware vSphere-Umgebung ist die Ausführung der Schritte, die zum Inventarisieren, Registrieren, Neukonfigurieren und Einschalten der VMs am DR-Standort erforderlich sind.  Eine ideale Lösung hat sowohl einen niedrigen RPO (gemessen in Minuten) als auch einen niedrigen RTO (gemessen in Minuten bis Stunden).  Ein Faktor, der bei einer DR-Lösung oft übersehen wird, ist die Möglichkeit, die DR-Lösung in regelmäßigen Abständen effizient zu testen.
+
+Berücksichtigen Sie beim Entwerfen einer DR-Lösung die folgenden Faktoren:
+
+* Das Wiederherstellungszeitziel (RTO).  Die RTO gibt an, wie schnell sich ein Unternehmen von einem Desaster erholen kann, oder genauer gesagt, wie lange es dauert, den Wiederherstellungsprozess auszuführen, um die Geschäftsdienste wieder verfügbar zu machen.
+* Das Wiederherstellungspunktziel (RPO).  Das RPO gibt an, wie alt die wiederhergestellten Daten nach ihrer Bereitstellung im Verhältnis zum Zeitpunkt des Katastrophenfalls sind.
+* Skalierbarkeit und Anpassungsfähigkeit.  Zu diesem Faktor gehört die Möglichkeit, die Speicherressourcen bei steigender Nachfrage schrittweise zu erweitern.
+
+
+Weitere technische Informationen zu den verfügbaren Lösungen finden Sie unter:
+
+* link:vmw-hybrid-dr-nfs.html["DR mit BlueXP DRaaS für NFS-Datenspeicher"]
+* link:vmw-hybrid-dr-vmfs.html["DR mit BlueXP DRaaS für VMFS-Datenspeicher"]
+

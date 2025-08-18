@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-sm-gcp-setup.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Google Cloud Platform, Google Cloud, GCP 
+summary:  
+---
+= Bereitstellen und Konfigurieren der Red Hat OpenShift Container Platform in Google Cloud
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Abschnitt wird ein allgemeiner Workflow zum Einrichten und Verwalten von OpenShift-Clustern in GCP und zum Bereitstellen von zustandsbehafteten Anwendungen darauf beschrieben.  Es zeigt die Verwendung von Google Cloud NetApp Volumes und NetApp Cloud Volumes ONTAP Speicher mit Hilfe von Trident zur Bereitstellung persistenter Volumes.
+
+Hier ist ein Diagramm, das die auf GCP bereitgestellten und über ein VPN mit dem Rechenzentrum verbundenen Cluster zeigt.
+
+image:rhhc-self-managed-gcp.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+NOTE: Es gibt mehrere Möglichkeiten, Red Hat OpenShift Container-Plattformcluster in GCP bereitzustellen.  Diese allgemeine Beschreibung des Setups enthält Dokumentationslinks für die jeweils verwendete Methode.  Weitere Methoden finden Sie in den entsprechenden Links imlink:os-solutions-resources.html["Ressourcenbereich"] .
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+.Installieren Sie einen OCP-Cluster auf GCP über die CLI
+* Stellen Sie sicher, dass Sie alle genannten Voraussetzungen erfüllt habenlink:https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["hier,"] .
+* Für die VPN-Konnektivität zwischen lokalen Standorten und GCP wurde eine pfsense-VM erstellt und konfiguriert.  Anweisungen hierzu finden Sie unter https://docs.netgate.com/pfsense/en/latest/recipes/ipsec-s2s-psk.html["hier,"] .
++
+** Die Remote-Gateway-Adresse in pfsense kann erst konfiguriert werden, nachdem Sie ein VPN-Gateway in Google Cloud Platform erstellt haben.
+** Die Remote-Netzwerk-IP-Adressen für Phase 2 können erst konfiguriert werden, nachdem das OpenShift-Cluster-Installationsprogramm ausgeführt wurde und die Infrastrukturkomponenten für den Cluster erstellt hat.
+** Das VPN in Google Cloud kann erst konfiguriert werden, nachdem die Infrastrukturkomponenten für den Cluster vom Installationsprogramm erstellt wurden.
+
+
+* Installieren Sie jetzt den OpenShift-Cluster auf GCP.
++
+** Besorgen Sie sich das Installationsprogramm und das Pull-Geheimnis und stellen Sie den Cluster gemäß den in der Dokumentation angegebenen Schritten bereit. https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["hier,"] .
+** Die Installation erstellt ein VPC-Netzwerk in der Google Cloud Platform.  Außerdem wird eine private Zone in Cloud DNS erstellt und A-Einträge hinzugefügt.
++
+*** Verwenden Sie die CIDR-Blockadresse des VPC-Netzwerks, um pfsense zu konfigurieren und die VPN-Verbindung herzustellen.  Stellen Sie sicher, dass die Firewalls richtig eingerichtet sind.
+*** Fügen Sie A-Einträge im DNS der lokalen Umgebung hinzu, indem Sie die IP-Adresse in den A-Einträgen des Google Cloud DNS verwenden.
+
+
+** Die Installation des Clusters ist abgeschlossen und stellt eine Kubeconfig-Datei sowie einen Benutzernamen und ein Kennwort für die Anmeldung bei der Konsole des Clusters bereit.
+
+
+
+
+.Bereitstellen von Google Cloud NetApp Volumes
+* Google Cloud NetApp Volumes können wie beschrieben zu Ihren Projekten hinzugefügt werdenlink:https://cloud.google.com/netapp/volumes/docs/discover/overview["hier,"] .
+
+
+.Stellen Sie Cloud Volumes ONTAP in GCP mit BlueXP bereit
+* Installieren Sie einen Connector in Google Cloud.  Siehe Anweisungen https://docs.netapp.com/us-en/bluexp-setup-admin/task-install-connector-google-bluexp-gcloud.html["hier,"] .
+* Stellen Sie mithilfe des Connectors eine CVO-Instanz in Google Cloud bereit.  Anweisungen finden Sie hier. https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-getting-started-gcp.html[]
+
+
+.Installieren Sie Trident im OCP-Cluster in GCP
+* Es gibt viele Methoden, Trident einzusetzen, wie gezeigt https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["hier,"] .
+* Für dieses Projekt wurde Trident durch manuelles Bereitstellen von Trident Operator gemäß den Anweisungen installiert. https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["hier,"] .
+* Erstellen Sie ein Backend und Speicherklassen.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-use/backends.html["hier,"] .
+
+
+.Verwenden der CSI-Topologiefunktion von Trident für Mehrzonenarchitekturen
+Cloud-Anbieter ermöglichen es Kubernetes/OpenShift-Clusteradministratoren heute, Knoten der Cluster zu erstellen, die zonenbasiert sind.  Knoten können sich in verschiedenen Verfügbarkeitszonen innerhalb einer Region oder über mehrere Regionen verteilt befinden.  Um die Bereitstellung von Volumes für Workloads in einer Multizonenarchitektur zu erleichtern, verwendet Trident die CSI-Topologie.  Mithilfe der CSI-Topologiefunktion kann der Zugriff auf Volumes basierend auf Regionen und Verfügbarkeitszonen auf eine Teilmenge von Knoten beschränkt werden.  Verweisenlink:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["hier,"] für weitere Einzelheiten.
+
+
+NOTE: Kubernetes unterstützt zwei Volume-Bindungsmodi: – Wenn **_VolumeBindingMode_ auf _Immediate_** (Standard) gesetzt ist, erstellt Trident das Volume ohne jegliche Topologieerkennung.  Persistente Volumes werden ohne Abhängigkeit von den Planungsanforderungen des anfordernden Pods erstellt.  – Wenn **_VolumeBindingMode_ auf _WaitForFirstConsumer_** gesetzt ist, wird die Erstellung und Bindung eines persistenten Volumes für ein PVC verzögert, bis ein Pod, der das PVC verwendet, geplant und erstellt wurde.  Auf diese Weise werden Volumes erstellt, die den Planungsbeschränkungen entsprechen, die durch die Topologieanforderungen erzwungen werden.  Trident -Speicher-Backends können so konzipiert werden, dass Volumes basierend auf Verfügbarkeitszonen selektiv bereitgestellt werden (topologiebewusstes Backend).  Für StorageClasses, die ein solches Backend verwenden, wird ein Volume nur erstellt, wenn es von einer Anwendung angefordert wird, die in einer unterstützten Region/Zone geplant ist.  (Topologiebewusste Speicherklasse) Siehelink:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["hier,"] für weitere Einzelheiten.
+
+[Unterstreichung]#*Demonstrationsvideo*#
+
+.OpenShift-Clusterinstallation auf der Google Cloud Platform
+video::4efc68f1-d37f-4cdd-874a-b09700e71da9[panopto,width=360]
+.Importieren von OpenShift-Clustern in Trident Protect
+video::57b63822-6bf0-4d7b-b844-b09700eac6ac[panopto,width=360]

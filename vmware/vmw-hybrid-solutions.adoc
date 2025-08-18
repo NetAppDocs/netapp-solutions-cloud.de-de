@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-solutions.html 
+keywords: NetApp Solutions, aws, amazon, vmc, vmware managed cloud, azure, avs, gcp, gcve, enterprise, hybrid, cloud, migrate, migration, disaster recovery, dr, backup, burst 
+summary:  
+---
+= NetApp -Lösungen für VMware in Hyperscalern
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Erfahren Sie mehr über die Lösungen, die NetApp in die VMware-Umgebung jedes Hyperscalers einbringt – von der Migration von Workflows über die Erweiterung/Ausweitung in die Cloud bis hin zu Backup/Wiederherstellung und Notfallwiederherstellung.
+
+
+
+== NetApp -Lösungen für VMware-Umgebungen
+
+Unabhängig davon, ob Sie in einem Hybrid-Cloud-Modell oder einem „Cloud First“-Modell arbeiten, bietet NetApp eine große Vielfalt an Lösungen für die gängigsten Anwendungsfälle zur Verwaltung von Workloads in einem Cloud- oder Hybrid-Cloud-Modell.
+
+NetApp bietet außerdem Lösungen für Speicher, der als In-Guest-Speicher (mit Gast verbunden) oder als zusätzlicher NFS-Datenspeicher in jedem der Hyperscaler bereitgestellt wird.  Alle Lösungen werden im Einklang mit der VMware-Klassifizierung von Cloud-Workloads kategorisiert.  Zu diesen Klassifizierungen gehören:
+
+* Schützen (beinhaltet sowohl Disaster Recovery als auch Backup/Wiederherstellung)
+* Wandern
+* Verlängern
+
+
+Weitere Einzelheiten zu den für jeden Hyperscaler verfügbaren Lösungen finden Sie unter:
+
+* link:vmw-aws-vmc-solutions.html["Lösungen für AWS / VMC"]
+* link:vmw-azure-avs-solutions.html["Lösungen für Azure / AVS"]
+* link:vmw-gcp-gcve-solutions.html["Lösungen für GCP / GCVE"]
+

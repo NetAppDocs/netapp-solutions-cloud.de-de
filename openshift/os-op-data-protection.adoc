@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-op-data-protection.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= Datenschutz bei Astra
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Auf dieser Seite werden die Datenschutzoptionen für auf Red Hat OpenShift Container basierende Anwendungen angezeigt, die mit Trident Protect (ACC) auf VMware vSphere ausgeführt werden.
+
+Wenn Benutzer ihre Anwendungen mit Red Hat OpenShift modernisieren, sollte eine Datenschutzstrategie vorhanden sein, um sie vor versehentlichem Löschen oder anderen menschlichen Fehlern zu schützen.  Oft ist auch aus regulatorischen oder Compliance-Gründen eine Schutzstrategie erforderlich, um die Daten vor einer Katastrophe zu schützen.
+
+Die Anforderungen an den Datenschutz variieren von der Rückkehr zu einer Point-in-Time-Kopie bis hin zum automatischen Failover auf eine andere Fehlerdomäne ohne menschliches Eingreifen.  Viele Kunden wählen ONTAP als bevorzugte Speicherplattform für ihre Kubernetes-Anwendungen aufgrund der umfangreichen Funktionen wie Mandantenfähigkeit, Multiprotokoll, hohe Leistung und Kapazitätsangebote, Replikation und Caching für mehrere Standorte, Sicherheit und Flexibilität.
+
+Datenschutz in ONTAP kann durch Ad-hoc- oder richtliniengesteuerte **Snapshots** - **Backups und Wiederherstellungen** erreicht werden.
+
+Sowohl Snapshot-Kopien als auch Backups schützen die folgenden Datentypen: - **Die Anwendungsmetadaten, die den Status der Anwendung darstellen** - **Alle mit der Anwendung verknüpften persistenten Datenvolumes** - **Alle zur Anwendung gehörenden Ressourcenartefakte**
+
+
+
+== Schnappschuss mit ACC
+
+Mithilfe von Snapshot mit ACC kann eine zeitpunktbezogene Kopie der Daten erfasst werden.  Die Schutzrichtlinie definiert die Anzahl der aufzubewahrenden Snapshot-Kopien.  Die Mindestzeitplanoption ist stündlich.  Manuelle Snapshot-Kopien auf Abruf können jederzeit und in kürzeren Abständen als geplante Snapshot-Kopien erstellt werden.  Snapshot-Kopien werden auf demselben bereitgestellten Volume wie die App gespeichert.
+
+
+
+=== Snapshot mit ACC konfigurieren
+
+image:rhhc-onprem-dp-snap.png["Trident Protect Snapshot-Ansicht"]
+
+
+
+== Sichern und Wiederherstellen mit ACC
+
+Eine Sicherung basiert auf einem Snapshot.  Trident Protect kann mithilfe von CSI Snapshot-Kopien erstellen und mithilfe der zeitpunktbezogenen Snapshot-Kopie eine Sicherung durchführen.  Das Backup wird in einem externen Objektspeicher gespeichert (jeder S3-kompatible, einschließlich ONTAP S3 an einem anderen Standort).  Für geplante Sicherungen und die Anzahl der aufzubewahrenden Sicherungsversionen können Schutzrichtlinien konfiguriert werden.  Das minimale RPO beträgt eine Stunde.
+
+
+
+=== Wiederherstellen einer Anwendung aus einer Sicherung mit ACC
+
+ACC stellt die Anwendung aus dem S3-Bucket wieder her, in dem die Backups gespeichert sind.
+
+image:rhhc-onprem-dp-br.png["Trident Protect Restore-Option"]
+
+
+
+== Anwendungsspezifische Ausführungs-Hooks
+
+Darüber hinaus können Ausführungs-Hooks so konfiguriert werden, dass sie in Verbindung mit einem Datenschutzvorgang einer verwalteten App ausgeführt werden.  Obwohl Datenschutzfunktionen auf Speicher-Array-Ebene verfügbar sind, sind häufig zusätzliche Schritte erforderlich, um Backups und Wiederherstellungen anwendungskonsistent zu gestalten.  Die app-spezifischen zusätzlichen Schritte könnten sein: – vor oder nach der Erstellung einer Snapshot-Kopie.  - bevor oder nachdem ein Backup erstellt wurde.  - nach der Wiederherstellung aus einer Snapshot-Kopie oder einem Backup.
+
+Astra Control kann diese app-spezifischen Schritte ausführen, die als benutzerdefinierte Skripte, sogenannte Ausführungs-Hooks, codiert sind.
+
+https://github.com/NetApp/Verda["NetApp Verda GitHub-Projekt"]bietet Ausführungs-Hooks für beliebte Cloud-native Anwendungen, um den Schutz von Anwendungen unkompliziert, robust und leicht orchestrierbar zu machen.  Tragen Sie gerne zu diesem Projekt bei, wenn Sie über genügend Informationen für eine Anwendung verfügen, die nicht im Repository enthalten ist.
+
+
+
+== Beispiel-Ausführungs-Hook für den Pre-Snapshot einer Redis-Anwendung.
+
+image:rhhc-onprem-dp-br-hook.png["Trident Protect-Hinrichtungshaken"]
+
+
+
+== Replikation mit ACC
+
+Zum regionalen Schutz oder für eine Lösung mit niedrigem RPO und RTO kann eine Anwendung auf eine andere Kubernetes-Instanz repliziert werden, die an einem anderen Standort, vorzugsweise in einer anderen Region, ausgeführt wird.  Trident Protect nutzt ONTAP async SnapMirror mit einem RPO von nur 5 Minuten.  Die Replikation erfolgt durch Replikation auf ONTAP. Anschließend werden durch ein Failover die Kubernetes-Ressourcen im Zielcluster erstellt.
+
+
+NOTE: Beachten Sie, dass sich die Replikation von der Sicherung und Wiederherstellung unterscheidet, bei der die Sicherung an S3 gesendet und die Wiederherstellung von S3 aus durchgeführt wird.  Weitere Einzelheiten zu den Unterschieden zwischen den beiden Datenschutzarten finden Sie unter folgendem Link: https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html#replication-to-a-remote-cluster[hier].
+
+Verweisenlink:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["hier,"] für Anweisungen zur Einrichtung von SnapMirror .
+
+
+
+=== SnapMirror mit ACC
+
+image:rhhc-onprem-dp-rep.png["Trident Protect-Replikation"]
+
+
+NOTE: Die Speichertreiber „san-economy“ und „nas-economy“ unterstützen die Replikationsfunktion nicht.  Verweisenlink:https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#astra-trident-requirements["hier,"] für weitere Einzelheiten.
+
+
+
+=== Demo-Video:
+
+link:https://www.netapp.tv/details/29504?mcid=35609780286441704190790628065560989458["Demonstrationsvideo zur Notfallwiederherstellung mit Trident Protect"]
+
+.Datenschutz mit Trident Protect
+video::0cec0c90-4c6f-4018-9e4f-b09700eefb3a[panopto,width=360]
+
+
+== Geschäftskontinuität mit MetroCluster
+
+Die meisten unserer Hardwareplattformen für ONTAP verfügen über Hochverfügbarkeitsfunktionen zum Schutz vor Geräteausfällen, sodass keine Notfallwiederherstellung erforderlich ist.  Zum Schutz vor Feuer oder anderen Katastrophen und um das Geschäft mit Null-RPO und niedrigem RTO fortzuführen, wird jedoch häufig eine MetroCluster Lösung verwendet.
+
+Kunden, die derzeit über ein ONTAP -System verfügen, können es auf MetroCluster erweitern, indem sie unterstützte ONTAP -Systeme innerhalb der Entfernungsbeschränkungen hinzufügen, um eine Notfallwiederherstellung auf Zonenebene bereitzustellen.  Trident, das CSI (Container Storage Interface), unterstützt NetApp ONTAP einschließlich MetroCluster -Konfiguration sowie andere Optionen wie Cloud Volumes ONTAP, Azure NetApp Files, AWS FSx ONTAP usw. Trident bietet fünf Speichertreiberoptionen für ONTAP und alle werden für die MetroCluster Konfiguration unterstützt.  Verweisenlink:https://docs.netapp.com/us-en/trident/trident-use/backends.html["hier,"] Weitere Informationen zu den von Trident unterstützten ONTAP Speichertreibern finden Sie unter.
+
+Die MetroCluster -Lösung erfordert eine Layer-2-Netzwerkerweiterung oder die Fähigkeit, von beiden Fehlerdomänen aus auf dieselbe Netzwerkadresse zuzugreifen.  Sobald die MetroCluster Konfiguration eingerichtet ist, ist die Lösung für Anwendungsbesitzer transparent, da alle Volumes im MetroCluster -SVM geschützt sind und die Vorteile von SyncMirror (Null-RPO) nutzen.
+
+image:rhhc-onprem-dp-bc.png["Business Continuity-Lösung mit MetroCluster"]
+
+
+TIP: Geben Sie für die Trident -Backend-Konfiguration (TBC) bei Verwendung der MetroCluster -Konfiguration nicht dataLIF und SVM an.  Geben Sie die SVM-Verwaltungs-IP für managementLIF an und verwenden Sie die Anmeldeinformationen der Rolle vsadmin.
+
+Details zu den Datenschutzfunktionen von Trident Protect sind verfügbarlink:https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html["hier,"]

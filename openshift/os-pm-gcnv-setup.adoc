@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-pm-gcnv-setup.html 
+keywords: NetApp Solutions, Redhat OpenShift Dedicated, Red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Google Cloud, Google Cloud NetApp Volumes 
+summary:  
+---
+= Bereitstellen und Konfigurieren von OpenShift Dedicated auf Google Cloud mit Google Cloud NetApp Volumes
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Abschnitt wird ein allgemeiner Workflow zum Einrichten von OpenShift Dedicated (OSD)-Clustern auf der Google Cloud-Plattform beschrieben.  Es zeigt, wie NetApp Trident Google Cloud NetApp Volumes als Speicher-Backend verwendet, um persistente Volumes für zustandsbehaftete Anwendungen bereitzustellen, die mit Kubernetes ausgeführt werden.
+
+Hier ist ein Diagramm, das einen OSD-Cluster darstellt, der in Google Cloud bereitgestellt wird und NetApp Volumes als Backend-Speicher verwendet.
+
+image:rhhc-osd-with-gcnv.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+.Installieren Sie OSD-Cluster in Google Cloud
+* Wenn Sie eine vorhandene VPC für den Cluster verwenden möchten, müssen Sie die VPC, zwei Subnetze, einen Cloud-Router und zwei GCP-Cloud-NATs für den OSD-Cluster erstellen.  Verweisenlink:https://cloud.redhat.com/experts/gcp/osd_preexisting_vpc/["hier,"] Anweisungen hierzu finden Sie unter.
+* Verweisenlink:https://docs.openshift.com/dedicated/osd_install_access_delete_cluster/creating-a-gcp-cluster.html#osd-create-gcp-cluster-ccs_osd-creating-a-cluster-on-gcp["hier,"] Anweisungen zum Installieren von OSD-Clustern auf GCP mithilfe des Abrechnungsmodells Customer Cloud Subscription (CCS).  OSD ist auch im Google Cloud Marketplace enthalten.  Ein Video, das zeigt, wie Sie OSD mithilfe der Google Cloud Marketplace-Lösung installieren, finden Sielink:https://www.youtube.com/watch?v=p9KBFvMDQJM["hier,"] .
+
+
+.Google Cloud NetApp Volumes aktivieren
+* Verweisenlink:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/workflow["hier,"] Informationen zum Einrichten des Zugriffs auf Google Cloud NetApp Volumes.  Befolgen Sie alle Schritte bis einschließlich
+* Erstellen Sie einen Speicherpool.  Verweisenlink:https://cloud.google.com/netapp/volumes/docs/get-started/quickstarts/create-storage-pool#create_a_storage_pool["hier,"] Informationen zum Einrichten eines Speicherpools auf Google Cloud NetApp Volumes.  Innerhalb des Speicherpools werden Volumes für die zustandsbehafteten Kubernetes-Anwendungen erstellt, die auf OSD ausgeführt werden.
+
+
+.Installieren Sie Trident auf OSD-Clustern (mithilfe des Helm-Diagramms).
+* Verwenden Sie ein Helm-Diagramm, um Trident auf OSD-Clustern zu installieren.  Verweisenlink:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html#critical-information-about-astra-trident-24-06["hier,"] Anweisungen zum Installieren des Helm-Diagramms finden Sie unter.  Das Steuerdiagramm finden Sielink:https://github.com/NetApp/trident/tree/master/helm/trident-operator["hier,"] .
+
+
+.Integration von NetApp Volumes mit NetApp Trident für OSD-Cluster
+Erstellen Sie Backend- und Speicherklassen mit Trident (für Google Cloud NetApp Volumes)
+
+* Weitere Informationen zum Erstellen des Backends finden Sie hier.
+* Wenn eine der aktuellen Speicherklassen in Kubernetes als Standard markiert ist, entfernen Sie diese Anmerkung, indem Sie die Speicherklasse bearbeiten.
+* Erstellen Sie mit dem Trident CSI Provisioner mindestens eine Speicherklasse für NetApp -Volumes.  Machen Sie mithilfe einer Anmerkung genau eine der Speicherklassen zum Standard.  Dadurch kann ein PVC diese Speicherklasse verwenden, wenn sie im PVC-Manifest nicht explizit aufgerufen wird.  Ein Beispiel mit der Anmerkung wird unten angezeigt.
+
+
+[source]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-standard-k8s
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "nfs"
+allowVolumeExpansion: true
+----
+.Bereitstellen einer Anwendung mit OpenShift GitOps (Argo CD)
+* Installieren Sie den OpenShift GitOps-Operator auf dem Cluster.  Siehe Anweisungenlink:https://docs.openshift.com/gitops/1.13/installing_gitops/installing-openshift-gitops.html["hier,"] .
+* Richten Sie eine neue Argo CD-Instanz für den Cluster ein.  Siehe Anweisungenlink:https://docs.openshift.com/gitops/1.13/argocd_instance/setting-up-argocd-instance.html["hier,"] .
+
+
+Öffnen Sie die Konsole von Argo CD und stellen Sie eine App bereit.  Beispielsweise können Sie eine Jenkins-App mithilfe von Argo CD mit einem Helm-Diagramm bereitstellen.  Beim Erstellen der Anwendung wurden folgende Angaben gemacht: Projekt: Standardcluster:'https://kubernetes.default.svc'[] (ohne Anführungszeichen) Namespace: Jenkins Die URL für das Helm-Diagramm:'https://charts.bitnami.com/bitnami'[] (ohne Anführungszeichen)

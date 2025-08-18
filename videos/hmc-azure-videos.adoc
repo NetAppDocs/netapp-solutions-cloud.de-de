@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: videos/hmc-azure-videos.html 
+summary: Videos und Demos präsentieren Hybrid Cloud AVS-Lösungen mit NetApp 
+keywords: hybrid cloud, rosa, fsx ontap, azure vmware, netapp hci, videos, demos 
+---
+= Sehen Sie sich Videos zu Hybrid-Multicloud-Lösungen für Azure VMware Cloud mit NetApp an
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Entdecken Sie die umfassende Videobibliothek von NetApp mit hybriden Multicloud-Lösungen für Azure VMware Solution (AVS) mit NetApp.  Diese Sammlung enthält Videos zu zusätzlichen Datenspeichern, Notfallwiederherstellung und Migrations-Workflows.
+
+
+
+== Ergänzende Datenspeicher
+
+.Übersicht über den ergänzenden Datenspeicher der Azure VMware-Lösung mit Azure NetApp Files
+video::8c5ddb30-6c31-4cde-86e2-b01200effbd6[panopto,width=360]
+
+
+== Notfallwiederherstellung
+
+.Azure VMware Solution DR mit Cloud Volumes ONTAP, SnapCenter und JetStream
+video::5cd19888-8314-4cfc-ba30-b01200efff4f[panopto,width=360]
+
+
+== Migrations-Workflows (HCX)
+
+.Demonstration der Kaltmigration mit VMware HCX für AVS und ANF
+video::b7ffa5ad-5559-4e56-a166-b01200f025bc[panopto,width=360]
+.vMotion-Demonstration mit VMware HCX für AVS und ANF
+video::986bb505-6f3d-4a5a-b016-b01200f03f18[panopto,width=360]
+.Demonstration der Massenmigration mit VMware HCX für AVS und ANF
+video::255640f5-4dff-438c-8d50-b01200f017d1[panopto,width=360]

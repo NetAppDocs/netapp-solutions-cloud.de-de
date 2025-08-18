@@ -1,0 +1,251 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-azure-avs-guest-storage.html 
+keywords: NetApp Solutions, microsoft azure, avs, azure, vmware managed cloud, enterprise, hybrid, cloud, anf, azure netapp files, cvo, cloud volumes ontap, guest connected 
+summary:  
+---
+= NetApp -Gastspeicheroptionen für Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Azure unterstützt über Gäste verbundene NetApp -Speicher mit dem nativen Azure NetApp Files (ANF)-Dienst oder mit Cloud Volumes ONTAP (CVO).
+
+
+
+== Azure NetApp Files (ANF)
+
+Azure netApp Files bringt Datenverwaltung und -speicherung auf Unternehmensniveau zu Azure, sodass Sie Ihre Workloads und Anwendungen problemlos verwalten können.  Migrieren Sie Ihre Workloads in die Cloud und führen Sie sie ohne Leistungseinbußen aus.
+
+Azure netApp Files beseitigt Hindernisse, sodass Sie alle Ihre dateibasierten Anwendungen in die Cloud verschieben können.  Zum ersten Mal müssen Sie Ihre Anwendungen nicht neu strukturieren und erhalten dauerhaften Speicher für Ihre Anwendungen ohne Komplexität.
+
+Da der Dienst über das Microsoft Azure-Portal bereitgestellt wird, profitieren Benutzer im Rahmen ihres Microsoft Enterprise Agreement von einem vollständig verwalteten Dienst.  Dank des erstklassigen Supports von Microsoft können Sie sich vollkommen beruhigt zurücklehnen.  Mit dieser Einzellösung können Sie schnell und einfach Multiprotokoll-Workloads hinzufügen. Sie können sowohl dateibasierte Windows- als auch Linux-Anwendungen erstellen und bereitstellen, sogar für Legacy-Umgebungen.
+
+
+
+=== Azure NetApp Files (ANF) als mit dem Gast verbundener Speicher
+
+.Konfigurieren von Azure NetApp Files mit Azure VMware Solution (AVS)
+[%collapsible%open]
+====
+Azure NetApp Files Freigaben können von VMs bereitgestellt werden, die in der Azure VMware Solution SDDC-Umgebung erstellt wurden.  Die Volumes können auch auf dem Linux-Client gemountet und auf dem Windows-Client zugeordnet werden, da Azure NetApp Files SMB- und NFS-Protokolle unterstützt.  Azure NetApp Files Volumes können in fünf einfachen Schritten eingerichtet werden.
+
+Azure NetApp Files und Azure VMware Solution müssen sich in derselben Azure-Region befinden.
+
+====
+.Erstellen und Einbinden von Azure NetApp Files Volumes
+[%collapsible%open]
+====
+Führen Sie die folgenden Schritte aus, um Azure NetApp Files Volumes zu erstellen und einzubinden:
+
+. Melden Sie sich beim Azure-Portal an und greifen Sie auf Azure NetApp Files zu.  Überprüfen Sie den Zugriff auf den Azure NetApp Files -Dienst und registrieren Sie den Azure NetApp Files Ressourcenanbieter mit dem Befehl _az provider register --namespace Microsoft. NetApp –wait_.  Erstellen Sie nach Abschluss der Registrierung ein NetApp -Konto.
++
+Ausführliche Schritte finden Sie unterlink:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["Azure NetApp Files Freigaben"] .  Diese Seite führt Sie Schritt für Schritt durch den Prozess.
+
++
+image:azure-anf-guest-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem das NetApp -Konto erstellt wurde, richten Sie die Kapazitätspools mit dem erforderlichen Servicelevel und der erforderlichen Größe ein.
++
+Weitere Informationen finden Sie unter link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Einrichten eines Kapazitätspools"] .
+
++
+image:azure-anf-guest-002.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Konfigurieren Sie das delegierte Subnetz für Azure NetApp Files und geben Sie dieses Subnetz beim Erstellen der Volumes an.  Ausführliche Schritte zum Erstellen eines delegierten Subnetzes finden Sie unterlink:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Delegieren eines Subnetzes an Azure NetApp Files"] .
++
+image:azure-anf-guest-003.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Fügen Sie mithilfe des Blatts „Volumes“ unter dem Blatt „Kapazitätspools“ ein SMB-Volume hinzu.  Stellen Sie sicher, dass der Active Directory-Connector konfiguriert ist, bevor Sie das SMB-Volume erstellen.
++
+image:azure-anf-guest-004.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Klicken Sie auf „Überprüfen + Erstellen“, um das SMB-Volume zu erstellen.
++
+Wenn es sich bei der Anwendung um SQL Server handelt, aktivieren Sie die kontinuierliche SMB-Verfügbarkeit.
+
++
+image:azure-anf-guest-005.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+image:azure-anf-guest-006.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+Weitere Informationen zur Volumeleistung von Azure NetApp Files nach Größe oder Kontingent finden Sie unterlink:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-performance-considerations["Leistungsüberlegungen für Azure NetApp Files"] .
+
+. Nachdem die Verbindung hergestellt ist, kann das Volume gemountet und für Anwendungsdaten verwendet werden.
++
+Klicken Sie hierzu im Azure-Portal auf das Blatt „Volumes“, wählen Sie dann das zu mountende Volume aus und greifen Sie auf die Mount-Anweisungen zu.  Kopieren Sie den Pfad und verwenden Sie die Option „Netzlaufwerk zuordnen“, um das Volume auf der VM bereitzustellen, die auf Azure VMware Solution SDDC ausgeführt wird.
+
++
+image:azure-anf-guest-007.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+image:azure-anf-guest-008.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Verwenden Sie denselben Prozess, um NFS-Volumes auf Linux-VMs bereitzustellen, die auf Azure VMware Solution SDDC ausgeführt werden.  Nutzen Sie Volume-Reshaping oder dynamische Service-Level-Funktionen, um die Workload-Anforderungen zu erfüllen.
++
+image:azure-anf-guest-009.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+Weitere Informationen finden Sie unter link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/dynamic-change-volume-service-level["Dynamisches Ändern des Servicelevels eines Volumes"] .
+
+
+
+====
+
+
+== Cloud Volumes ONTAP (CVO)
+
+Cloud Volumes ONTAP oder CVO ist die branchenführende Cloud-Datenverwaltungslösung, die auf der ONTAP -Speichersoftware von NetApp basiert und nativ auf Amazon Web Services (AWS), Microsoft Azure und Google Cloud Platform (GCP) verfügbar ist.
+
+Es handelt sich um eine softwaredefinierte Version von ONTAP , die Cloud-nativen Speicher nutzt. Dadurch können Sie in der Cloud und vor Ort dieselbe Speichersoftware verwenden und müssen Ihr IT-Personal nicht mehr in völlig neuen Methoden zur Verwaltung Ihrer Daten schulen.
+
+CVO bietet Kunden die Möglichkeit, Daten nahtlos vom Edge zum Rechenzentrum, in die Cloud und zurück zu verschieben und so Ihre Hybrid Cloud zusammenzuführen – alles verwaltet über eine zentrale Verwaltungskonsole, den NetApp Cloud Manager.
+
+CVO bietet von Haus aus extreme Leistung und erweiterte Datenverwaltungsfunktionen, um selbst Ihre anspruchsvollsten Anwendungen in der Cloud zu erfüllen
+
+
+
+=== Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+
+.Stellen Sie das neue Cloud Volumes ONTAP in Azure bereit
+[%collapsible%open]
+====
+Cloud Volumes ONTAP Freigaben und LUNs können von VMs bereitgestellt werden, die in der Azure VMware Solution SDDC-Umgebung erstellt wurden.  Die Volumes können auch auf dem Linux-Client und auf dem Windows-Client gemountet werden, da Cloud Volumes ONTAP die Protokolle iSCSI, SMB und NFS unterstützt.  Cloud Volumes ONTAP -Volumes können in wenigen einfachen Schritten eingerichtet werden.
+
+Um Volumes aus einer lokalen Umgebung zur Notfallwiederherstellung oder Migration in die Cloud zu replizieren, stellen Sie eine Netzwerkverbindung zu Azure her, entweder über ein Site-to-Site-VPN oder ExpressRoute.  Das Replizieren von Daten von lokalen Standorten auf Cloud Volumes ONTAP fällt nicht in den Geltungsbereich dieses Dokuments.  Informationen zum Replizieren von Daten zwischen lokalen und Cloud Volumes ONTAP Systemen finden Sie unterlink:https://docs.netapp.com/us-en/occm/task_replicating_data.html#setting-up-data-replication-between-systems["Einrichten der Datenreplikation zwischen Systemen"] .
+
+
+NOTE: Verwendenlink:https://cloud.netapp.com/cvo-sizer["Cloud Volumes ONTAP Sizer"] um die Cloud Volumes ONTAP -Instanzen genau zu dimensionieren.  Überwachen Sie auch die Leistung vor Ort, um sie als Eingaben im Cloud Volumes ONTAP Sizer zu verwenden.
+
+. Melden Sie sich bei NetApp Cloud Central an – der Fabric View-Bildschirm wird angezeigt.  Suchen Sie die Registerkarte „Cloud Volumes ONTAP“ und wählen Sie „Gehe zu Cloud Manager“ aus.  Nachdem Sie sich angemeldet haben, wird der Canvas-Bildschirm angezeigt.
++
+image:azure-cvo-guest-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Klicken Sie auf der Cloud Manager-Startseite auf „Arbeitsumgebung hinzufügen“ und wählen Sie dann Microsoft Azure als Cloud und den Typ der Systemkonfiguration aus.
++
+image:azure-cvo-guest-002.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Beim Erstellen der ersten Cloud Volumes ONTAP Arbeitsumgebung fordert Cloud Manager Sie auf, einen Connector bereitzustellen.
++
+image:azure-cvo-guest-003.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Aktualisieren Sie nach der Erstellung des Connectors die Felder „Details“ und „Anmeldeinformationen“.
++
+image:azure-cvo-guest-004.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Geben Sie die Details der zu erstellenden Umgebung an, einschließlich Umgebungsname und Administratoranmeldeinformationen.  Fügen Sie Ressourcengruppen-Tags für die Azure-Umgebung als optionalen Parameter hinzu.  Wenn Sie fertig sind, klicken Sie auf „Weiter“.
++
+image:azure-cvo-guest-005.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Wählen Sie die Zusatzdienste für die Bereitstellung von Cloud Volumes ONTAP aus, darunter BlueXP Classification, BlueXP backup and recovery und Cloud Insights.  Wählen Sie die Dienste aus und klicken Sie dann auf „Weiter“.
++
+image:azure-cvo-guest-006.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Konfigurieren Sie den Azure-Standort und die Konnektivität.  Wählen Sie die zu verwendende Azure-Region, Ressourcengruppe, das VNet und das Subnetz aus.
++
+image:azure-cvo-guest-007.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Wählen Sie die Lizenzoption: Pay-As-You-Go oder BYOL zur Verwendung einer vorhandenen Lizenz.  In diesem Beispiel wird die Pay-As-You-Go-Option verwendet.
++
+image:azure-cvo-guest-008.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Wählen Sie zwischen mehreren vorkonfigurierten Paketen, die für die verschiedenen Arten von Workloads verfügbar sind.
++
+image:azure-cvo-guest-009.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Akzeptieren Sie die beiden Vereinbarungen bezüglich der Aktivierung des Supports und der Zuweisung von Azure-Ressourcen. Klicken Sie auf „Los“, um die Cloud Volumes ONTAP -Instanz zu erstellen.
++
+image:azure-cvo-guest-010.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem Cloud Volumes ONTAP bereitgestellt wurde, wird es in den Arbeitsumgebungen auf der Canvas-Seite aufgeführt.
++
+image:azure-cvo-guest-011.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+====
+.Zusätzliche Konfigurationen für SMB-Volumes
+[%collapsible%open]
+====
+. Nachdem die Arbeitsumgebung bereit ist, stellen Sie sicher, dass der CIFS-Server mit den entsprechenden DNS- und Active Directory-Konfigurationsparametern konfiguriert ist.  Dieser Schritt ist erforderlich, bevor Sie das SMB-Volume erstellen können.
++
+image:azure-cvo-guest-020.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Das Erstellen des SMB-Volumes ist ein einfacher Vorgang.  Wählen Sie die CVO-Instanz aus, um das Volume zu erstellen, und klicken Sie auf die Option „Volume erstellen“.  Wählen Sie die entsprechende Größe und der Cloud-Manager wählt das enthaltene Aggregat aus oder verwenden Sie einen erweiterten Zuordnungsmechanismus, um die Platzierung auf einem bestimmten Aggregat vorzunehmen.  Für diese Demo wird SMB als Protokoll ausgewählt.
++
+image:azure-cvo-guest-021.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem das Volume bereitgestellt wurde, ist es im Bereich „Volumes“ verfügbar.  Da eine CIFS-Freigabe bereitgestellt wird, erteilen Sie Ihren Benutzern oder Gruppen die Berechtigung für die Dateien und Ordner und stellen Sie sicher, dass diese Benutzer auf die Freigabe zugreifen und eine Datei erstellen können.  Dieser Schritt ist nicht erforderlich, wenn das Volume aus einer lokalen Umgebung repliziert wird, da alle Datei- und Ordnerberechtigungen als Teil der SnapMirror Replikation beibehalten werden.
++
+image:azure-cvo-guest-022.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem das Volume erstellt wurde, verwenden Sie den Mount-Befehl, um von der VM, die auf den Azure VMware Solution SDDC-Hosts ausgeführt wird, eine Verbindung mit der Freigabe herzustellen.
+. Kopieren Sie den folgenden Pfad und verwenden Sie die Option „Netzlaufwerk zuordnen“, um das Volume auf der VM bereitzustellen, die auf Azure VMware Solution SDDC ausgeführt wird.
++
+image:azure-cvo-guest-023.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+image:azure-cvo-guest-024.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+====
+.Verbinden Sie die LUN mit einem Host
+[%collapsible%open]
+====
+Führen Sie die folgenden Schritte aus, um die LUN mit einem Host zu verbinden:
+
+. Doppelklicken Sie auf der Canvas-Seite auf die Arbeitsumgebung Cloud Volumes ONTAP, um Volumes zu erstellen und zu verwalten.
+. Klicken Sie auf „Volume hinzufügen“ > „Neues Volume“, wählen Sie „iSCSI“ aus und klicken Sie auf „Initiatorgruppe erstellen“.  Klicken Sie auf „Weiter“.
++
+image:azure-cvo-guest-030.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem das Volume bereitgestellt wurde, wählen Sie das Volume aus und klicken Sie dann auf Ziel-IQN.  Um den iSCSI Qualified Name (IQN) zu kopieren, klicken Sie auf „Kopieren“.  Richten Sie eine iSCSI-Verbindung vom Host zur LUN ein.
++
+So erreichen Sie dasselbe für den Host, der sich auf Azure VMware Solution SDDC befindet:
+
++
+.. RDP zur VM, die auf Azure VMware Solution SDDC gehostet wird.
+.. Öffnen Sie das Dialogfeld „Eigenschaften des iSCSI-Initiators“: Server-Manager > Dashboard > Tools > iSCSI-Initiator.
+.. Klicken Sie auf der Registerkarte „Erkennung“ auf „Portal erkennen“ oder „Portal hinzufügen“ und geben Sie dann die IP-Adresse des iSCSI-Zielports ein.
+.. Wählen Sie auf der Registerkarte „Ziele“ das erkannte Ziel aus und klicken Sie dann auf „Anmelden“ oder „Verbinden“.
+.. Wählen Sie „Multipfad aktivieren“ und dann „Diese Verbindung beim Start des Computers automatisch wiederherstellen“ oder „Diese Verbindung zur Liste der bevorzugten Ziele hinzufügen“.  Klicken Sie auf „Erweitert“.
++
+*Hinweis:* Der Windows-Host muss über eine iSCSI-Verbindung zu jedem Knoten im Cluster verfügen.  Das native DSM wählt die besten zu verwendenden Pfade aus.
+
++
+image:azure-cvo-guest-031.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+
+
+LUNs auf der Storage Virtual Machine (SVM) werden dem Windows-Host als Datenträger angezeigt.  Alle neu hinzugefügten Festplatten werden vom Host nicht automatisch erkannt.  Lösen Sie einen manuellen erneuten Scan aus, um die Datenträger zu ermitteln, indem Sie die folgenden Schritte ausführen:
+
+. Öffnen Sie das Windows-Dienstprogramm „Computerverwaltung“: Start > Verwaltung > Computerverwaltung.
+. Erweitern Sie den Knoten „Speicher“ im Navigationsbaum.
+. Klicken Sie auf Datenträgerverwaltung.
+. Klicken Sie auf „Aktion“ > „Datenträger erneut scannen“.
+
+
+image:azure-cvo-guest-032.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Wenn der Windows-Host zum ersten Mal auf eine neue LUN zugreift, verfügt diese über keine Partition oder kein Dateisystem.  Initialisieren Sie die LUN und formatieren Sie die LUN optional mit einem Dateisystem, indem Sie die folgenden Schritte ausführen:
+
+. Starten Sie die Windows-Datenträgerverwaltung.
+. Klicken Sie mit der rechten Maustaste auf die LUN und wählen Sie dann den erforderlichen Datenträger- oder Partitionstyp aus.
+. Folgen Sie den Anweisungen des Assistenten.  In diesem Beispiel ist Laufwerk E: gemountet
+
+
+image:azure-cvo-guest-033.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+image:azure-cvo-guest-034.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+====

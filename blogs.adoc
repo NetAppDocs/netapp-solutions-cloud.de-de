@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: blogs.html 
+summary: Lesen Sie die Blogs, die praktische Anleitungen und Best Practices zur Integration von ONTAP -Speicher in NetApp Cloud-Lösungen bieten. 
+keywords: netapp, solutions, blogs 
+---
+= Lesen Sie die Blogs zu Cloud-Lösungen von NetApp Experten
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Lesen Sie die Blogs, die praktische Anleitungen und Best Practices zur Integration von ONTAP -Speicher in NetApp Cloud-Lösungen bieten.
+
+
+
+== VMware-Integration mit AWS und Amazon FSx für ONTAP
+
+* link:https://bluexp.netapp.com/blog/aws-fsxn-blg-migrate-vmware-to-amazon-ec2-iscsi-based-fsx-for-ontap["Migrieren Sie VMware-VMs mit Amazon EC2 und dem Amazon FSx ONTAP iSCSI-Protokoll zu AWS"]
+* link:https://aws.amazon.com/about-aws/whats-new/2025/06/amazon-elastic-vmware-service-fsx-netapp-ontap/["Amazon EVS ist jetzt in FSx für ONTAP integriert"]
+* link:https://www.netapp.com/blog/amazon-elastic-vmware-service-fsx-ontap/["Amazon EVS kündigt Unterstützung für FSx für ONTAP an"]
+* link:https://cloud.netapp.com/blog/aws-fsxo-blg-configure-hybrid-cloud-with-fsx-for-netapp-ontap-and-vmware-cloud-on-aws-sddc-using-vmware-hcx["Konfigurieren Sie Hybrid Cloud mit FSx ONTAP und VMware Cloud on AWS SDDC mithilfe von VMware HCX"]
+
+
+
+
+== Azure VMware-Lösung
+
+* link:https://cloud.netapp.com/blog/azure-blg-optimize-storage-for-cloud-based-vmware-deployments["Optimieren Sie den Speicher für Cloud-basierte VMware-Bereitstellungen"]
+* link:https://cloud.netapp.com/blog/azure-blg-netapp-cloud-offerings-with-azure-vmware-solution["Erste Schritte mit der Azure VMware-Lösung mithilfe von NetApp-basierten Cloud-Angeboten"]
+
+
+
+
+== Google Cloud VMware Engine
+
+* link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["Google Cloud NetApp Volumes Datenspeicherunterstützung für Google Cloud VMware Engine (NetApp)"]
+* link:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["So verwenden Sie NetApp Volumes als Datenspeicher für Google Cloud VMware Engine (Google)"]
+* link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["NetApp Blog – Eine bessere Möglichkeit, Ihre speicherintensiven Apps in die Google Cloud zu migrieren"]
+
+
+
+
+== Datenschutz und -verwaltung
+
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-Backup-and/ba/p/446180["3-2-1-Datenschutz für VMware mit SnapCenter -Plug-in und BlueXP Backup und Recovery für VMs"]
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Observability-for-the-Modern-Datacenter-with-NetApp-Cloud-Insights/ba/p/447495["Observability für das moderne Rechenzentrum mit NetApp Cloud Insights"]
+
+
+
+
+== NetApp für OpenShift-Container-Workloads
+
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-ONTAP-doubles-up-as-storage-for-logs-in-Red-Hat-OpenShift-Container/ba/p/449280["NetApp ONTAP dient gleichzeitig als Speicher für Protokolle in der Red Hat OpenShift-Containerplattform"]
+
+
+
+
+== VMware Sovereign Cloud
+
+* link:https://blogs.vmware.com/cloud/2021/10/06/vmware-sovereign-cloud/["Einführung der neuen Sovereign Cloud-Initiative"]
+

@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-op-solution.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= NetApp -Lösung mit Red Hat OpenShift Container-Plattform-Workloads auf VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Kunden ihre modernen containerisierten Anwendungen auf der Infrastruktur ihrer privaten Rechenzentren ausführen müssen, können sie dies tun.  Sie sollten die Red Hat OpenShift-Containerplattform (OCP) für eine erfolgreiche produktionsbereite Umgebung zur Bereitstellung ihrer Container-Workloads planen und bereitstellen.  Ihre OCP-Cluster können auf VMware oder Bare Metal bereitgestellt werden.
+
+NetApp ONTAP Speicher bietet Datenschutz, Zuverlässigkeit und Flexibilität für Containerbereitstellungen.  Trident dient als dynamischer Speicherbereitsteller, um persistenten ONTAP Speicher für zustandsbehaftete Anwendungen der Kunden zu nutzen.  NetApp Trident Protect kann für die zahlreichen Datenverwaltungsanforderungen von Stateful-Anwendungen wie Datenschutz, Migration und Geschäftskontinuität verwendet werden.
+
+Mit VMware vSphere bieten NetApp ONTAP -Tools ein vCenter-Plugin, das zum Bereitstellen von Datenspeichern verwendet werden kann.  Wenden Sie Tags an und verwenden Sie sie mit OpenShift zum Speichern der Knotenkonfiguration und -daten.  NVMe-basierter Speicher bietet geringere Latenz und hohe Leistung.
+
+
+
+== Datenschutz- und Migrationslösung für OpenShift-Container-Workloads mit Trident Protect
+
+image:rhhc-on-premises.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]

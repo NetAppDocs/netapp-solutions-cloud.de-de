@@ -1,0 +1,84 @@
+---
+section: rhhc
+title: NetApp Hybrid Multicloud mit Red Hat OpenShift
+url: "/rhhc/index.html"
+entries:
+- title: Erste Schritte
+  pdf-filename: Red Hat Openshift für Hybrid Multicloud
+  entries:
+  - title: Lösungsübersicht
+    url: "/openshift/os-solutions-overview.html"
+  - title: Wertversprechen
+    url: "/openshift/os-solutions-value-prop.html"
+  - title: Validierte Lösungen
+    url: "/openshift/os-solutions-validated.html"
+  - title: Validierte Versionen
+    url: "/openshift/os-solutions-versions.html"
+  - title: Unterstützte Speicheroptionen
+    url: "/openshift/os-solutions-storage-options.html"
+  - title: Zusätzliche Ressourcen
+    url: "/openshift/os-solutions-resources.html"
+- title: Openshift für lokale Anwendungen
+  pdf-filename: Red Hat Openshift für On-Premises
+  entries:
+  - title: Lösungsübersicht
+    url: "/openshift/os-op-solution.html"
+  - title: Konfigurieren von OpenShift-Container-Workloads auf VMware
+    url: "/openshift/os-op-setup.html"
+  - title: Schützen Sie Container-Workloads auf VMware
+    url: "/openshift/os-op-data-protection.html"
+  - title: Migrieren Sie Container-Workloads auf VMware
+    url: "/openshift/os-op-data-migration.html"
+- title: Hybrid Cloud mit selbstverwalteten Komponenten
+  pdf-filename: Hybrid Cloud mit selbstverwalteten Red Hat OpenShift-Komponenten (vor
+    Ort/AWS/GCP/Azure)
+  entries:
+  - title: Lösungsübersicht
+    url: "/openshift/os-sm-solution.html"
+  - title: Konfigurieren Sie OpenShift-Container-Workloads auf AWS
+    url: "/openshift/os-sm-setup.html"
+  - title: Konfigurieren Sie OpenShift-Container-Workloads auf GCP
+    url: "/openshift/os-sm-gcp-setup.html"
+  - title: Konfigurieren von OpenShift-Container-Workloads in Azure
+    url: "/openshift/os-sm-azure-setup.html"
+  - title: Schützen Sie Container-Workloads auf AWS/GCP/Azure
+    url: "/openshift/os-sm-data-protection.html"
+  - title: Migrieren Sie Container-Workloads zu AWS/GCP/Azure
+    url: "/openshift/os-sm-data-migration.html"
+- title: Hybrid Cloud mit vom Anbieter verwalteten Komponenten
+  pdf-filename: Hybrid Cloud mit vom Red Hat OpenShift-Anbieter verwalteten Komponenten
+  entries:
+  - title: Lösungsübersicht
+    url: "/openshift/os-pm-solution.html"
+  - title: Konfigurieren Sie OpenShift-Container-Workloads auf AWS
+    url: "/openshift/os-pm-setup.html"
+  - title: Konfigurieren Sie OpenShift Dedicated in Google Cloud
+    url: "/openshift/os-pm-gcnv-setup.html"
+  - title: Schützen Sie Container-Workloads auf AWS
+    url: "/openshift/os-pm-aws-dp.html"
+  - title: Migrieren Sie Container-Workloads auf AWS
+    url: "/openshift/os-pm-aws-data-migration.html"
+  - title: Weitere ROSA-Lösungen für Container und Virtualisierung
+    url: "/openshift/os-pm-rosa-additional.html"
+- title: Schützen Sie Daten mit Trident Protect
+  pdf-filename: Datenschutz mit Trident Protect
+  entries:
+  - title: Schützen Sie Container-Apps mit Trident Protect
+    url: "/openshift/os-dp-tp-solution.html"
+  - title: Schützen Sie VMs mit Trident Protect
+    url: "/openshift/osv-vm-dp-using-tp.html"
+- title: Schützen Sie Container-Apps mit Tools von Drittanbietern
+  pdf-filename: Datenschutz von Container-Apps mit Tools von Drittanbietern
+  entries:
+  - title: Lösungsübersicht
+    url: "/openshift/os-dp-velero-solution.html"
+  - title: Installieren von OADP
+    url: "/openshift/os-dp-velero-installation.html"
+  - title: Sichern Sie Container-Apps mit Velero
+    url: "/openshift/os-dp-velero-backup.html"
+  - title: Migrieren von Apps
+    url: "/openshift/os-dp-velero-migrate.html"
+  - title: Wiederherstellen aus einer Sicherung mit Velero
+    url: "/openshift/os-dp-velero-restore.html"
+  - title: Löschen von Backups und Wiederherstellungen
+    url: "/openshift/os-dp-velero-delete.html"

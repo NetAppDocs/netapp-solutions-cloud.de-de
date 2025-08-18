@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-azure-avs-storage.html 
+keywords: azure, netapp, anf, storage, options, nfs, supplemental, cvo 
+summary: NetApp -Speicher kann entweder als Gastspeicher oder als Zusatzspeicher an den Azure VMware-Dienst angeschlossen werden. 
+---
+= Azure Virtualization Service: Optionen für die Nutzung von NetApp -Speicher
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp -Speicher kann entweder als Gastspeicher oder als Zusatzspeicher an den Azure VMware-Dienst angeschlossen werden.
+
+
+
+== Azure NetApp Files (ANF) als ergänzender NFS-Datenspeicher
+
+Die Unterstützung für NFS-Datenspeicher wurde mit ESXi Version 3 in lokalen Bereitstellungen eingeführt, wodurch die Speicherfunktionen von vSphere erheblich erweitert wurden.
+
+Die Ausführung von vSphere auf NFS ist eine weit verbreitete Option für Virtualisierungsbereitstellungen vor Ort, da sie eine hohe Leistung und Stabilität bietet.  Wenn Sie über umfangreiche Network Attached Storage (NAS) in einem lokalen Rechenzentrum verfügen, sollten Sie die Bereitstellung eines Azure VMware Solution SDDC in Azure mit Azure NetApp File-Datenspeichern in Betracht ziehen, um Kapazitäts- und Leistungsprobleme zu überwinden.
+
+Azure NetApp Files basiert auf der branchenführenden, hochverfügbaren Datenverwaltungssoftware NetApp ONTAP .  Microsoft Azure-Dienste werden in drei Kategorien eingeteilt: grundlegend, Mainstream und spezialisiert.  Azure NetApp Files gehört zur Kategorie „Spezialisiert“ und wird durch Hardware unterstützt, die in vielen Regionen bereits im Einsatz ist.  Mit integrierter Hochverfügbarkeit (HA) schützt Azure NetApp Files Ihre Daten vor den meisten Ausfällen und bietet Ihnen ein branchenführendes SLA mit einer Verfügbarkeit von 99,99 %^.
+
+Weitere Informationen zu ANF als ergänzendem NFS-Datenspeicher finden Sie unter:
+
+* link:vmw-azure-avs-nfs-ds-overview.html["ANF als ergänzender NFS-Datenspeicher: Übersicht"]
+* link:vmw-azure-avs-nfs-ds-config.html["Ergänzende NFS-Datenspeicheroption in Azure"]
+
+
+
+
+== Azure NetApp Files (ANF) als mit dem Gast verbundener Speicher
+
+Azure NetApp Files bringt Datenverwaltung und -speicherung auf Unternehmensniveau zu Azure, sodass Sie Ihre Workloads und Anwendungen problemlos verwalten können.  Migrieren Sie Ihre Workloads in die Cloud und führen Sie sie ohne Leistungseinbußen aus.
+
+Azure NetApp Files beseitigt Hindernisse, sodass Sie alle Ihre dateibasierten Anwendungen in die Cloud verschieben können.  Zum ersten Mal müssen Sie Ihre Anwendungen nicht neu strukturieren und erhalten dauerhaften Speicher für Ihre Anwendungen ohne Komplexität.
+
+Da der Dienst über das Microsoft Azure-Portal bereitgestellt wird, profitieren Benutzer im Rahmen ihres Microsoft Enterprise Agreement von einem vollständig verwalteten Dienst.  Dank des erstklassigen Supports von Microsoft können Sie sich vollkommen beruhigt zurücklehnen.  Mit dieser Einzellösung können Sie schnell und einfach Multiprotokoll-Workloads hinzufügen. Sie können sowohl dateibasierte Windows- als auch Linux-Anwendungen erstellen und bereitstellen, sogar für Legacy-Umgebungen.
+
+Weitere Informationen finden Sie unterlink:vmw-azure-avs-guest-storage.html#anf["ANF als Gastverbundener Speicher"] .
+
+
+
+== Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+
+Cloud Volumes ONTAP (CVO) ist die branchenführende Cloud-Datenmanagementlösung, die auf der ONTAP -Speichersoftware von NetApp basiert und nativ auf Amazon Web Services (AWS), Microsoft Azure und Google Cloud Platform (GCP) verfügbar ist.
+
+Es handelt sich um eine softwaredefinierte Version von ONTAP , die Cloud-nativen Speicher nutzt. Dadurch können Sie in der Cloud und vor Ort dieselbe Speichersoftware verwenden und müssen Ihr IT-Personal nicht mehr in völlig neuen Methoden zur Verwaltung Ihrer Daten schulen.
+
+CVO bietet Kunden die Möglichkeit, Daten nahtlos vom Edge zum Rechenzentrum, in die Cloud und zurück zu verschieben und so Ihre Hybrid Cloud zusammenzuführen – alles verwaltet über eine zentrale Verwaltungskonsole, den NetApp Cloud Manager.
+
+CVO bietet von Haus aus extreme Leistung und erweiterte Datenverwaltungsfunktionen, um selbst Ihre anspruchsvollsten Anwendungen in der Cloud zu erfüllen
+
+Weitere Informationen finden Sie unterlink:vmw-azure-avs-guest-storage.html#azure-cvo["CVO als Gastverbundener Speicher"] .

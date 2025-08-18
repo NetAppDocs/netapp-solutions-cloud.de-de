@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-contact-us.html 
+keywords:  
+summary:  
+---
+= Kontaktieren Sie uns
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lassen Sie uns wissen, wie wir diesen technischen Bericht verbessern können.
+
+Kontaktieren Sie uns unter mailto:doccomments@netapp.com[doccomments@netapp.com^].  Geben Sie in der Betreffzeile „TECHNISCHER BERICHT 4918“ an.

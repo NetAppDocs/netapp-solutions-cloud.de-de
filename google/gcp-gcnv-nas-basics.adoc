@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-nas-basics.html 
+keywords: nas, basics, gcp, nfs, smb 
+summary: NAS-Protokolle bieten mehreren Clients in einem Netzwerk die Möglichkeit, auf dieselben Daten auf einem Speichersystem zuzugreifen, beispielsweise Google Cloud NetApp Volumes auf GCP.  NFS und SMB sind die definierten NAS-Protokolle und arbeiten auf Client/Server-Basis, wobei Google Cloud NetApp Volumes als Server fungiert. 
+---
+= Grundlagen der NAS-Protokolle
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NAS-Protokolle bieten mehreren Clients in einem Netzwerk die Möglichkeit, auf dieselben Daten auf einem Speichersystem zuzugreifen, beispielsweise Google Cloud NetApp Volumes auf GCP.  NFS und SMB sind die definierten NAS-Protokolle und arbeiten auf Client/Server-Basis, wobei Google Cloud NetApp Volumes als Server fungiert.  Clients senden Zugriffs-, Lese- und Schreibanforderungen an den Server und der Server ist für die Koordinierung der Sperrmechanismen für Dateien, die Speicherung von Berechtigungen und die Bearbeitung von Identitäts- und Authentifizierungsanforderungen verantwortlich.
+
+Wenn ein NAS-Client beispielsweise eine neue Datei in einem Ordner erstellen möchte, wird der folgende allgemeine Prozess befolgt.
+
+. Der Client fordert vom Server Informationen zum Verzeichnis an (Berechtigungen, Eigentümer, Gruppe, Datei-ID, verfügbarer Speicherplatz usw.). Der Server antwortet mit den Informationen, wenn der anfordernde Client und der Benutzer über die erforderlichen Berechtigungen für den übergeordneten Ordner verfügen.
+. Wenn die Berechtigungen für das Verzeichnis den Zugriff erlauben, fragt der Client den Server, ob der zu erstellende Dateiname bereits im Dateisystem vorhanden ist.  Wenn der Dateiname bereits verwendet wird, schlägt die Erstellung fehl.  Wenn der Dateiname nicht vorhanden ist, teilt der Server dem Client mit, dass er fortfahren kann.
+. Der Client sendet einen Aufruf an den Server, um die Datei mit dem Verzeichnis-Handle und dem Dateinamen zu erstellen und legt die Zugriffs- und Änderungszeiten fest.  Der Server weist der Datei eine eindeutige Datei-ID zu, um sicherzustellen, dass keine anderen Dateien mit derselben Datei-ID erstellt werden.
+. Der Client sendet einen Aufruf, um vor dem Schreibvorgang die Dateiattribute zu überprüfen.  Wenn die Berechtigungen es zulassen, schreibt der Client dann die neue Datei.  Wenn das Protokoll/die Anwendung eine Sperre verwendet, fordert der Client vom Server eine Sperre an, um zu verhindern, dass andere Clients auf die Datei zugreifen, während sie gesperrt ist, und um so eine Datenbeschädigung zu vermeiden.
+

@@ -1,0 +1,106 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-solutions-validated.html 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
+summary:  
+---
+= Unterstützte Lösungen von NetApp Hybrid Multicloud für Red Hat OpenShift Container-Workloads
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Lösung testet und validiert Migration und zentralisierten Datenschutz mit der OpenShift-Containerplattform (OCP), OpenShift Advanced Cluster Manager (ACM), NetApp ONTAP, NetApp BlueXP und NetApp Trident Protect (ACC).
+
+Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validiert.  Die Lösung ist basierend auf den folgenden Merkmalen in mehrere Szenarien unterteilt:
+
+* vor Ort
+* Wolke
++
+** selbstverwaltete OpenShift-Cluster und selbstverwalteter NetApp Speicher
+** Vom Anbieter verwaltete OpenShift-Cluster und vom Anbieter verwalteter NetApp Speicher
+
+
+
+
+**Wir werden in Zukunft weitere Lösungen und Anwendungsfälle entwickeln.**
+
+
+
+== Szenario 1: Datenschutz und Migration innerhalb der lokalen Umgebung mit Trident Protect
+
+**Vor Ort: selbstverwaltete OpenShift-Cluster und selbstverwalteter NetApp Speicher**
+
+* Erstellen Sie mit ACC Snapshot-Kopien, Backups und Wiederherstellungen zum Schutz Ihrer Daten.
+* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+
+
+
+
+=== Szenario 1
+
+image:rhhc-on-premises.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+== Szenario 2: Datenschutz und Migration von der lokalen Umgebung in die AWS-Umgebung mit Trident Protect
+
+**Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher**
+
+* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
+* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+
+
+
+
+=== Szenario 2
+
+image:rhhc-self-managed-aws.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+== Szenario 3: Datenschutz und Migration von der lokalen Umgebung in die AWS-Umgebung
+
+**Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Vom Anbieter verwalteter OpenShift-Cluster (ROSA) und vom Anbieter verwalteter Speicher (FSx ONTAP)**
+
+* Führen Sie mit BlueXP die Replikation persistenter Volumes (FSx ONTAP) durch.
+* Erstellen Sie mithilfe von OpenShift GitOps Anwendungsmetadaten neu.
+
+
+
+
+=== Szenario 3
+
+image:rhhc-rosa-with-fsxn.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+=== Szenario 4: Datenschutz und Migration von der lokalen Umgebung zur GCP-Umgebung mit Trident Protect
+
+**Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Google Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **
+
+* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
+* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+
+
+image:rhhc-self-managed-gcp.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Hinweise zur Verwendung von ONTAP in einer MetroCluster -Konfiguration finden Sie unterlink:https://docs.netapp.com/us-en/ontap-metrocluster/install-stretch/concept_considerations_when_using_ontap_in_a_mcc_configuration.html["hier,"] .
+
+
+
+=== Szenario 5: Datenschutz und Migration von der lokalen Umgebung in die Azure-Umgebung mit Trident Protect
+
+**Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Azure Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **
+
+* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
+* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+
+
+image:rhhc-self-managed-azure.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Hinweise zur Verwendung von ONTAP in einer MetroCluster -Konfiguration finden Sie unterlink:https://docs.netapp.com/us-en/ontap-metrocluster/install-stretch/concept_considerations_when_using_ontap_in_a_mcc_configuration.html["hier,"] .

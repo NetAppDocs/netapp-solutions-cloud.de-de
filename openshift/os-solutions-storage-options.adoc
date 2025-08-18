@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-solutions-storage-options.html 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster, VMware CSI, nconnect, session trunking, SMBC 
+summary:  
+---
+= Unterstützte NetApp Storage-Integrationen mit Red Hat OpenShift Containers
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Unabhängig davon, ob die Red Hat OpenShift-Container auf VMware oder in den Hyperscalern ausgeführt werden, kann NetApp Trident als CSI-Provisioner für die verschiedenen Arten von Backend NetApp -Speicher verwendet werden, die es unterstützt.
+
+Das folgende Diagramm zeigt die verschiedenen Backend NetApp -Speicher, die mithilfe von NetApp Trident in OpenShift-Cluster integriert werden können.
+
+image:a-w-n-astra-trident.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+ONTAP Storage Virtual Machine (SVM) bietet sichere Mandantenfähigkeit.  Ein einzelner OpenShift-Cluster kann eine Verbindung zu einem oder mehreren SVMs oder sogar zu mehreren ONTAP Clustern herstellen.  Die Speicherklasse filtert den Backend-Speicher basierend auf Parametern oder Bezeichnungen.  Speicheradministratoren definieren die Parameter für die Verbindung mit dem Speichersystem mithilfe der Trident-Backend-Konfiguration.  Bei erfolgreichem Verbindungsaufbau erstellt es das Trident-Backend und füllt die Informationen, die die Speicherklasse filtern kann.
+
+Die Beziehung zwischen der Speicherklasse und dem Backend wird unten dargestellt.
+
+image:rhhc-storage-options-sc2ontap.png["Beziehung zwischen Speicherklasse und ONTAP"]
+
+Der Anwendungsbesitzer fordert ein dauerhaftes Volume unter Verwendung der Speicherklasse an.  Die Speicherklasse filtert den Backend-Speicher.
+
+Die Beziehung zwischen dem Pod und dem Backend-Speicher wird unten dargestellt.
+
+image:rhhc-storage-opt-pod2vol.png["Beziehung zwischen Pod und ONTAP Volume"]
+
+
+
+== Optionen für die Container Storage Interface (CSI)
+
+In vSphere-Umgebungen können Kunden den VMware CSI-Treiber und/oder Trident CSI zur Integration mit ONTAP auswählen.  Bei VMware CSI werden die persistenten Volumes als lokale SCSI-Festplatten verwendet, während sie bei Trident über das Netzwerk verwendet werden.
+
+Da VMware CSI keine RWX-Zugriffsmodi mit ONTAP unterstützt, müssen Anwendungen Trident CSI verwenden, wenn der RWX-Modus erforderlich ist.  Bei FC-basierten Bereitstellungen wird VMware CSI bevorzugt und SnapMirror Business Continuity (SMBC) bietet Hochverfügbarkeit auf Zonenebene.
+
+
+
+=== VMware CSI unterstützt
+
+* Core Block-basierte Datenspeicher (FC, FCoE, iSCSI, NVMeoF)
+* Core File-basierte Datenspeicher (NFS v3, v4)
+* vVol-Datenspeicher (Block und Datei)
+
+
+
+
+=== Trident verfügt über folgende Treiber zur Unterstützung von ONTAP
+
+* ontap-san (dediziertes Volume)
+* ontap-san-economy (gemeinsam genutztes Volume)
+* ontap-nas (dediziertes Volume)
+* ontap-nas-economy (gemeinsam genutztes Volume)
+* ontap-nas-flexgroup (dediziertes Großvolume)
+
+
+Sowohl für VMware CSI als auch für Trident CSI unterstützt ONTAP Nconnect, Session Trunking, Kerberos usw. für NFS und Multipathing, Chap-Authentifizierung usw. für Blockprotokolle.
+
+In AWS kann Amazon FSx for NetApp ONTAP (FSx ONTAP) in einer einzelnen Availability Zone (AZ) oder in mehreren AZs bereitgestellt werden.  Für Produktions-Workloads, die eine hohe Verfügbarkeit erfordern, bietet Multi-AZ Fehlertoleranz auf Zonenebene und verfügt im Vergleich zu Single-AZ über einen besseren NVMe-Lesecache.  Weitere Informationen finden Sie unterlink:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS-Leistungsrichtlinien"] .
+
+Um Kosten für die Notfallwiederherstellungssite zu sparen, kann ein einzelner AZ FSx ONTAP verwendet werden.image:rhhc-storage-options-fsxn-options.png["Replikation zwischen Multi-AZ und Single-AZ"]
+
+Informationen zur Anzahl der von FSx ONTAP unterstützten SVMs finden Sie unterlink:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-svms.html#max-svms["Verwalten der virtuellen FSx ONTAP -Speichermaschine"]

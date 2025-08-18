@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-mount-fsxn-intro.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx 
+summary: 'Dieses Dokument enthält detaillierte Schritte zum Erstellen eines FSx für ONTAP -Dateisystems und zum Anhängen zur Verwendung als Internet Small Computer System Interface (iSCSI)- oder Network File System (NFS)-Datenspeicher zur Verwendung mit Amazon EVS.' 
+---
+= So mounten Sie Amazon FSx for NetApp ONTAP als externen Datenspeicher für Amazon Elastic VMware Service
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieses Dokument enthält detaillierte Schritte zum Erstellen eines FSx für ONTAP -Dateisystems und zum Anhängen zur Verwendung als Internet Small Computer System Interface (iSCSI)- oder Network File System (NFS)-Datenspeicher zur Verwendung mit Amazon EVS.
+
+
+
+== Einführung
+
+Organisationen mit bestehenden VMware-Investitionen vor Ort, die nach effizienten und kostengünstigen Möglichkeiten zur Modernisierung ihrer Bereitstellungen durch Migration, Bursting, Erweiterung oder Schutz (Backup, Notfallwiederherstellung) von Kopien auf AWS suchen, sind mit mehreren Herausforderungen konfrontiert.  Mit der Veröffentlichung von Amazon Elastic VMware Service (Amazon EVS) gibt es jetzt einen nativen AWS-Dienst, der es ermöglicht, VMware Cloud Foundation (VCF) direkt in einer Amazon Virtual Private Cloud (VPC) auszuführen.
+
+Amazon EVS ermöglicht die Erweiterung vorhandener VCF-Bereitstellungen auf AWS, den Wechsel in AWS zur Leistungssteigerung bei Spitzenauslastung und die vollständige Ausführung von VCF-Workloads auf AWS, um Modernisierungen, Rechenzentrumsausstiege, Konsolidierungen und andere Anwendungsfälle zu erleichtern.
+
+Obwohl Amazon EVS große Vorteile bietet, koppelt die standardmäßige hyperkonvergente Architektur Rechenleistung und Speicher und verhindert so eine unabhängige Skalierung des einen oder anderen, je nach Geschäftsanforderungen.  In der heutigen datenzentrierten Welt ist der Speicherbedarf vieler Unternehmen höher als der Rechenbedarf.  Bei der hyperkonvergenten Architektur von VMware sind Speicherressourcen jedoch mit Rechenressourcen gekoppelt.  Das bedeutet, dass die Skalierung des Speichers nur durch das Hinzufügen von Rechenhosts erfolgen kann, die nie verwendet werden.  Dies ist eine Situation, die die Kosten erheblich erhöhen kann, insbesondere bei speicherintensiven Arbeitslasten.
+
+Um dieses Problem zu lösen, bieten AWS und NetApp Amazon FSx for NetApp ONTAP (FSx für ONTAP) als externen Speicherdienst für Amazon EVS an.  FSx für ONTAP ist ein AWS-nativer Speicherdienst, der die hohe Leistung, Datenausfallsicherheit und Kosteneffizienzfunktionen der NetApp ONTAP Software bietet.  Durch die Verwendung von FSx für ONTAP als externer Speicher können Amazon EVS-Benutzer Rechen- und Speicherressourcen unabhängig voneinander skalieren und so optimale Gesamtbetriebskosten (TCO) erzielen.
+
+
+
+== Überblick
+
+Dieses Dokument enthält detaillierte Schritte zum Erstellen eines FSx für ONTAP -Dateisystems und zum Anhängen zur Verwendung als Internet Small Computer System Interface (iSCSI)- oder Network File System (NFS)-Datenspeicher zur Verwendung mit Amazon EVS.
+
+
+
+== Zweck dieses Handbuchs
+
+Dieses Handbuch enthält Anweisungen zum Einrichten eines FSx for ONTAP -Datenspeichers für Amazon EVS sowie Best Practices, Supportanforderungen, Größenüberlegungen und andere Informationen, die Ihnen bei der Planung, Gestaltung und Implementierung der Integration helfen.
+
+
+
+== Publikum
+
+Dieses Tutorial richtet sich an Cloud-Architekten und Cloud-Administratoren, die mit VMware vSphere, Amazon EVS, der AWS-Konsole und FSx für ONTAP vertraut sind.
+
+
+
+== Architektur auf hoher Ebene
+
+In diesem Abschnitt geben wir einen Überblick über die Lösungsarchitektur für die Verwendung von FSx for ONTAP als Datenspeicher für Amazon EVS.
+
+Unten sehen Sie eine Übersicht über die Architektur des FSx for ONTAP -Datenspeichers mit einer Amazon EVS-Umgebung innerhalb einer AWS VPC.
+
+image:evs-mount-fsxn-001.png["Abbildung, die die High-Level-Architektur für diese Lösung darstellt"]

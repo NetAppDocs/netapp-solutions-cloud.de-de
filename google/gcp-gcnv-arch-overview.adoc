@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-arch-overview.html 
+keywords: architecture overview, control plane, data plane 
+summary: Um einer Cloud-Lösung vertrauen zu können, muss man die Architektur und ihre Sicherung verstehen.  In diesem Abschnitt werden verschiedene Aspekte der Google Cloud NetApp Volumes -Architektur in Google erläutert, um mögliche Bedenken hinsichtlich der Datensicherung auszuräumen und Bereiche aufzuzeigen, in denen möglicherweise zusätzliche Konfigurationsschritte erforderlich sind, um eine möglichst sichere Bereitstellung zu erreichen. 
+---
+= Überblick
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um einer Cloud-Lösung vertrauen zu können, muss man die Architektur und ihre Sicherung verstehen.  In diesem Abschnitt werden verschiedene Aspekte der Google Cloud NetApp Volumes -Architektur in Google erläutert, um mögliche Bedenken hinsichtlich der Datensicherung auszuräumen und Bereiche aufzuzeigen, in denen möglicherweise zusätzliche Konfigurationsschritte erforderlich sind, um eine möglichst sichere Bereitstellung zu erreichen.
+
+Die allgemeine Architektur von Google Cloud NetApp Volumes kann in zwei Hauptkomponenten unterteilt werden: die Steuerebene und die Datenebene.
+
+
+
+== Steuerebene
+
+Die Steuerebene in Google Cloud NetApp Volumes ist die Backend-Infrastruktur, die von Google Cloud NetApp Volumes Administratoren und der nativen Automatisierungssoftware von NetApp verwaltet wird.  Diese Ebene ist für Endbenutzer völlig transparent und umfasst Netzwerk-, Speicherhardware- und Softwareupdates usw., um den Mehrwert einer Cloud-basierten Lösung wie Google Cloud NetApp Volumes zu steigern.
+
+
+
+== Datenebene
+
+Die Datenebene in Google Cloud NetApp Volumes umfasst die eigentlichen Datenvolumes und die gesamte Google Cloud NetApp Volumes -Konfiguration (wie Zugriffskontrolle, Kerberos-Authentifizierung usw.).  Die Datenebene unterliegt vollständig der Kontrolle der Endbenutzer und Verbraucher der Google Cloud NetApp Volumes -Plattform.
+
+Es gibt deutliche Unterschiede in der Art und Weise, wie die einzelnen Flugzeuge gesichert und verwaltet werden.  Die folgenden Abschnitte behandeln diese Unterschiede und beginnen mit einer Übersicht über die Architektur von Google Cloud NetApp Volumes .

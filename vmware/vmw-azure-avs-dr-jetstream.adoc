@@ -1,0 +1,247 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-azure-avs-dr-jetstream.html 
+keywords: NetApp Solutions, microsoft azure, avs, azure, anf, azure netapp files, ontap, disaster recovery, dr 
+summary:  
+---
+= Disaster Recovery mit ANF und JetStream
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Notfallwiederherstellung in der Cloud ist eine robuste und kostengünstige Möglichkeit, die Workloads vor Site-Ausfällen und Datenbeschädigungen (z. B. Ransomware) zu schützen.  Mithilfe des VMware VAIO-Frameworks können lokale VMware-Workloads in den Azure Blob-Speicher repliziert und wiederhergestellt werden, wodurch ein minimaler oder nahezu kein Datenverlust und eine RTO von nahezu null möglich sind.
+
+Mit JetStream DR können die vom lokalen Standort auf AVS und insbesondere auf Azure NetApp Files replizierten Workloads nahtlos wiederhergestellt werden.  Es ermöglicht eine kostengünstige Notfallwiederherstellung durch die Nutzung minimaler Ressourcen am DR-Standort und kostengünstigen Cloud-Speicher.  JetStream DR automatisiert die Wiederherstellung in ANF-Datenspeichern über Azure Blob Storage.  JetStream DR stellt unabhängige VMs oder Gruppen verwandter VMs gemäß der Netzwerkzuordnung in der Infrastruktur des Wiederherstellungsstandorts wieder her und bietet eine zeitpunktbezogene Wiederherstellung zum Schutz vor Ransomware.
+
+Dieses Dokument vermittelt ein Verständnis der Betriebsprinzipien und Hauptkomponenten von JetStream DR.
+
+.Übersicht über die Lösungsbereitstellung
+[%collapsible%open]
+====
+. Installieren Sie die JetStream DR-Software im lokalen Rechenzentrum.
++
+.. Laden Sie das JetStream DR-Softwarepaket vom Azure Marketplace (ZIP) herunter und stellen Sie das JetStream DR MSA (OVA) im vorgesehenen Cluster bereit.
+.. Konfigurieren Sie den Cluster mit dem E/A-Filterpaket (installieren Sie JetStream VIB).
+.. Stellen Sie Azure Blob (Azure Storage-Konto) in derselben Region wie der DR AVS-Cluster bereit.
+.. Stellen Sie DRVA-Geräte bereit und weisen Sie Replikationsprotokollvolumes zu (VMDK aus vorhandenem Datenspeicher oder gemeinsam genutztem iSCSI-Speicher).
+.. Erstellen Sie geschützte Domänen (Gruppen verwandter VMs) und weisen Sie DRVAs und Azure Blob Storage/ANF zu.
+.. Schutz starten.
+
+
+. Installieren Sie die JetStream DR-Software in der privaten Azure VMware Solution-Cloud.
++
+.. Verwenden Sie den Befehl „Ausführen“, um JetStream DR zu installieren und zu konfigurieren.
+.. Fügen Sie denselben Azure Blob-Container hinzu und ermitteln Sie Domänen mithilfe der Option „Domänen scannen“.
+.. Stellen Sie die erforderlichen DRVA-Geräte bereit.
+.. Erstellen Sie Replikationsprotokollvolumes mithilfe verfügbarer vSAN- oder ANF-Datenspeicher.
+.. Importieren Sie geschützte Domänen und konfigurieren Sie RocVA (Recovery VA), um den ANF-Datenspeicher für VM-Platzierungen zu verwenden.
+.. Wählen Sie die entsprechende Failover-Option aus und starten Sie die kontinuierliche Rehydrierung für Domänen oder VMs mit nahezu null RTO.
+
+
+. Lösen Sie während eines Notfallereignisses ein Failover zu Azure NetApp Files Datenspeichern am angegebenen AVS DR-Standort aus.
+. Rufen Sie das Failback zur geschützten Site auf, nachdem die geschützte Site wiederhergestellt wurde. Stellen Sie vor dem Start sicher, dass die Voraussetzungen erfüllt sind, wie in diesem Abschnitt angegeben. https://docs.microsoft.com/en-us/azure/azure-vmware/deploy-disaster-recovery-using-jetstream["Link"^] und führen Sie außerdem das von JetStream Software bereitgestellte Bandwidth Testing Tool (BWT) aus, um die potenzielle Leistung des Azure Blob-Speichers und seine Replikationsbandbreite bei Verwendung mit der JetStream DR-Software zu bewerten.  Nachdem die Voraussetzungen, einschließlich der Konnektivität, erfüllt sind, richten Sie JetStream DR für AVS ein und abonnieren Sie es über die https://portal.azure.com/["Azure Marketplace"^] .  Nachdem das Softwarepaket heruntergeladen wurde, fahren Sie mit dem oben beschriebenen Installationsvorgang fort.
+
+
+====
+Verwenden Sie beim Planen und Starten des Schutzes für eine große Anzahl von VMs (z. B. 100+) das Capacity Planning Tool (CPT) aus dem JetStream DR Automation Toolkit.  Stellen Sie eine Liste der zu schützenden VMs zusammen mit ihren RTO- und Wiederherstellungsgruppeneinstellungen bereit und führen Sie dann CPT aus.
+
+CPT erfüllt die folgenden Funktionen:
+
+* Kombinieren Sie VMs entsprechend ihrer RTO in Schutzdomänen.
+* Festlegen der optimalen Anzahl von DRVAs und ihrer Ressourcen.
+* Schätzung der erforderlichen Replikationsbandbreite.
+* Identifizieren der Merkmale des Replikationsprotokollvolumens (Kapazität, Bandbreite usw.).
+* Schätzen der erforderlichen Objektspeicherkapazität und mehr.
+
+
+
+NOTE: Die Anzahl und der Inhalt der vorgeschriebenen Domänen hängen von verschiedenen VM-Eigenschaften ab, wie z. B. durchschnittlichen IOPS, Gesamtkapazität, Priorität (die die Failover-Reihenfolge definiert), RTO und anderen.
+
+
+
+== Installieren Sie JetStream DR im lokalen Rechenzentrum
+
+Die JetStream DR-Software besteht aus drei Hauptkomponenten: JetStream DR Management Server Virtual Appliance (MSA), DR Virtual Appliance (DRVA) und Hostkomponenten (E/A-Filterpakete).  MSA wird verwendet, um Hostkomponenten auf dem Computercluster zu installieren und zu konfigurieren und anschließend die JetStream DR-Software zu verwalten.  Die folgende Liste bietet eine allgemeine Beschreibung des Installationsvorgangs:
+
+.So installieren Sie JetStream DR vor Ort
+[%collapsible%open]
+====
+. Voraussetzungen prüfen.
+. Führen Sie das Kapazitätsplanungstool aus, um Empfehlungen zu Ressourcen und Konfigurationen zu erhalten (optional, aber für Proof-of-Concept-Tests empfohlen).
+. Stellen Sie den JetStream DR MSA auf einem vSphere-Host im vorgesehenen Cluster bereit.
+. Starten Sie das MSA mit seinem DNS-Namen in einem Browser.
+. Registrieren Sie den vCenter-Server beim MSA. Führen Sie zur Durchführung der Installation die folgenden detaillierten Schritte aus:
+. Nachdem JetStream DR MSA bereitgestellt und der vCenter Server registriert wurde, greifen Sie über den vSphere Web Client auf das JetStream DR-Plug-In zu.  Dies kann durch Navigieren zu Rechenzentrum > Konfigurieren > JetStream DR erfolgen.
++
+image:vmware-dr-008.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Wählen Sie in der JetStream DR-Schnittstelle den entsprechenden Cluster aus.
++
+image:vmware-dr-009.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Konfigurieren Sie den Cluster mit dem E/A-Filterpaket.
++
+image:vmware-dr-010.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Fügen Sie Azure Blob Storage am Wiederherstellungsstandort hinzu.
+. Stellen Sie eine DR Virtual Appliance (DRVA) über die Registerkarte „Appliances“ bereit.
+
+
+
+NOTE: DRVAs können automatisch von CPT erstellt werden, für POC-Tests empfehlen wir jedoch, den DR-Zyklus manuell zu konfigurieren und auszuführen (Schutz starten > Failover > Failback).
+
+JetStream DRVA ist eine virtuelle Appliance, die wichtige Funktionen im Datenreplikationsprozess unterstützt.  Ein geschützter Cluster muss mindestens einen DRVA enthalten und normalerweise wird pro Host ein DRVA konfiguriert.  Jeder DRVA kann mehrere geschützte Domänen verwalten.
+
+image:vmware-dr-011.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+In diesem Beispiel wurden vier DRVAs für 80 virtuelle Maschinen erstellt.
+
+. Erstellen Sie Replikationsprotokollvolumes für jeden DRVA mithilfe von VMDK aus den verfügbaren Datenspeichern oder unabhängigen gemeinsam genutzten iSCSI-Speicherpools.
+. Erstellen Sie auf der Registerkarte „Geschützte Domänen“ die erforderliche Anzahl geschützter Domänen mithilfe von Informationen zur Azure Blob Storage-Site, der DRVA-Instanz und dem Replikationsprotokoll.  Eine geschützte Domäne definiert eine bestimmte VM oder eine Gruppe von VMs innerhalb des Clusters, die gemeinsam geschützt werden und denen eine Prioritätsreihenfolge für Failover-/Failback-Vorgänge zugewiesen wird.
++
+image:vmware-dr-012.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Wählen Sie die VMs aus, die Sie schützen möchten, und starten Sie den VM-Schutz der geschützten Domäne.  Dadurch wird die Datenreplikation in den angegebenen Blob Store gestartet.
+
+
+
+NOTE: Stellen Sie sicher, dass für alle VMs in einer geschützten Domäne derselbe Schutzmodus verwendet wird.
+
+
+NOTE: Der Write-Back-Modus (VMDK) kann eine höhere Leistung bieten.
+
+image:vmware-dr-013.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Stellen Sie sicher, dass Replikationsprotokollvolumes auf Hochleistungsspeichern abgelegt werden.
+
+
+NOTE: Failover-Runbooks können so konfiguriert werden, dass sie die VMs gruppieren (sogenannte Wiederherstellungsgruppen), die Startreihenfolge festlegen und die CPU-/Speichereinstellungen zusammen mit den IP-Konfigurationen ändern.
+
+====
+
+
+== Installieren Sie JetStream DR für AVS in einer privaten Azure VMware Solution-Cloud mit dem Befehl „Ausführen“
+
+Eine bewährte Methode für eine Wiederherstellungssite (AVS) besteht darin, im Voraus einen Pilot-Light-Cluster mit drei Knoten zu erstellen.  Dadurch kann die Infrastruktur des Wiederherstellungsstandorts vorkonfiguriert werden, einschließlich der folgenden Elemente:
+
+* Zielnetzwerksegmente, Firewalls, Dienste wie DHCP und DNS usw.
+* Installation von JetStream DR für AVS
+* Konfiguration von ANF-Volumes als Datenspeicher und mehr. JetStream DR unterstützt den RTO-Modus nahezu Null für unternehmenskritische Domänen.  Für diese Domänen sollte der Zielspeicher vorinstalliert sein.  In diesem Fall ist ANF ein empfohlener Speichertyp.
+
+
+
+NOTE: Die Netzwerkkonfiguration einschließlich der Segmenterstellung sollte auf dem AVS-Cluster so konfiguriert werden, dass sie den lokalen Anforderungen entspricht.
+
+Abhängig von den SLA- und RTO-Anforderungen kann ein kontinuierliches Failover oder ein regulärer (Standard-)Failover-Modus verwendet werden.  Um eine RTO von nahezu Null zu erreichen, sollte am Wiederherstellungsort mit der kontinuierlichen Rehydration begonnen werden.
+
+.So installieren Sie JetStream DR für AVS in einer privaten Cloud
+[%collapsible%open]
+====
+Führen Sie die folgenden Schritte aus, um JetStream DR für AVS in einer privaten Azure VMware Solution-Cloud zu installieren:
+
+. Gehen Sie im Azure-Portal zur Azure VMware-Lösung, wählen Sie die private Cloud aus und wählen Sie „Befehl ausführen“ > „Pakete“ > „JSDR.Configuration“.
++
+
+NOTE: Der Standardbenutzer CloudAdmin in Azure VMware Solution verfügt nicht über ausreichende Berechtigungen, um JetStream DR für AVS zu installieren.  Azure VMware Solution ermöglicht eine vereinfachte und automatisierte Installation von JetStream DR durch Aufrufen des Azure VMware Solution-Befehls „Ausführen“ für JetStream DR.
+
++
+Der folgende Screenshot zeigt die Installation mit einer DHCP-basierten IP-Adresse.
+
++
+image:vmware-dr-014.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Aktualisieren Sie den Browser, nachdem die Installation von JetStream DR für AVS abgeschlossen ist.  Um auf die JetStream DR-Benutzeroberfläche zuzugreifen, gehen Sie zu SDDC Datacenter > Konfigurieren > JetStream DR.
++
+image:vmware-dr-015.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Fügen Sie über die JetStream DR-Schnittstelle das Azure Blob Storage-Konto hinzu, das zum Schutz des lokalen Clusters als Speicherort verwendet wurde, und führen Sie dann die Option „Domänen scannen“ aus.
++
+image:vmware-dr-016.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+. Nachdem die geschützten Domänen importiert wurden, stellen Sie DRVA-Geräte bereit.  In diesem Beispiel wird die kontinuierliche Rehydrierung manuell vom Wiederherstellungsstandort aus mithilfe der JetStream DR-Benutzeroberfläche gestartet.
++
+
+NOTE: Diese Schritte können auch mithilfe von CPT-erstellten Plänen automatisiert werden.
+
+. Erstellen Sie Replikationsprotokollvolumes mithilfe verfügbarer vSAN- oder ANF-Datenspeicher.
+. Importieren Sie die geschützten Domänen und konfigurieren Sie die Recovery VA so, dass der ANF-Datenspeicher für VM-Platzierungen verwendet wird.
++
+image:vmware-dr-017.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+
+NOTE: Stellen Sie sicher, dass DHCP im ausgewählten Segment aktiviert ist und genügend IPs verfügbar sind.  Dynamische IPs werden vorübergehend verwendet, während Domänen wiederhergestellt werden.  Jede wiederherzustellende VM (einschließlich kontinuierlicher Rehydration) erfordert eine individuelle dynamische IP.  Nach Abschluss der Wiederherstellung wird die IP freigegeben und kann wiederverwendet werden.
+
+. Wählen Sie die entsprechende Failover-Option (kontinuierliches Failover oder Failover).  In diesem Beispiel wird die kontinuierliche Rehydration (kontinuierliches Failover) ausgewählt.
++
+image:vmware-dr-018.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+====
+
+
+== Durchführen eines Failovers/Failbacks
+
+.So führen Sie ein Failover/Failback durch
+[%collapsible%open]
+====
+. Nachdem im geschützten Cluster der lokalen Umgebung ein Notfall (Teil- oder Vollausfall) aufgetreten ist, lösen Sie das Failover aus.
++
+
+NOTE: CPT kann verwendet werden, um den Failoverplan auszuführen und die VMs aus Azure Blob Storage in der AVS-Cluster-Wiederherstellungssite wiederherzustellen.
+
++
+
+NOTE: Nach dem Failover (für kontinuierliche oder standardmäßige Rehydrierung), wenn die geschützten VMs in AVS gestartet wurden, wird der Schutz automatisch fortgesetzt und JetStream DR repliziert ihre Daten weiterhin in die entsprechenden/ursprünglichen Container in Azure Blob Storage.
+
++
+image:vmware-dr-019.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+image:vmware-dr-020.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+Die Taskleiste zeigt den Fortschritt der Failover-Aktivitäten an.
+
+. Wenn die Aufgabe abgeschlossen ist, greifen Sie auf die wiederhergestellten VMs zu und das Geschäft wird wie gewohnt fortgesetzt.
++
+image:vmware-dr-021.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
++
+Nachdem die primäre Site wieder betriebsbereit ist, kann ein Failback durchgeführt werden.  Der VM-Schutz wird fortgesetzt und die Datenkonsistenz sollte überprüft werden.
+
+. Stellen Sie die lokale Umgebung wieder her.  Je nach Art des Katastrophenfalls kann es erforderlich sein, die Konfiguration des geschützten Clusters wiederherzustellen und/oder zu überprüfen.  Gegebenenfalls muss die JetStream DR-Software neu installiert werden.
++
+
+NOTE: Hinweis: Die `recovery_utility_prepare_failback` Das im Automation Toolkit bereitgestellte Skript kann verwendet werden, um die ursprünglich geschützte Site von veralteten VMs, Domäneninformationen usw. zu bereinigen.
+
+. Greifen Sie auf die wiederhergestellte lokale Umgebung zu, gehen Sie zur Jetstream DR-Benutzeroberfläche und wählen Sie die entsprechende geschützte Domäne aus.  Nachdem die geschützte Site für das Failback bereit ist, wählen Sie die Failback-Option in der Benutzeroberfläche aus.
++
+image:vmware-dr-022.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+
+
+NOTE: Der von CPT generierte Failback-Plan kann auch verwendet werden, um die Rückgabe der VMs und ihrer Daten aus dem Objektspeicher zurück in die ursprüngliche VMware-Umgebung zu initiieren.
+
+
+NOTE: Geben Sie die maximale Verzögerung nach dem Anhalten von VMs am Wiederherstellungsstandort und dem Neustart am geschützten Standort an.  Diese Zeit umfasst das Abschließen der Replikation nach dem Stoppen der Failover-VMs, die Zeit zum Bereinigen der Wiederherstellungssite und die Zeit zum Neuerstellen der VMs an der geschützten Site.  Der von NetApp empfohlene Wert beträgt 10 Minuten.
+
+Schließen Sie den Failback-Prozess ab und bestätigen Sie anschließend die Wiederaufnahme des VM-Schutzes und der Datenkonsistenz.
+
+====
+
+
+== Ransomware-Wiederherstellung
+
+Die Wiederherstellung nach Ransomware kann eine gewaltige Aufgabe sein.  Insbesondere kann es für IT-Organisationen schwierig sein, den sicheren Zeitpunkt der Rückkehr zu bestimmen und, nachdem dieser ermittelt wurde, sicherzustellen, dass wiederhergestellte Workloads vor erneuten Angriffen (durch schlafende Malware oder über anfällige Anwendungen) geschützt sind.
+
+JetStream DR für AVS kann zusammen mit Azure NetApp Files -Datenspeichern diese Probleme lösen, indem es Unternehmen die Wiederherstellung von verfügbaren Zeitpunkten aus ermöglicht, sodass Workloads bei Bedarf in einem funktionsfähigen, isolierten Netzwerk wiederhergestellt werden.  Durch die Wiederherstellung können Anwendungen weiterhin funktionieren und miteinander kommunizieren, ohne dass sie dem Nord-Süd-Verkehr ausgesetzt sind. Dadurch erhalten Sicherheitsteams einen sicheren Ort, um forensische Untersuchungen und andere notwendige Sanierungsmaßnahmen durchzuführen.
+
+image:vmware-dr-023.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]

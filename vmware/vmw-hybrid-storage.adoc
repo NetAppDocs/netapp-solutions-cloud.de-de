@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-storage.html 
+keywords: NetApp Solutions, amazon, vmc, aws, microsoft azure, avs, azure, google cloud, gcp, gcve, vmware managed cloud, enterprise, hybrid, cloud, cloud volumes ontap, cvo, datastore, fsx, fsx ontap 
+summary:  
+---
+= NetApp Storage-Optionen für Public Cloud-Anbieter
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Entdecken Sie die Optionen für NetApp als Speicher bei den drei großen Hyperscalern.
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+AWS unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* FSx ONTAP als Gastspeicher
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* FSx ONTAP als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:aws-guest.html["Gastverbindungs-Speicheroptionen für VMC"] .  Sehen Sie sich die detailliertelink:aws-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für VMC"] .
+
+--
+.Azure / AVS
+--
+Azure unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* Azure NetApp Files (ANF) als mit dem Gast verbundener Speicher
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* Azure NetApp Files (ANF) als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:azure-guest.html["Gastverbindungs-Speicheroptionen für AVS"] .  Sehen Sie sich die detailliertelink:azure-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für AVS"] .
+
+--
+.GCP / GCVE
+--
+Google Cloud unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* Google Cloud NetApp Volumes (NetApp Volumes) als mit dem Gast verbundener Speicher
+* Google Cloud NetApp Volumes (NetApp Volumes) als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:gcp-guest.html["Gastverbindungsspeicheroptionen für GCVE"] .  Sehen Sie sich die detailliertelink:gcp-ncvs-datastore.html["zusätzliche NFS-Datenspeicheroptionen für GCVE"] .
+
+Lesen Sie mehr überlink:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["Google Cloud NetApp Volumes Datenspeicherunterstützung für Google Cloud VMware Engine (NetApp -Blog)"^] oderlink:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["So verwenden Sie Google Cloud NetApp Volumes als Datenspeicher für Google Cloud VMware Engine (Google-Blog)"^]
+
+--
+====

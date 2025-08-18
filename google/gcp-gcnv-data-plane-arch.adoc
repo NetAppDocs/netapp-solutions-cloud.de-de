@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: google/gcp-gcnv-data-plane-arch.html 
+keywords: cloud volumes service, google cloud, service networking, vpc peering 
+summary: Google Cloud NetApp Volumes für Google Cloud nutzt das Zugriffsframework für private Dienste von Google Cloud.  In diesem Rahmen können Benutzer eine Verbindung zu den Google Cloud NetApp Volumes herstellen.  Dieses Framework verwendet Service Networking- und VPC-Peering-Konstrukte wie andere Google Cloud-Dienste und gewährleistet so eine vollständige Isolierung zwischen den Mandanten. 
+---
+= Datenebenenarchitektur
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Google Cloud NetApp Volumes für Google Cloud nutzt die Google Cloud https://cloud.google.com/vpc/docs/configure-private-services-access["Zugang zu privaten Diensten"^] Rahmen.  In diesem Rahmen können Benutzer eine Verbindung zu den Google Cloud NetApp Volumes herstellen.  Dieses Framework verwendet Service Networking- und VPC-Peering-Konstrukte wie andere Google Cloud-Dienste und gewährleistet so eine vollständige Isolierung zwischen den Mandanten.
+
+Eine Architekturübersicht von Google Cloud NetApp Volumes für Google Cloud finden Sie unter https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture["Architektur für Google Cloud NetApp Volumes"^] .
+
+Benutzer-VPCs (eigenständig oder gemeinsam genutzt) sind mit VPCs innerhalb von von Google Cloud NetApp Volumes verwalteten Mandantenprojekten verbunden, die die Volumes hosten.
+
+image:ncvs-gc-005.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Die obige Abbildung zeigt ein Projekt (das NetApp Volumes-Consumer-Projekt in der Mitte) mit drei VPC-Netzwerken, die mit Google Cloud NetApp Volumes verbunden sind, und mehreren Compute Engine-VMs (GCE1-7), die Volumes gemeinsam nutzen:
+
+* VPC1 ermöglicht GCE1 den Zugriff auf die Volumes A und B.
+* VPC2 ermöglicht GCE2 und GCE4 den Zugriff auf Volume C.
+* Das dritte VPC-Netzwerk ist ein gemeinsam genutztes VPC, das von zwei Serviceprojekten gemeinsam genutzt wird.  Es ermöglicht GCE3, GCE4, GCE5 und GCE6 den Zugriff auf die Volumes D und E. Gemeinsam genutzte VPC-Netzwerke werden nur für Volumes des Diensttyps „NetApp Volumes-Performance“ unterstützt.
+
+
+
+NOTE: GCE7 kann auf kein Volume zugreifen.
+
+Daten können sowohl während der Übertragung (mithilfe von Kerberos- und/oder SMB-Verschlüsselung) als auch im Ruhezustand in Google Cloud NetApp Volumes verschlüsselt werden.

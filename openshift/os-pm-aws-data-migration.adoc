@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-pm-aws-data-migration.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Ansible Automation Platform, BlueXP 
+summary:  
+---
+= Datenmigration
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Auf dieser Seite werden die Datenmigrationsoptionen für Container-Workloads auf verwalteten Red Hat OpenShift-Clustern angezeigt, die FSx ONTAP für persistenten Speicher verwenden.
+
+
+
+== Datenmigration
+
+Der Red Hat OpenShift-Dienst auf AWS sowie Amazon FSx for NetApp ONTAP (FSx ONTAP) sind Teil des Serviceportfolios von AWS.  FSx ONTAP ist in den Optionen Single AZ oder Multi-AZ verfügbar.  Die Multi-Az-Option bietet Datenschutz vor Verfügbarkeitszonenausfällen.  FSx ONTAP kann mit Trident integriert werden, um dauerhaften Speicher für Anwendungen auf ROSA-Clustern bereitzustellen.
+
+
+
+=== Integration von FSx ONTAP mit Trident mithilfe des Helm-Diagramms
+
+.ROSA-Cluster-Integration mit Amazon FSx ONTAP
+video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto]
+Die Migration von Containeranwendungen umfasst:
+
+* Persistente Volumes: Dies kann mit BlueXP erreicht werden.  Eine weitere Option besteht darin, Trident Protect für die Migration von Containeranwendungen von lokalen in die Cloud-Umgebung zu verwenden.  Für denselben Zweck kann auch die Automatisierung eingesetzt werden.
+* Anwendungsmetadaten: Dies kann mit OpenShift GitOps (Argo CD) erreicht werden.
+
+
+
+
+=== Failover und Failback von Anwendungen auf ROSA-Clustern mit FSx ONTAP für persistente Speicherung
+
+Das folgende Video ist eine Demonstration von Anwendungs-Failover- und Failback-Szenarien mit BlueXP und Argo CD.
+
+.Failover und Failback von Anwendungen auf dem ROSA-Cluster
+video::e9a07d79-42a1-4480-86be-b01200fa62f5[panopto]
+
+
+=== Datenschutz- und Migrationslösung für OpenShift-Container-Workloads
+
+image:rhhc-rosa-with-fsxn.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]

@@ -1,0 +1,168 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-hyperscalers.html 
+keywords: NetApp Solutions, hyperscalers, amazon, vmc, vmware managed cloud, microsoft, azure, avs, azure vmware solution, google cloud platform, gcp, google cloud virtualization engine, gcve, enterprise, hybrid, cloud, migrate, migration, disaster recovery, dr 
+summary:  
+---
+= NetApp -Lösungen für VMware in Hyperscalern
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Erfahren Sie mehr über die Funktionen, die NetApp den drei (3) wichtigsten Hyperscalern bietet – von NetApp als Speichergerät mit Gastanschluss oder als zusätzlicher NFS-Datenspeicher bis hin zur Migration von Workflows, Erweiterung/Bursting in die Cloud, Sicherung/Wiederherstellung und Notfallwiederherstellung.
+
+Wählen Sie Ihre Cloud und überlassen Sie NetApp den Rest!
+
+image:netapp-cloud.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+
+NOTE: Um die Funktionen eines bestimmten Hyperscalers anzuzeigen, klicken Sie auf die entsprechende Registerkarte für diesen Hyperscaler.
+
+Springen Sie zum Abschnitt mit dem gewünschten Inhalt, indem Sie eine der folgenden Optionen auswählen:
+
+* link:#config["VMware in der Hyperscaler-Konfiguration"]
+* link:#datastore["NetApp Storage-Optionen"]
+* link:#solutions["NetApp / VMware Cloud-Lösungen"]
+
+
+
+
+== VMware in der Hyperscaler-Konfiguration
+
+Wie bei der lokalen Umgebung ist die Planung einer Cloud-basierten Virtualisierungsumgebung entscheidend für eine erfolgreiche produktionsbereite Umgebung zum Erstellen und Migrieren von VMs.
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+In diesem Abschnitt wird beschrieben, wie Sie VMware Cloud on AWS SDDC einrichten und verwalten und es in Kombination mit den verfügbaren Optionen zum Verbinden von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP mit AWS VMC.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Bereitstellen und Konfigurieren von VMware Cloud für AWS
+* Verbinden Sie VMware Cloud mit FSx ONTAP
+
+
+Sehen Sie sich die detailliertelink:../vmware/vmw-aws-vmc-setup.html["Konfigurationsschritte für VMC"] .
+
+--
+.Azure / AVS
+--
+In diesem Abschnitt wird beschrieben, wie Sie Azure VMware Solution einrichten und verwalten und in Kombination mit den verfügbaren Optionen zum Anbinden von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP mit Azure VMware Solution.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Registrieren des Ressourcenanbieters und Erstellen einer privaten Cloud
+* Herstellen einer Verbindung mit einem neuen oder vorhandenen virtuellen ExpressRoute-Netzwerkgateway
+* Überprüfen Sie die Netzwerkkonnektivität und greifen Sie auf die private Cloud zu
+
+
+Sehen Sie sich die detailliertelink:azure-setup.html["Konfigurationsschritte für AVS"] .
+
+--
+.GCP / GCVE
+--
+In diesem Abschnitt wird beschrieben, wie Sie GCVE einrichten und verwalten und es in Kombination mit den verfügbaren Optionen zum Anschließen von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP und Google Cloud NetApp Volumes mit GCVE.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Bereitstellen und Konfigurieren von GCVE
+* Privaten Zugriff auf GCVE aktivieren
+
+
+Sehen Sie sich die detailliertelink:gcp-setup.html["Konfigurationsschritte für GCVE"] .
+
+--
+====
+
+
+== NetApp Storage-Optionen
+
+NetApp Speicher kann innerhalb jedes der drei großen Hyperscaler auf verschiedene Weise genutzt werden – entweder als Gastverbindung oder als zusätzlicher NFS-Datenspeicher.
+
+Bitte besuchen Sielink:vmw-hybrid-support-configs.html["Unterstützte NetApp -Speicheroptionen"] für weitere Informationen.
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+AWS unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* FSx ONTAP als Gastspeicher
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* FSx ONTAP als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:aws-guest.html["Gastverbindungs-Speicheroptionen für VMC"] .  Sehen Sie sich die detailliertelink:aws-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für VMC"] .
+
+--
+.Azure / AVS
+--
+Azure unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* Azure NetApp Files (ANF) als mit dem Gast verbundener Speicher
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* Azure NetApp Files (ANF) als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:azure-guest.html["Gastverbindungs-Speicheroptionen für AVS"] .  Sehen Sie sich die detailliertelink:azure-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für AVS"] .
+
+--
+.GCP / GCVE
+--
+Google Cloud unterstützt NetApp -Speicher in den folgenden Konfigurationen:
+
+* Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
+* Google Cloud NetApp Volumes (NetApp Volumes) als mit dem Gast verbundener Speicher
+* Google Cloud NetApp Volumes (NetApp Volumes) als ergänzender NFS-Datenspeicher
+
+
+Sehen Sie sich die detailliertelink:gcp-guest.html["Gastverbindungsspeicheroptionen für GCVE"] .  Sehen Sie sich die detailliertelink:gcp-ncvs-datastore.html["zusätzliche NFS-Datenspeicheroptionen für GCVE"] .
+
+Lesen Sie mehr überlink:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["Google Cloud NetApp Volumes Datenspeicherunterstützung für Google Cloud VMware Engine (NetApp -Blog)"^] oderlink:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["So verwenden Sie Google Cloud NetApp Volumes als Datenspeicher für Google Cloud VMware Engine (Google-Blog)"^]
+
+--
+====
+
+
+== NetApp / VMware Cloud-Lösungen
+
+Mit den Cloud-Lösungen von NetApp und VMware lassen sich viele Anwendungsfälle ganz einfach in Ihrem bevorzugten Hyperscaler implementieren.  VMware definiert die wichtigsten Anwendungsfälle für Cloud-Workloads wie folgt:
+
+* Schützen (beinhaltet sowohl Disaster Recovery als auch Backup/Wiederherstellung)
+* Wandern
+* Verlängern
+
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+link:vmw-aws-vmc-solutions.html["Durchsuchen Sie die NetApp -Lösungen für AWS/VMC"]
+
+--
+.Azure / AVS
+--
+link:vmw-azure-avs-solutions.html["Durchsuchen Sie die NetApp -Lösungen für Azure/AVS"]
+
+--
+.GCP / GCVE
+--
+link:vmw-gcp-gcve-solutions.html["Durchsuchen Sie die NetApp -Lösungen für Google Cloud Platform (GCP) / GCVE"]
+
+--
+====

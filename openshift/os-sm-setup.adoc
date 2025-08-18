@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-sm-setup.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= Bereitstellen und Konfigurieren der Red Hat OpenShift Container-Plattform auf AWS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Abschnitt wird ein allgemeiner Workflow zum Einrichten und Verwalten von OpenShift-Clustern in AWS und zum Bereitstellen von zustandsbehafteten Anwendungen darauf beschrieben.  Es zeigt die Verwendung von NetApp Cloud Volumes ONTAP Speicher mit Hilfe von Trident zur Bereitstellung persistenter Volumes.  Es werden Details zur Verwendung von Trident Protect zur Durchführung von Datenschutz- und Migrationsaktivitäten für die Stateful-Anwendungen bereitgestellt.
+
+
+NOTE: Es gibt mehrere Möglichkeiten, Red Hat OpenShift Container-Plattformcluster auf AWS bereitzustellen.  Diese allgemeine Beschreibung des Setups enthält Dokumentationslinks für die jeweils verwendete Methode.  Weitere Methoden finden Sie in den entsprechenden Links imlink:os-solutions-resources.html["Ressourcenbereich"] .
+
+Hier ist ein Diagramm, das die auf AWS bereitgestellten und über ein VPN mit dem Rechenzentrum verbundenen Cluster darstellt.
+
+image:rhhc-self-managed-aws.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+.Installieren Sie einen OCP-Cluster auf AWS über die erweiterte Clusterverwaltung.
+[%collapsible%open]
+====
+* Erstellen Sie eine VPC mit einer Site-to-Site-VPN-Verbindung (mit pfsense), um eine Verbindung zum lokalen Netzwerk herzustellen.
+* Das lokale Netzwerk verfügt über eine Internetverbindung.
+* Erstellen Sie 3 private Subnetze in 3 verschiedenen AZs.
+* Erstellen Sie eine privat gehostete Route 53-Zone und einen DNS-Resolver für die VPC.
+
+
+Erstellen Sie einen OpenShift-Cluster auf AWS mit dem Advanced Cluster Management (ACM)-Assistenten.  Siehe Anweisungenlink:https://docs.openshift.com/dedicated/osd_install_access_delete_cluster/creating-an-aws-cluster.html["hier,"] .
+
+
+NOTE: Sie können den Cluster in AWS auch über die OpenShift Hybrid Cloud-Konsole erstellen.  Verweisenlink:https://docs.openshift.com/container-platform/4.10/installing/installing_aws/installing-aws-default.html["hier,"] Anweisungen hierzu finden Sie unter.
+
+
+TIP: Wenn Sie den Cluster mit ACM erstellen, können Sie die Installation anpassen, indem Sie die YAML-Datei bearbeiten, nachdem Sie die Details in der Formularansicht eingegeben haben.  Nachdem der Cluster erstellt wurde, können Sie sich zur Fehlerbehebung oder für zusätzliche manuelle Konfigurationen per SSH bei den Knoten des Clusters anmelden.  Verwenden Sie zur Anmeldung den SSH-Schlüssel, den Sie während der Installation angegeben haben, und den Benutzernamen „core“.
+
+====
+.Stellen Sie Cloud Volumes ONTAP in AWS mit BlueXP bereit.
+[%collapsible%open]
+====
+* Installieren Sie den Connector in einer lokalen VMware-Umgebung.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-on-prem.html#install-the-connector["hier,"] .
+* Stellen Sie mithilfe des Connectors eine CVO-Instanz in AWS bereit.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-getting-started-aws.html["hier,"] .
+
+
+
+NOTE: Der Connector kann auch in der Cloud-Umgebung installiert werden.  Verweisenlink:https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["hier,"] für weitere Informationen.
+
+====
+.Installieren Sie Trident im OCP-Cluster
+[%collapsible%open]
+====
+* Stellen Sie Trident Operator mit Helm bereit.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html["hier,"]
+* Erstellen Sie ein Backend und eine Speicherklasse.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-use/backends.html["hier,"] .
+
+
+====
+.Verwenden der CSI-Topologiefunktion von Trident für Mehrzonenarchitekturen
+Cloud-Anbieter ermöglichen es Kubernetes/OpenShift-Clusteradministratoren heute, Knoten der Cluster zu erstellen, die zonenbasiert sind.  Knoten können sich in verschiedenen Verfügbarkeitszonen innerhalb einer Region oder über mehrere Regionen verteilt befinden.  Um die Bereitstellung von Volumes für Workloads in einer Multizonenarchitektur zu erleichtern, verwendet Trident die CSI-Topologie.  Mithilfe der CSI-Topologiefunktion kann der Zugriff auf Volumes basierend auf Regionen und Verfügbarkeitszonen auf eine Teilmenge von Knoten beschränkt werden.  Verweisenlink:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["hier,"] für weitere Einzelheiten.
+
+
+NOTE: Kubernetes unterstützt zwei Volume-Bindungsmodi: – Wenn **_VolumeBindingMode_ auf _Immediate_** (Standard) gesetzt ist, erstellt Trident das Volume ohne jegliche Topologieerkennung.  Persistente Volumes werden ohne Abhängigkeit von den Planungsanforderungen des anfordernden Pods erstellt.  – Wenn **_VolumeBindingMode_ auf _WaitForFirstConsumer_** gesetzt ist, wird die Erstellung und Bindung eines persistenten Volumes für ein PVC verzögert, bis ein Pod, der das PVC verwendet, geplant und erstellt wurde.  Auf diese Weise werden Volumes erstellt, die den Planungsbeschränkungen entsprechen, die durch die Topologieanforderungen erzwungen werden.  Trident -Speicher-Backends können so konzipiert werden, dass Volumes basierend auf Verfügbarkeitszonen selektiv bereitgestellt werden (topologiebewusstes Backend).  Für StorageClasses, die ein solches Backend verwenden, wird ein Volume nur erstellt, wenn es von einer Anwendung angefordert wird, die in einer unterstützten Region/Zone geplant ist.  (Topologiebewusste Speicherklasse) Siehelink:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["hier,"] für weitere Einzelheiten.

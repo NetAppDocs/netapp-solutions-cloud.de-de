@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-hybrid-compute-config.html 
+keywords: NetApp Solutions, amazon, vmc, aws, microsoft azure, avs, azure, google cloud, gcp, gcve, vmware managed cloud, enterprise, hybrid, cloud, config, configuration 
+summary:  
+---
+= Konfigurieren der Virtualisierungsumgebung beim Cloud-Anbieter
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Details zur Konfiguration der Virtualisierungsumgebung in jedem der unterstützten Hyperscaler werden hier behandelt.
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+In diesem Abschnitt wird beschrieben, wie Sie VMware Cloud on AWS SDDC einrichten und verwalten und es in Kombination mit den verfügbaren Optionen zum Verbinden von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP mit AWS VMC.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Bereitstellen und Konfigurieren von VMware Cloud für AWS
+* Verbinden Sie VMware Cloud mit FSx ONTAP
+
+
+Sehen Sie sich die detailliertelink:../vmware/vmw-aws-vmc-setup.html["Konfigurationsschritte für VMC"] .
+
+--
+.Azure / AVS
+--
+In diesem Abschnitt wird beschrieben, wie Sie Azure VMware Solution einrichten und verwalten und in Kombination mit den verfügbaren Optionen zum Anbinden von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP mit Azure VMware Solution.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Registrieren des Ressourcenanbieters und Erstellen einer privaten Cloud
+* Herstellen einer Verbindung mit einem neuen oder vorhandenen virtuellen ExpressRoute-Netzwerkgateway
+* Überprüfen Sie die Netzwerkkonnektivität und greifen Sie auf die private Cloud zu
+
+
+Sehen Sie sich die detailliertelink:azure-setup.html["Konfigurationsschritte für AVS"] .
+
+--
+.GCP / GCVE
+--
+In diesem Abschnitt wird beschrieben, wie Sie GCVE einrichten und verwalten und es in Kombination mit den verfügbaren Optionen zum Anschließen von NetApp -Speicher verwenden.
+
+
+NOTE: In-Guest-Speicher ist die einzige unterstützte Methode zum Verbinden von Cloud Volumes ONTAP und Google Cloud NetApp Volumes mit GCVE.
+
+Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
+
+* Bereitstellen und Konfigurieren von GCVE
+* Privaten Zugriff auf GCVE aktivieren
+
+
+Sehen Sie sich die detailliertelink:gcp-setup.html["Konfigurationsschritte für GCVE"] .
+
+--
+====

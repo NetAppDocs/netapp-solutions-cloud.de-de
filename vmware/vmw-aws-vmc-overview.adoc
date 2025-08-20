@@ -57,7 +57,7 @@ AWS unterstützt NetApp -Speicher in den folgenden Konfigurationen:
 * FSx ONTAP als ergänzender NFS-Datenspeicher
 
 
-Sehen Sie sich die detailliertelink:aws-guest.html["Gastverbindungs-Speicheroptionen für VMC"] .  Sehen Sie sich die detailliertelink:aws-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für VMC"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-aws-vmc-guest-storage.html["Gastverbindungs-Speicheroptionen für VMC"] . Sehen Sie sich die detailliertelink:../vmware/vmw-aws-vmc-nfs-ds-config.html["zusätzliche NFS-Datenspeicheroptionen für VMC"] .
 
 
 

@@ -41,7 +41,7 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 * Überprüfen Sie die Netzwerkkonnektivität und greifen Sie auf die private Cloud zu
 
 
-Sehen Sie sich die detailliertelink:azure-setup.html["Konfigurationsschritte für AVS"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-setup.html["Konfigurationsschritte für AVS"] .
 
 
 
@@ -58,7 +58,7 @@ Azure unterstützt NetApp -Speicher in den folgenden Konfigurationen:
 * Azure NetApp Files (ANF) als ergänzender NFS-Datenspeicher
 
 
-Sehen Sie sich die detailliertelink:azure-guest.html["Gastverbindungs-Speicheroptionen für AVS"] .  Sehen Sie sich die detailliertelink:azure-native-nfs-datastore-option.html["zusätzliche NFS-Datenspeicheroptionen für AVS"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-guest-storage.html["Gastverbindungs-Speicheroptionen für AVS"] . Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-nfs-ds-config.html["zusätzliche NFS-Datenspeicheroptionen für AVS"] .
 
 
 

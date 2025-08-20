@@ -36,9 +36,9 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 * Überprüfen Sie die Netzwerkkonnektivität und greifen Sie auf die private Cloud zu
 
 
-Sehen Sie sich die detailliertelink:azure-setup.html["Konfigurationsschritte für AVS"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-setup.html["Konfigurationsschritte für AVS"] .
 
-Sehen Sie sich die detailliertelink:azure-setup.html["Konfigurationsschritte für AVS"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-setup.html["Konfigurationsschritte für AVS"] .
 
 --
 .GCP / GCVE
@@ -54,9 +54,9 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 * Privaten Zugriff auf GCVE aktivieren
 
 
-Sehen Sie sich die detailliertelink:gcp-setup.html["Konfigurationsschritte für GCVE"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-gcp-gcve-setup.html["Konfigurationsschritte für GCVE"] .
 
-Sehen Sie sich die detailliertelink:gcp-setup.html["Konfigurationsschritte für GCVE"] .
+Sehen Sie sich die detailliertelink:../vmware/vmw-gcp-gcve-setup.html["Konfigurationsschritte für GCVE"] .
 
 --
 ====

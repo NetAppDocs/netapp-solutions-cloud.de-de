@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-restore-guest-files.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Dieser Abschnitt beschreibt die Schritte zur Wiederherstellung von Gastdateien und -ordnern, die durch das SnapCenter Plug-in für VMware geschützt sind. 
+---
+= Wiederherstellungsverfahren für Gastdateien und -ordner, die durch das SnapCenter Plug-in für VMware geschützt sind
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Im folgenden Abschnitt wird gezeigt, wie Gastdateien und -ordner aus VMDKs wiederhergestellt werden.
+
+
+NOTE: SnapCenter unterstützt die Wiederherstellung von Dateien und Ordnern aus VMDKs nur, wenn das Gastbetriebssystem Windows ist.
+
+Überlegungen zur Wiederherstellung von Gastdateien und -ordnern mit SCV:
+
+* VMware Tools müssen auf der VM ausgeführt werden.
+* Die beigefügte VMDK ist standardmäßig 24 Stunden lang zugänglich.
+* Es kann jeweils nur ein Restore- oder Attach-Vorgang an einer virtuellen Maschine durchgeführt werden.
+* Systemdateien, versteckte Dateien und verschlüsselte Dateien können wiederhergestellt werden; jedoch werden ihre ursprünglichen Eigenschaften nicht beibehalten.
+* Vermeiden Sie, verschlüsselte Dateien in verschlüsselte Ordner wiederherzustellen oder Systemdateien zu überschreiben.
+
+
+Schritte für die Wiederherstellung von Gastdateien und -ordnern:
+
+. Klicken Sie mit der rechten Maustaste auf die Ziel-VM und wählen Sie „NetApp SnapCenter > Guest File Restore“.
++
+image:evs-protect-fsxn-022.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie die Sicherung aus, die die benötigte VMDK enthält. Geben Sie die VMDK und ihren Speicherort (primär oder sekundär) an.
++
+image:evs-protect-fsxn-023.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie „Disk Attachment Method“.
++
+image:evs-protect-fsxn-024.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+** Gast-VM-Option: Die Festplatte an die ursprüngliche VM anhängen (erfordert vorkonfigurierte Anmeldeinformationen). Diese Option wird in dieser Demonstration verwendet.
+** Proxy VM Option: Die Festplatte wird an eine bestimmte Proxy-VM angehängt (muss im Voraus konfiguriert werden).
+
+
+. Warten Sie, bis der Einfügevorgang abgeschlossen ist, bevor Sie Dateien durchsuchen und wiederherstellen. Nach Abschluss des Vorgangs erstellt SnapCenter automatisch eine Gastdatei-Wiederherstellungssitzung. image:evs-protect-fsxn-025.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
++
+image:evs-protect-fsxn-026.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Navigieren Sie in der Guest File Restore-Sitzung zur VMDK, wählen Sie die erforderlichen Dateien oder Ordner aus und stellen Sie sie am angegebenen Speicherort wieder her.
+

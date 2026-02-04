@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-restore-vm.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: Dieser Abschnitt beschreibt die Schritte zur Wiederherstellung von VMs aus Backups. 
+---
+= Wiederherstellungsverfahren für VMs, die durch das SnapCenter Plug-in für VMware geschützt sind
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieser Abschnitt beschreibt die Schritte zur Wiederherstellung von VMs aus Backups. SCV kann verwendet werden, um VMs innerhalb von vCenter wiederherzustellen. Dadurch können sie auf dem ursprünglichen Datenspeicher des ursprünglichen ESXi-Hosts (wobei vorhandene Inhalte überschrieben werden), gelöschte oder umbenannte VMs aus einer Backup-Kopie, auf einem anderen Datenspeicher des ursprünglichen ESXi-Hosts, auf dem ursprünglichen Datenspeicher eines anderen vom selben vCenter verwalteten ESXi-Hosts oder auf einem anderen Datenspeicher eines anderen ESXi-Hosts innerhalb derselben vCenter-Umgebung wiederhergestellt werden.
+
+
+
+== Schritte zur Durchführung der Restore-Operation
+
+Um die Restore-Operation durchzuführen, befolgen Sie diese Schritte:
+
+. In der EVS vSphere Web-Client-GUI gehen Sie zu „Inventory > Datastores“ und wählen Sie den gewünschten Datastore aus. Navigieren Sie dann im Abschnitt „SnapCenter Plug-in for VMware vSphere“ zu „Configure > Backups“.
++
+image:evs-protect-fsxn-009.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Doppelklicken Sie auf eine Sicherung, um alle in dieser Sicherung enthaltenen VMs anzuzeigen. Suchen Sie die wiederherzustellende VM in der Liste und wählen Sie "Wiederherstellen".
++
+image:evs-protect-fsxn-010.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie auf der Seite „Bereich auswählen“ im Feld „Wiederherstellungsbereich“ die Option „Gesamte virtuelle Maschine“ aus, wählen Sie dann „Wiederherstellungsort“ aus und geben Sie die Ziel-ESXi-Informationen ein, unter denen das Backup eingebunden werden soll.
+. Aktivieren Sie das Kontrollkästchen „Restart VM“, wenn die VM nach dem Restore-Vorgang eingeschaltet werden muss.
+. Wählen Sie auf der "Select Location page" einen primären Standort aus.
++
+image:evs-protect-fsxn-011.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Überprüfen Sie die Seite „Summary“ und wählen Sie dann „Finish“.
++
+image:evs-protect-fsxn-012.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Überwachen Sie den Fortschritt des Vorgangs, indem Sie unten auf dem Bildschirm „Recent Tasks“ auswählen.
++
+image:evs-protect-fsxn-013.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+
+NOTE: Obwohl die VMs wiederhergestellt wurden, werden sie nicht automatisch ihren vorherigen Ressourcengruppen hinzugefügt. Wenn Sie diese VMs schützen möchten, fügen Sie sie manuell den entsprechenden Ressourcengruppen hinzu.
+
+
+NOTE: Der Restore-Vorgang kann auch auf Ebene einzelner VMs ausgelöst werden.
+
+
+
+== Schritte zur Wiederherstellung einer gelöschten VM
+
+Das Wiederherstellen einer gelöschten VM ist mit SCV ein einfacher Prozess.
+
+Die Wiederherstellung einer gelöschten VM kann auf Datenspeicherebene durchgeführt werden.
+
+. Gehen Sie zum jeweiligen Datastore > Configure > Backups. Wählen Sie dort die gelöschte VM aus und wählen Sie „Restore“.
++
+image:evs-protect-fsxn-014.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+image:evs-protect-fsxn-015.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Der nachfolgende Screenshot-Ablauf beschreibt die Wiederherstellung einer VM auf einen alternativen ESXi-Host und einen anderen Datenspeicher.
++
+image:evs-protect-fsxn-016.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+image:evs-protect-fsxn-017.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+image:evs-protect-fsxn-018.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+image:evs-protect-fsxn-019.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
++
+image:evs-protect-fsxn-020.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+
+NOTE: Der Zieldatenspeicher muss über ausreichend freien Speicherplatz verfügen und der im Feld „Wiederherstellung an alternativem Speicherort“ angegebene vCenter muss per DNS auflösbar sein.
+
+
+NOTE: Um die Wiederherstellungseffizienz in NFS-Umgebungen zu verbessern, aktivieren Sie die VMware vStorage API for Array Integration (VAAI).
+
+
+NOTE: Wiederherstellungen können auch von sekundären Standorten aus durchgeführt werden, wie zum Beispiel von einem SnapMirror Ziel.
+
++ image:evs-protect-fsxn-021.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]

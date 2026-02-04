@@ -16,7 +16,7 @@ summary: 'Ähnlich wie andere native Google Cloud-Dienste wie CloudSQL, Google C
 [role="lead"]
 Ähnlich wie andere native Google Cloud-Dienste wie CloudSQL, Google Cloud VMware Engine (GCVE) und FileStore verwendet Google Cloud NetApp Volumes https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["Google PSA"^] um den Dienst zu erbringen.  In PSA werden Dienste innerhalb eines Service-Producer-Projekts erstellt, das https://cloud.google.com/vpc/docs/vpc-peering?hl=en_US["VPC-Netzwerk-Peering"^] um eine Verbindung zum Service-Consumer herzustellen.  Der Service-Produzent wird von NetApp bereitgestellt und betrieben, und der Service-Consumer ist ein VPC in einem Kundenprojekt, das die Clients hostet, die auf die Dateifreigaben von Google Cloud NetApp Volumes zugreifen möchten.
 
-Die folgende Abbildung, referenziert aus dem https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture?hl=en_US["Architekturabteilung"^] der Google Cloud NetApp Volumes -Dokumentation zeigt eine Übersicht.
+Die folgende Abbildung, entnommen aus der  https://docs.cloud.google.com/netapp/volumes/docs["Google Cloud NetApp Volumes-Dokumentation"^], zeigt eine Übersicht auf hoher Ebene.
 
 image:ncvs-gc-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 

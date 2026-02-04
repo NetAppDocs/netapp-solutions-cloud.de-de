@@ -1,0 +1,143 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-db.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: 'Dieser Abschnitt beschreibt die Schritte zum Schutz von Datenbanken, die auf VMware VMDKs mit SnapCenter für SQL (SCSQL) ausgeführt werden.' 
+---
+= Schutzverfahren für Datenbanken, die auf VMware VMDKs mit SnapCenter for SQL (SCSQL) ausgeführt werden
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Im folgenden Abschnitt wird gezeigt, wie Sie Datenbanken, die auf VMware VMDKs laufen, mit SnapCenter für SQL (SCSQL) schützen.
+
+
+
+== SCSQL einrichten
+
+Die Einrichtung für die Verwendung von SCSQL zum Schutz von Datenbanken auf VMDKs ist wie folgt:
+
+. link:https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["Installieren und konfigurieren"] SnapCenter Server.
+. Melden Sie sich bei SnapCenter an.
+. Konfigurieren Sie die SnapCenter Umgebung:
++
+** link:https://docs.netapp.com/us-en/snapcenter/install/task_add_storage_systems.html["Hinzufügen oder zuweisen"] Anschlüsse des Speichersystems.
+** link:https://docs.netapp.com/us-en/snapcenter/install/concept_svm_connections_and_credentials.html["Erstellen"]Zugangsdaten.
+
+
+. Für Microsoft SQL Server-Datenbanken auf VMware VMDKs:
++
+** link:https://docs.netapp.com/us-en/snapcenter/install/concept_svm_connections_and_credentials.html["SCV bereitstellen"] (bereits im Abschnitt „Einrichtung“ behandelt).
+** Registrieren Sie das Plug-in bei SnapCenter.
+
+
+. Fügen Sie link:https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_add_hosts_and_install_snapcenter_plug_ins_package_for_windows.html["SQL Server Hosts und Plug-ins installieren"] hinzu:
++
+** link:https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_add_hosts_and_install_snapcenter_plug_ins_package_for_windows.html["Konfigurieren Sie die SQL-Plug-ins"].
+** link:https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["Konfigurieren Sie den Schutzplan und die Zeitpläne für Datenbank und Protokolle"].
++
+image:evs-protect-fsxn-027.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+
+
+
+
+== Einrichten einer Backup-Richtlinie
+
+Die folgenden Schritte zeigen, wie Sie eine Backup-Richtlinie einrichten.
+
+. Wählen Sie die Datenbank auf der Registerkarte „Ressourcen“ aus und wählen Sie „Schützen“ in der oberen rechten Ecke.
++
+
+NOTE: Validierungen werden an einer SQL Server Datenbank durchgeführt, die auf der Gast-VM läuft.
+
++
+image:evs-protect-fsxn-028.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Klicken Sie auf das Pluszeichen-Symbol, um eine SQL Server-Backup-Richtlinie zu konfigurieren.
++
+image:evs-protect-fsxn-029.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. In dieser Demo ist „Full backup“ ausgewählt. Wählen Sie „Next“, um fortzufahren.
++
+image:evs-protect-fsxn-030.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie auf der Zusammenfassungsseite „Fertigstellen“.
++
+image:evs-protect-fsxn-031.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Fahren Sie mit "Finish" fort.
++
+image:evs-protect-fsxn-032.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+
+
+== Überwachung eines Backups
+
+Sobald Sie eine Backup-Richtlinie eingerichtet haben, können Sie Ihre Backup-Vorgänge überwachen, während sie stattfinden. Sie können dies entweder tun, indem Sie auf Backup now klicken, um eine On-Demand-Backup-Operation auszulösen, oder indem Sie warten, bis Ihre geplante Backup-Richtlinie aktiviert wird.
+
+. Überwachen Sie den Fortschritt des Jobs mit „Monitor > Jobs“.
+. Wählen Sie den Sicherungsauftrag aus und klicken Sie dann auf „Details“, um die Auftragsdetails wie unten anzuzeigen.
++
+image:evs-protect-fsxn-033.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+
+
+== Wiederherstellung von Datenbanken, die sich auf den VMDKs befinden
+
+Die Datenbank auf der VMDK kann zu einem bestimmten Zeitpunkt wiederhergestellt werden.
+
+Wir können die Bedeutung dessen simulieren, indem wir einige Tabellen in Ihrer Datenbank löschen, was dann durch einen zeitpunktgenauen Restore korrigiert wird.
+
+Im Folgenden sehen Sie, dass mehrere Tabellen aus unserer Datenbank, die im ersten Screenshot angezeigt wurden, im zweiten Screenshot gelöscht wurden:
+
+image:evs-protect-fsxn-034.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+image:evs-protect-fsxn-035.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+Die folgenden Schritte zeigen, wie eine Wiederherstellung durchgeführt wird, um diese gelöschten Tabellen wiederherzustellen:
+
+. Wählen Sie die Datenbank aus der Ressourcengruppe.
++
+image:evs-protect-fsxn-036.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie auf der Seite „Wiederherstellen“ die Option „Die Datenbank auf demselben Host wiederherstellen, auf dem das Backup erstellt wurde“.
++
+image:evs-protect-fsxn-037.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie die Option, ein Log-Backup zu einem bestimmten Zeitpunkt zu verwenden.
++
+image:evs-protect-fsxn-038.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie „Datenbank mit gleichem Namen während der Wiederherstellung überschreiben, Transaktionsprotokollsicherung vor der Wiederherstellung erstellen“ und wählen Sie „Weiter“.
++
+image:evs-protect-fsxn-039.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie den Zustand aus, den die Datenbank nach der Wiederherstellung annehmen soll, aus den Listenoptionen aus und wählen Sie „Weiter“.
++
+image:evs-protect-fsxn-040.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wählen Sie auf der Zusammenfassungsseite „Finish“.
++
+image:evs-protect-fsxn-041.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Überwachen Sie den Job bis zum Abschluss.
++
+image:evs-protect-fsxn-042.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Überprüfen Sie, ob die gelöschten Tabellen erfolgreich wiederhergestellt wurden.
++
+image:evs-protect-fsxn-043.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+

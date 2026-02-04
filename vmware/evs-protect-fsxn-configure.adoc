@@ -1,0 +1,120 @@
+---
+sidebar: sidebar 
+permalink: vmware/evs-protect-fsxn-configure.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, iscsi 
+summary: In diesem Abschnitt werden die Schritte zur Einrichtung des SnapCenter Plug-in für VMware beschrieben. 
+---
+= Konfigurationsverfahren für das SnapCenter Plug-in für VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieser Abschnitt beschreibt die Schritte zur Konfiguration des SnapCenter Plug-in für VMware. Die folgenden Abschnitte erläutern, wie Speicher hinzugefügt, eine Sicherungsrichtlinie erstellt und Ressourcengruppen erstellt werden.
+
+
+
+== Hinzufügen des Speichersystems
+
+Der nächste Schritt zum Schutz von Workloads mit Switched Virtual Connection ist das Hinzufügen von link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage_01.html["Speichersystem"]. Durch das Hinzufügen von Speicher kann SCV Sicherungs- und Wiederherstellungsvorgänge innerhalb von vCenter erkennen und verwalten. Fügen Sie den FSx for NetApp ONTAP Management-Endpunkt oder die IP-Adresse des Verwaltungsendpunkts der Storage Virtual Machine (SVM) als Speichersystem hinzu, um die Sicherung und Wiederherstellung von VMs zu aktivieren.
+
+. Wählen Sie im linken Navigationsmenü des EVS vCenter die Option „SnapCenter Plug-in for VMware“.
+. Wählen Sie „Storage System“.
+. Wählen Sie „Add“, um die FSx for ONTAP Details hinzuzufügen.
+. Verwenden Sie die Methode „Credentials as the Authentication“ und geben Sie FSxadmin als Benutzernamen und Passwort ein. Wählen Sie dann „Add“, um die Einstellungen zu speichern.
+
+
+image:evs-protect-fsxn-002.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+NOTE: Alle SVMs werden automatisch hinzugefügt, wenn das Dateisystem hinzugefügt wird.
+
+Wenn die SCV-Version 6.2 ist, gehen Sie zu link:https://mysupport.netapp.com/site/products/all/details/scv/downloads-tab["die SCV Support-Seite"] und laden Sie die SCV 6.2P1-Version herunter.
+
+
+
+== Erstellen Sie eine Sicherungsrichtlinie
+
+Eine robuste Backup-Strategie sollte Schlüsselfaktoren wie den Backup-Zeitplan, die zu sichernden Daten und die Aufbewahrungsdauer der Backups definieren. Snapshot-Kopien können stündlich oder täglich geplant werden, um ganze Datastores zu schützen. Durch diese Art der Backup-Planung werden nicht nur die Datastores gesichert, sondern auch Backup- und Wiederherstellungsvorgänge für die darin enthaltenen VMs und VMDKs unterstützt.
+
+Bevor Sie Backups für VMs und Datenspeicher starten, erstellen Sie eine link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_backup_policies_for_vms_and_datastores.html["Sicherungsrichtlinie"] und eine Ressourcengruppe. Die Backup-Richtlinie legt Parameter wie den Backup-Zeitplan und die Aufbewahrungseinstellungen fest.
+
+Hier sind die Schritte zum Erstellen einer Backup-Richtlinie:
+
+. Gehen Sie im Navigationsbereich auf der linken Seite in SCV und wählen Sie „Richtlinien“.
+. Wählen Sie auf der Seite „Policies“ die Option „Create“, um den Assistenten zu starten.
+. Geben Sie auf der Seite „New Backup Policy“ einen Namen für die Richtlinie ein.
+. Geben Sie die Aufbewahrungsfrist, die Sicherungshäufigkeit und die Replikationseinstellungen an.
+. Aktivieren Sie das Kontrollkästchen „Sperrzeitraum“, um die Snapshot-Sperre zu aktivieren. Sie können die primären und sekundären Snapshot-Sperrzeiträume als Tage/Monate/Jahre auswählen.
+
+
+
+NOTE: Ungeachtet des in der SnapMirror-Richtlinie definierten Aufbewahrungswerts bleibt die sekundäre Snapshot-Kopie so lange intakt, bis die angegebene Sperrfrist für den sekundären Snapshot abläuft.
+
+image:evs-protect-fsxn-003.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+NOTE: Um VM-konsistente Backups zu aktivieren, müssen die VMware tools installiert und ausgeführt werden. Wenn das VM-Konsistenz-Kästchen aktiviert ist, werden die VMs zunächst in den Ruhezustand versetzt, dann erstellt VMware einen VM-konsistenten Snapshot (ohne Arbeitsspeicher), anschließend führt SCV die Backup-Operation durch und danach wird der VM-Betrieb fortgesetzt.
+
+
+NOTE: Um Snapshot-Kopien auf ein sekundäres Spiegel- oder Vault-Dateisystem zu replizieren, müssen die Beziehungen vorher konfiguriert werden.
+
+image:evs-protect-fsxn-004.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+Sobald die Richtlinie erstellt ist, besteht der nächste Schritt darin, die Ressourcengruppe zu erstellen, die die entsprechenden NFS- oder iSCSI-Datastores und VMs definiert, die gesichert werden sollen.
+
+
+
+== Erstellen Sie eine Ressourcengruppe
+
+Eine Ressourcengruppe dient als Container für VMs und Datenspeicher, die Schutz benötigen. Ressourcen können jederzeit zu oder aus einer Ressourcengruppe hinzugefügt oder entfernt werden, was Flexibilität bei der Verwaltung von Sicherungskonfigurationen bietet.
+
+Sie können ein link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups_for_vms_and_datastores.html["Ressourcengruppe"] mit den folgenden Schritten erstellen:
+
+. Gehen Sie im Navigationsbereich auf der linken Seite in SCV zu „Ressourcengruppen“.
+. Wählen Sie auf der Seite Ressourcengruppen „Erstellen“, um den Assistenten zur Erstellung von Ressourcengruppen zu starten.
++
+
+NOTE: Eine weitere Option zum Erstellen von Ressourcengruppen besteht darin, eine einzelne VM oder einen Datenspeicher auszuwählen und eine Ressourcengruppe zu erstellen, die nur diese Ressource enthält.
+
+. Wählen Sie auf der Seite „Resources“ den Scope (VMs oder Datastores) und das Data Center aus.
+. Wählen Sie auf der Seite „Spanning disks“ die Option „Virtual Machines with multiple VMDKs across multiple datastores“.
+. Als Nächstes ordnen Sie eine Sicherungsrichtlinie zu. Wählen Sie eine vorhandene Richtlinie aus oder erstellen Sie eine neue Sicherungsrichtlinie.
+. Konfigurieren Sie auf der "Zeitpläne"-Seite den Sicherungszeitplan für jede ausgewählte Richtlinie.
+. Sobald Sie die entsprechenden Auswahlen getroffen haben, wählen Sie „Fertigstellen“. Dadurch wird eine neue Ressourcengruppe erstellt und der Ressourcengruppe hinzugefügt.
+
+
+image:evs-protect-fsxn-005.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+
+
+== Backup von Ressourcengruppen
+
+Sicherungsvorgänge werden für alle Ressourcen innerhalb einer Ressourcengruppe ausgeführt. Wenn einer Ressourcengruppe eine Richtlinie zugewiesen und ein Zeitplan konfiguriert ist, werden Sicherungen automatisch gemäß dem Zeitplan durchgeführt.
+
+. Wählen Sie in der linken Navigation der vCenter Webclient-Seite „SnapCenter Plug-in for VMware“ und dann „Resource Groups“ aus.
+. Suchen Sie auf der Seite Ressourcengruppen die gewünschte Ressourcengruppe und wählen Sie „Jetzt ausführen“, um das manuelle Backup zu starten.
++
+image:evs-protect-fsxn-006.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+. Wenn für die Ressourcengruppe mehrere Richtlinien konfiguriert sind, wählen Sie die Richtlinie für den Sicherungsvorgang im Dialogfeld „Jetzt sichern“ aus.
+. Wählen Sie „OK“, um die Sicherung zu starten.
+
+
+image:evs-protect-fsxn-007.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]
+
+Überwachen Sie den Fortschritt des Vorgangs, indem Sie unten im Fenster „Recent Tasks“ auswählen oder, für weitere Details, im Dashboard „Job Monitor“ auswählen.
+
+
+NOTE: Der Prozess zum Erstellen von Sicherungsrichtlinien, Konfigurieren von Ressourcengruppen und Durchführen von Sicherungsvorgängen ist bei verschiedenen Speicherprotokollen, einschließlich NFS und iSCSI, konsistent.
+
+
+NOTE: Backups werden gemäß dem in der Richtlinie definierten Zeitplan durchgeführt.
+
+Nach Abschluss der Sicherung kann sie auf Datenspeicherebene oder für einzelne VMs angezeigt werden, indem „SnapCenter Plug-in for VMware vSphere“ in der Dropdown-Liste ausgewählt und anschließend „Wiederherstellen“ gewählt wird.
+
+image:evs-protect-fsxn-008.png["Abbildung, die den Dialog für den obigen Schritt darstellt"]

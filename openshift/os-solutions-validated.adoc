@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: openshift/os-solutions-validated.html 
-keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
 summary:  
 ---
 = Unterstützte Lösungen von NetApp Hybrid Multicloud für Red Hat OpenShift Container-Workloads
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-Die Lösung testet und validiert Migration und zentralisierten Datenschutz mit der OpenShift-Containerplattform (OCP), OpenShift Advanced Cluster Manager (ACM), NetApp ONTAP, NetApp BlueXP und NetApp Trident Protect (ACC).
+Die Lösung testet und validiert Migration & Centralized Data Protection mit OpenShift Container Platform (OCP), OpenShift Advanced Cluster Manager (ACM), NetApp ONTAP, NetApp BlueXP und NetApp Trident Protect.
 
 Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validiert.  Die Lösung ist basierend auf den folgenden Merkmalen in mehrere Szenarien unterteilt:
 
@@ -35,8 +35,7 @@ Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validi
 
 **Vor Ort: selbstverwaltete OpenShift-Cluster und selbstverwalteter NetApp Speicher**
 
-* Erstellen Sie mit ACC Snapshot-Kopien, Backups und Wiederherstellungen zum Schutz Ihrer Daten.
-* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+* Verwenden Sie Trident Protect, um Anwendungen zu schützen und die Migration zwischen den On-Premises-Clustern zu unterstützen.
 
 
 
@@ -51,8 +50,7 @@ image:rhhc-on-premises.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher**
 
-* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
-* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+* Nutzen Sie Trident Protect, um Anwendungen zu schützen und die Migration zwischen den lokalen Clustern und den selbstverwalteten OpenShift Clustern in AWS zu unterstützen.
 
 
 
@@ -83,8 +81,7 @@ image:rhhc-rosa-with-fsxn.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Google Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **
 
-* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
-* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+* Nutzen Sie Trident Protect, um Anwendungen zu schützen und die Migration zwischen lokalen und Google Cloud OpenShift Clustern zu unterstützen.
 
 
 image:rhhc-self-managed-gcp.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
@@ -97,8 +94,7 @@ Hinweise zur Verwendung von ONTAP in einer MetroCluster -Konfiguration finden Si
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Azure Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **
 
-* Führen Sie mit ACC Sicherungen und Wiederherstellungen zum Schutz Ihrer Daten durch.
-* Führen Sie mit ACC eine SnapMirror -Replikation von Containeranwendungen durch.
+* Nutzen Sie Trident Protect, um Anwendungen zu schützen und die Migration zwischen lokalen Systemen und OpenShift Clustern in Azure zu unterstützen.
 
 
 image:rhhc-self-managed-azure.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]

@@ -27,8 +27,6 @@ entries:
     url: "/openshift/os-op-setup.html"
   - title: Schützen Sie Container-Workloads auf VMware
     url: "/openshift/os-op-data-protection.html"
-  - title: Migrieren Sie Container-Workloads auf VMware
-    url: "/openshift/os-op-data-migration.html"
 - title: Hybrid Cloud mit selbstverwalteten Komponenten
   pdf-filename: Hybrid Cloud mit selbstverwalteten Red Hat OpenShift-Komponenten (vor
     Ort/AWS/GCP/Azure)
@@ -43,8 +41,6 @@ entries:
     url: "/openshift/os-sm-azure-setup.html"
   - title: Schützen Sie Container-Workloads auf AWS/GCP/Azure
     url: "/openshift/os-sm-data-protection.html"
-  - title: Migrieren Sie Container-Workloads zu AWS/GCP/Azure
-    url: "/openshift/os-sm-data-migration.html"
 - title: Hybrid Cloud mit vom Anbieter verwalteten Komponenten
   pdf-filename: Hybrid Cloud mit vom Red Hat OpenShift-Anbieter verwalteten Komponenten
   entries:
@@ -56,8 +52,6 @@ entries:
     url: "/openshift/os-pm-gcnv-setup.html"
   - title: Schützen Sie Container-Workloads auf AWS
     url: "/openshift/os-pm-aws-dp.html"
-  - title: Migrieren Sie Container-Workloads auf AWS
-    url: "/openshift/os-pm-aws-data-migration.html"
   - title: Weitere ROSA-Lösungen für Container und Virtualisierung
     url: "/openshift/os-pm-rosa-additional.html"
 - title: Schützen Sie Daten mit Trident Protect

@@ -16,7 +16,7 @@ summary:
 [role="lead"]
 Kunden sind möglicherweise an einem Punkt ihrer Modernisierungsreise, an dem sie bereit sind, einige ausgewählte oder alle Workloads aus ihren Rechenzentren in die Cloud zu verschieben.  Sie können sich aus verschiedenen Gründen für die Verwendung selbstverwalteter OpenShift-Container und selbstverwalteter NetApp Speicher in der Cloud entscheiden.  Sie sollten die Red Hat OpenShift-Containerplattform (OCP) in der Cloud planen und bereitstellen, um eine erfolgreiche produktionsbereite Umgebung für die Migration ihrer Container-Workloads aus ihren Rechenzentren zu schaffen.  Ihre OCP-Cluster können in ihren Rechenzentren auf VMware oder Bare Metal und in der Cloud-Umgebung auf AWS, Azure oder Google Cloud bereitgestellt werden.
 
-NetApp Cloud Volumes ONTAP Speicher bietet Datenschutz, Zuverlässigkeit und Flexibilität für Containerbereitstellungen in AWS, Azure und in der Google Cloud.  Trident dient als dynamischer Speicherbereitsteller, um den persistenten Cloud Volumes ONTAP Speicher für zustandsbehaftete Anwendungen der Kunden zu nutzen.  Trident Protect kann für die Datenverwaltungsanforderungen von Stateful-Anwendungen wie Datenschutz, Migration und Geschäftskontinuität verwendet werden.
+NetApp Cloud Volumes ONTAP storage bietet Datenschutz, Zuverlässigkeit und Flexibilität für Container-Bereitstellungen in AWS, Azure und Google Cloud. Trident dient als der dynamische Speicherbereitsteller, um den persistenten Cloud Volumes ONTAP storage für zustandsbehaftete Anwendungen der Kunden zu nutzen. Trident Protect kann für die Datenverwaltungsanforderungen zustandsbehafteter Anwendungen wie Datenschutz, Migration und Geschäftskontinuität verwendet werden.
 
 
 

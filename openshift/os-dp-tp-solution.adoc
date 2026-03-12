@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: openshift/os-dp-tp-solution.html 
-keywords: OpenShift, OCP, Trident, Trident-protect, NetApp ONTAP, Red Hat OpenShift, app data protection, Containers 
+keywords: OpenShift, OCP, Trident, Trident Protect, NetApp ONTAP, Red Hat OpenShift, app data protection, Containers 
 summary: Red Hat OpenShift Container Application Data Protection mit Trident Protect mit NetApp ONTAP 
 ---
-= Datenschutz für Container-Apps in der OpenShift Container Platform mit Trident Protect
+= Datenschutz für Container-Apps in OpenShift Container Platform mit Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,35 +14,35 @@ summary: Red Hat OpenShift Container Application Data Protection mit Trident Pro
 
 
 [role="lead"]
-Dieser Abschnitt des Referenzdokuments enthält Details zum Erstellen von Snapshots und Backups von Container-Apps mit Trident Protect.  NetApp Trident Protect bietet erweiterte Funktionen zur Anwendungsdatenverwaltung, die die Funktionalität und Verfügbarkeit von Stateful-Kubernetes-Anwendungen verbessern, die von NetApp ONTAP Speichersystemen und dem NetApp Trident CSI-Speicherbereitsteller unterstützt werden.  Trident Protect erstellt Anwendungs-Snapshots und -Backups. Dies bedeutet, dass nicht nur Snapshots und Backups von Anwendungsdaten in persistenten Volumes erstellt werden, sondern auch Snapshots und Backups von Anwendungsmetadaten.  Die von Trident Protect erstellten Snapshots und Backups können in jedem der folgenden Objektspeicher gespeichert und zu einem späteren Zeitpunkt von dort wiederhergestellt werden.
+Dieser Abschnitt des Referenzdokuments bietet Details zur Erstellung von Snapshots und Backups von Container Apps mit Trident Protect. NetApp Trident Protect bietet erweiterte Funktionen für das Management von Anwendungsdaten, die die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Anwendungen verbessern, die durch NetApp ONTAP-Speichersysteme und den NetApp Trident CSI Storage Provisioner unterstützt werden. Trident Protect erstellt Anwendungssnapshots und Backups. Das bedeutet, dass Snapshots und Backups nicht nur für Anwendungsdaten in persistenten Volumes, sondern auch für Anwendungsmetadaten erstellt werden. Die von Trident Protect erstellten Snapshots und Backups können in einem der folgenden Objektspeicher gespeichert und zu einem späteren Zeitpunkt daraus wiederhergestellt werden.
 
 * AWS S3
 * Azure Blob-Speicher
 * Google Cloud-Speicher
-* Ontap S3
+* ONTAP S3
 * StorageGrid
-* jeder andere S3-kompatible Speicher
+* Jeder andere S3-kompatible Speicher
 
 
-Trident Protect verwendet das Kubernetes-Modell der rollenbasierten Zugriffskontrolle (RBAC).  Standardmäßig stellt Trident Protect einen einzelnen Systemnamespace namens „Trident-Protect“ und das zugehörige Standarddienstkonto bereit.  Wenn Ihre Organisation viele Benutzer oder spezielle Sicherheitsanforderungen hat, können Sie die RBAC-Funktionen von Trident Protect nutzen, um eine genauere Kontrolle über den Zugriff auf Ressourcen und Namespaces zu erhalten.
+Trident Protect nutzt das Kubernetes-Modell der rollenbasierten Zugriffssteuerung (RBAC). Standardmäßig stellt Trident Protect einen einzelnen System-Namespace namens trident-protect und das zugehörige Standard-Dienstkonto bereit. Wenn Sie eine Organisation mit vielen Benutzern oder spezifischen Sicherheitsanforderungen haben, können Sie die RBAC-Funktionen von Trident Protect nutzen, um den Zugriff auf Ressourcen und Namespaces detaillierter zu steuern.
 
-Weitere Informationen zu RBAC in Trident Protect finden Sie imlink:https://docs.netapp.com/us-en/trident/trident-protect/manage-authorization-access-control.html["Trident Protect-Dokumentation"]
+Weitere Informationen zu RBAC in Trident Protect finden Sie im link:https://docs.netapp.com/us-en/trident/trident-protect/manage-authorization-access-control.html["Trident Protect Dokumentation"]
 
 
 NOTE: Der Clusteradministrator hat Zugriff auf Ressourcen im Standard-Trident-Protect-Namespace und kann auch auf Ressourcen in allen anderen Namespaces zugreifen.  Benutzer können im Trident-Protect-Namespace keine benutzerdefinierten Ressourcen (CRs) für die Anwendungsdatenverwaltung wie Snapshot- und Backup-CRs erstellen.  Als bewährte Methode müssen Benutzer diese CRs im Anwendungsnamespace erstellen.
 
-Trident Protect kann gemäß den Anweisungen in der Dokumentation installiert werdenlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-installation.html["hier,"] In diesem Abschnitt wird der Workflow für den Datenschutz von Containeranwendungen und die Wiederherstellung der Anwendungen mit Trident Protect gezeigt. 1.  Snapshot-Erstellung (auf Anfrage und nach Zeitplan) 2.  Wiederherstellen aus Snapshot (Wiederherstellung im gleichen und anderen Namespace) 3.  Backup-Erstellung 4.  Wiederherstellen aus einer Sicherung
+Trident Protect kann mithilfe der in der Dokumentation bereitgestellten Anweisungen installiert werden link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-installation.html["hier,"]. In diesem Abschnitt wird der Workflow für den Datenschutz von Containeranwendungen und die Wiederherstellung der Anwendungen mit Trident Protect gezeigt. 1. Snapshot-Erstellung (auf Anforderung oder geplant) 2. Wiederherstellung aus Snapshot (Wiederherstellung im selben oder in einem anderen Namespace) 3. Backup-Erstellung 4. Wiederherstellung aus Backup
 
 .Voraussetzung
 [%collapsible%open]
 ====
-Bevor die Snapshots und Backups für eine Anwendung erstellt werden, muss in Trident Protect ein Objektspeicher konfiguriert werden, um die Snapshots und Backups zu speichern.  Dies geschieht mithilfe des Bucket CR.  Nur Administratoren können einen Bucket CR erstellen und konfigurieren.  Der Bucket CR ist in Trident Protect als AppVault bekannt.  AppVault-Objekte sind die deklarative Kubernetes-Workflow-Darstellung eines Speicher-Buckets.  Ein AppVault CR enthält die Konfigurationen, die für die Verwendung eines Buckets in Schutzvorgängen wie Backups, Snapshots, Wiederherstellungsvorgängen und SnapMirror Replikation erforderlich sind.
+Vor dem Erstellen der Snapshots und Backups für eine Anwendung muss der Objektspeicher in Trident Protect konfiguriert werden, um die Snapshots und Backups zu speichern. Dies geschieht mithilfe des Bucket-CR. Nur Administratoren können einen Bucket-CR erstellen und konfigurieren. Der Bucket-CR ist in Trident Protect als AppVault bekannt. AppVault-Objekte sind die deklarative Kubernetes-Workflow-Repräsentation eines Speicher-Buckets. Ein AppVault-CR enthält die Konfigurationen, die erforderlich sind, damit ein Bucket in Schutzvorgängen wie Backups, Snapshots, Wiederherstellungsvorgängen und SnapMirror-Replikation verwendet werden kann.
 
-In diesem Beispiel zeigen wir die Verwendung von ONTAP S3 als Objektspeicher.  Hier ist der Workflow zum Erstellen von AppVault CR für ONTAP S3: 1.  Erstellen Sie einen S3-Objektspeicherserver in der SVM im ONTAP -Cluster. 2.  Erstellen Sie einen Bucket im Object Store Server. 3.  Erstellen Sie einen S3-Benutzer in der SVM.  Bewahren Sie den Zugangsschlüssel und den geheimen Schlüssel an einem sicheren Ort auf. 4.  Erstellen Sie in OpenShift ein Geheimnis zum Speichern der ONTAP S3-Anmeldeinformationen. 5.  Erstellen eines AppVault-Objekts für ONTAP S3
+In diesem Beispiel zeigen wir die Verwendung von ONTAP S3 als Objektspeicher. Hier ist der Workflow zum Erstellen von AppVault CR für ONTAP S3: 1. Erstellen Sie einen S3-Objektspeicherserver in der SVM im ONTAP-Cluster. 2. Erstellen Sie einen Bucket im Objektspeicherserver. 3. Erstellen Sie einen S3-Benutzer in der SVM. Bewahren Sie den Zugriffsschlüssel und den geheimen Schlüssel an einem sicheren Ort auf. 4. Erstellen Sie in OpenShift ein Secret, um die ONTAP S3-Anmeldeinformationen zu speichern. 5. Erstellen Sie ein AppVault-Objekt für ONTAP S3
 
-**Konfigurieren Sie Trident Protect AppVault für ONTAP S3**
+**Trident Protect AppVault für ONTAP S3 konfigurieren**
 
-***Beispiel-YAML-Datei zum Konfigurieren von Trident Protect mit ONTAP S3 als AppVault***
+***Beispiel-YAML-Datei zur Konfiguration von Trident Protect mit ONTAP S3 als AppVault***
 
 [source, yaml]
 ----
@@ -168,7 +168,7 @@ spec:
     targetPort: 5432
   type: ClusterIP
 
-Now create the Trident protect application CR for the postgres app. Include the objects in the namespace postgres and create it in the postgres namespace.
+Now create the Trident Protect application CR for the postgres app. Include the objects in the namespace postgres and create it in the postgres namespace.
 # tp create app postgres-app --namespaces postgres -n postgres
 
 ----
@@ -327,7 +327,7 @@ image:rhhc-dp-tp-solution-container-017.png["Wiederherstellung in einem anderen 
 .Migrieren von Anwendungen
 [%collapsible%open]
 ====
-Um eine Anwendung auf einen anderen Cluster zu klonen oder zu migrieren (durchführen eines Cluster-übergreifenden Klons), erstellen Sie eine Sicherung auf dem Quellcluster und stellen Sie die Sicherung dann auf einem anderen Cluster wieder her.  Stellen Sie sicher, dass Trident Protect auf dem Zielcluster installiert ist.
+Um eine Anwendung auf einen anderen Cluster zu klonen oder zu migrieren (führen Sie einen clusterübergreifenden Klon durch), erstellen Sie eine Sicherung auf dem Quell-Cluster und stellen Sie die Sicherung anschließend auf einem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Ziel-Cluster installiert ist.
 
 Führen Sie im Quellcluster die im folgenden Bild gezeigten Schritte aus:
 

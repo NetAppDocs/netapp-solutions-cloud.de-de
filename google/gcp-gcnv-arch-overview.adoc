@@ -20,12 +20,14 @@ Die allgemeine Architektur von Google Cloud NetApp Volumes kann in zwei Hauptkom
 
 
 
+[[control-plane]]
 == Steuerebene
 
 Die Steuerebene in Google Cloud NetApp Volumes ist die Backend-Infrastruktur, die von Google Cloud NetApp Volumes Administratoren und der nativen Automatisierungssoftware von NetApp verwaltet wird.  Diese Ebene ist für Endbenutzer völlig transparent und umfasst Netzwerk-, Speicherhardware- und Softwareupdates usw., um den Mehrwert einer Cloud-basierten Lösung wie Google Cloud NetApp Volumes zu steigern.
 
 
 
+[[data-plane]]
 == Datenebene
 
 Die Datenebene in Google Cloud NetApp Volumes umfasst die eigentlichen Datenvolumes und die gesamte Google Cloud NetApp Volumes -Konfiguration (wie Zugriffskontrolle, Kerberos-Authentifizierung usw.).  Die Datenebene unterliegt vollständig der Kontrolle der Endbenutzer und Verbraucher der Google Cloud NetApp Volumes -Plattform.

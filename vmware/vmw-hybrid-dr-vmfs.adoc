@@ -24,6 +24,7 @@ image:dr-draas-vmfs-030.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt o
 
 
 
+[[getting-started]]
 == Erste Schritte
 
 Um mit der BlueXP disaster recovery zu beginnen, verwenden Sie die BlueXP -Konsole und greifen Sie dann auf den Dienst zu.
@@ -56,6 +57,7 @@ NOTE: Die Unterstützung für lokale VMFS-Datenspeicher befindet sich beim Schre
 
 
 
+[[bluexp-disaster-recovery-configuration]]
 == BlueXP disaster recovery
 
 Der erste Schritt bei der Vorbereitung der Notfallwiederherstellung besteht darin, die lokalen vCenter- und Speicherressourcen zu ermitteln und zur BlueXP disaster recovery hinzuzufügen.
@@ -81,6 +83,7 @@ Sobald die vCenter hinzugefügt wurden, wird die automatische Erkennung ausgelö
 
 
 
+[[configuring-storage-replication-between-source-and-destination-site]]
 == Konfigurieren der Speicherreplikation zwischen Quell- und Zielstandort
 
 SnapMirror nutzt ONTAP -Snapshots, um die Datenübertragung von einem Ort zum anderen zu verwalten.  Zunächst wird eine vollständige Kopie basierend auf einem Snapshot des Quellvolumes auf das Ziel kopiert, um eine Basissynchronisierung durchzuführen.  Wenn an der Quelle Datenänderungen auftreten, wird ein neuer Snapshot erstellt und mit dem Basis-Snapshot verglichen.  Die Blöcke, bei denen Änderungen festgestellt wurden, werden dann zum Ziel repliziert, wobei der neuere Snapshot zur aktuellen Basislinie oder zum neuesten gemeinsamen Snapshot wird.  Dadurch kann der Vorgang wiederholt und inkrementelle Updates an das Ziel gesendet werden.
@@ -91,6 +94,7 @@ Durch das Aufheben der SnapMirror Beziehung wird das Zielvolume beschreibbar und
 
 
 
+[[how-to-set-it-up-for-vmware-disaster-recovery]]
 == So richten Sie es für VMware Disaster Recovery ein
 
 Der Vorgang zum Erstellen der SnapMirror Replikation bleibt für jede Anwendung derselbe.  Der Vorgang kann manuell oder automatisiert erfolgen.  Am einfachsten ist es, BlueXP zu nutzen, um die SnapMirror -Replikation zu konfigurieren. Dazu ziehen Sie das Quell ONTAP -System in der Umgebung einfach per Drag & Drop auf das Ziel, um den Assistenten zu starten, der Sie durch den Rest des Prozesses führt.
@@ -113,6 +117,7 @@ NOTE: Abgesehen von den oben genannten Ansätzen kann die SnapMirror Replikation
 
 
 
+[[what-can-bluexp-disaster-recovery-do-for-you]]
 == Was kann BlueXP disaster recovery für Sie tun?
 
 Nachdem die Quell- und Zielsites hinzugefügt wurden, führt die BlueXP disaster recovery eine automatische Tiefenerkennung durch und zeigt die VMs zusammen mit den zugehörigen Metadaten an.  Die BlueXP disaster recovery erkennt außerdem automatisch die von den VMs verwendeten Netzwerke und Portgruppen und füllt sie.
@@ -189,6 +194,7 @@ image:dr-draas-vmfs-023.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt o
 
 
 
+[[what-happens-during-a-failover-or-test-failover-operation]]
 == Was passiert während eines Failovers oder Test-Failover-Vorgangs?
 
 Während eines Test-Failover-Vorgangs erstellt die BlueXP disaster recovery mithilfe der neuesten Snapshot-Kopie oder eines ausgewählten Snapshots des Ziel-Volumes ein FlexClone -Volume auf dem Ziel ONTAP -Speichersystem.

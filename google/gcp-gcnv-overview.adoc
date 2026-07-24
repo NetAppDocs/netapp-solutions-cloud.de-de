@@ -20,6 +20,7 @@ Sicherheit ist insbesondere in der Cloud, wo die Infrastruktur außerhalb der Ko
 
 
 
+[[intended-audience]]
 == Zielgruppe
 
 Dieses Dokument richtet sich unter anderem an die folgenden Rollen:

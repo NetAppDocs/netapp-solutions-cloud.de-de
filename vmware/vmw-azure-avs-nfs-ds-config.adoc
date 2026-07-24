@@ -37,6 +37,7 @@ NOTE: Wenden Sie sich an Azure und NetApp Solution Architects, um die Speicherpl
 
 
 
+[[detailed-architecture]]
 == Detaillierte Architektur
 
 Aus einer übergeordneten Perspektive beschreibt diese Architektur, wie Hybrid-Cloud-Konnektivität und App-Portabilität zwischen lokalen Umgebungen und Azure erreicht werden.  Außerdem wird die Verwendung von Azure NetApp Files als zusätzlicher NFS-Datenspeicher und als In-Guest-Speicheroption für virtuelle Gastcomputer beschrieben, die auf der Azure VMware-Lösung gehostet werden.
@@ -45,6 +46,7 @@ image:vmware-dr-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder 
 
 
 
+[[sizing]]
 == Größen
 
 Der wichtigste Aspekt bei der Migration oder Notfallwiederherstellung ist die Bestimmung der richtigen Größe für die Zielumgebung.  Es ist sehr wichtig zu verstehen, wie viele Knoten erforderlich sind, um eine Lift-and-Shift-Übung von lokalen Standorten zur Azure VMware-Lösung durchzuführen.
@@ -64,6 +66,7 @@ NOTE: Gast-VMs, die mit In-Guest-Speicher verwendet werden, müssen separat bere
 
 
 
+[[deploying-and-configuring-azure-vmware-solution]]
 == Bereitstellen und Konfigurieren der Azure VMware-Lösung
 
 Wie bei der lokalen Bereitstellung ist die Planung einer Azure VMware-Lösung entscheidend für eine erfolgreiche produktionsbereite Umgebung zum Erstellen virtueller Maschinen und für die Migration.
@@ -79,6 +82,7 @@ Der Einrichtungsprozess kann in drei Teile unterteilt werden:
 
 
 
+[[configure-azure-netapp-files-with-azure-vmware-solution]]
 == Konfigurieren von Azure NetApp Files mit Azure VMware Solution
 
 Die neue Integration zwischen Azure NetApp Files ermöglicht Ihnen, NFS-Datenspeicher über die APIs/CLI des Azure VMware Solution-Ressourcenanbieters mit Azure NetApp Files -Volumes zu erstellen und die Datenspeicher auf den Clustern Ihrer Wahl in einer privaten Cloud bereitzustellen.  Neben der Unterbringung der VM- und App-VMDKs können Azure NetApp Dateivolumes auch von VMs bereitgestellt werden, die in der Azure VMware Solution SDDC-Umgebung erstellt wurden.  Die Volumes können auf dem Linux-Client bereitgestellt und auf einem Windows-Client zugeordnet werden, da Azure NetApp Files die Protokolle Server Message Block (SMB) und Network File System (NFS) unterstützt.
@@ -217,6 +221,7 @@ image:vmware-dr-005.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder 
 ====
 
 
+[[sizing-and-performance-optimization]]
 == Dimensionierung und Leistungsoptimierung
 
 Azure NetApp Files unterstützt drei Servicelevel: Standard (16 MBit/s pro Terabyte), Premium (64 MBit/s pro Terabyte) und Ultra (128 MBit/s pro Terabyte). Für eine optimale Leistung der Datenbank-Workload ist die Bereitstellung der richtigen Volume-Größe wichtig. Bei Azure NetApp Files werden die Volumeleistung und das Durchsatzlimit anhand der folgenden Faktoren bestimmt:
@@ -244,6 +249,7 @@ Siehe hierzulink:https://learn.microsoft.com/en-us/azure/azure-netapp-files/perf
 |===
 
 
+[[performance-considerations]]
 == Überlegungen zur Leistung
 
 Es ist wichtig zu verstehen, dass es bei NFS Version 3 nur eine aktive Pipe für die Verbindung zwischen dem ESXi-Host und einem einzelnen Speicherziel gibt.  Dies bedeutet, dass zwar möglicherweise alternative Verbindungen für ein Failover verfügbar sind, die Bandbreite für einen einzelnen Datenspeicher und den zugrunde liegenden Speicher jedoch auf das beschränkt ist, was eine einzelne Verbindung bereitstellen kann.
@@ -268,6 +274,7 @@ Siehe hierzulink:https://learn.microsoft.com/en-us/azure/azure-netapp-files/perf
 |===
 
 
+[[increasing-the-size-of-the-datastore]]
 == Erhöhen der Größe des Datenspeichers
 
 Die Neugestaltung des Volumes und dynamische Service-Level-Änderungen sind für das SDDC vollständig transparent.  In Azure NetApp Files sorgen diese Funktionen für kontinuierliche Leistungs-, Kapazitäts- und Kostenoptimierungen.  Erhöhen Sie die Größe von NFS-Datenspeichern, indem Sie die Größe des Volumes über das Azure-Portal oder mithilfe der CLI ändern.  Wenn Sie fertig sind, greifen Sie auf vCenter zu, gehen Sie zur Registerkarte „Datenspeicher“, klicken Sie mit der rechten Maustaste auf den entsprechenden Datenspeicher und wählen Sie „Kapazitätsinformationen aktualisieren“.  Mit diesem Ansatz können Sie die Kapazität des Datenspeichers erhöhen und die Leistung des Datenspeichers dynamisch und ohne Ausfallzeiten steigern.  Dieser Vorgang ist für Anwendungen außerdem völlig transparent.
@@ -284,6 +291,7 @@ Die Neugestaltung des Volumes und dynamische Service-Level-Änderungen sind für
 |===
 
 
+[[workloads]]
 == Arbeitslasten
 
 .Migration

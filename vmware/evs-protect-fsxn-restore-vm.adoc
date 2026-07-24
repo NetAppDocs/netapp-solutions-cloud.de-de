@@ -18,6 +18,7 @@ Dieser Abschnitt beschreibt die Schritte zur Wiederherstellung von VMs aus Backu
 
 
 
+[[steps-to-perform-restore-operation]]
 == Schritte zur Durchführung der Restore-Operation
 
 Um die Restore-Operation durchzuführen, befolgen Sie diese Schritte:
@@ -54,6 +55,7 @@ NOTE: Der Restore-Vorgang kann auch auf Ebene einzelner VMs ausgelöst werden.
 
 
 
+[[steps-to-restore-a-deleted-vm]]
 == Schritte zur Wiederherstellung einer gelöschten VM
 
 Das Wiederherstellen einer gelöschten VM ist mit SCV ein einfacher Prozess.

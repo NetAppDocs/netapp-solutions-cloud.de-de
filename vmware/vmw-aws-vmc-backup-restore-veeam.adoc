@@ -18,12 +18,14 @@ Veeam Backup & Replication ist eine effektive und zuverlässige Lösung zum Schu
 
 
 
+[[overview]]
 == Überblick
 
 VMware Cloud (in AWS) unterstützt die Verwendung von NFS-Datenspeichern als zusätzlichen Speicher und FSx ONTAP ist eine sichere Lösung für Kunden, die große Datenmengen für ihre Cloud-Anwendungen speichern müssen, die unabhängig von der Anzahl der ESXi-Hosts im SDDC-Cluster skaliert werden können.  Dieser integrierte AWS-Speicherdienst bietet hocheffizienten Speicher mit allen herkömmlichen NetApp ONTAP Funktionen.
 
 
 
+[[use-cases]]
 === Anwendungsfälle
 
 Diese Lösung ist für die folgenden Anwendungsfälle geeignet:
@@ -35,6 +37,7 @@ Diese Lösung ist für die folgenden Anwendungsfälle geeignet:
 
 
 
+[[nfs-datastores-using-amazon-fsx-ontap]]
 === NFS-Datenspeicher mit Amazon FSx ONTAP
 
 Alle virtuellen Maschinen in dieser Lösung befinden sich auf zusätzlichen NFS-Datenspeichern von FSx ONTAP .  Die Verwendung von FSx ONTAP als ergänzender NFS-Datenspeicher bietet mehrere Vorteile.  Sie können damit beispielsweise:
@@ -82,6 +85,7 @@ Der Zweck dieser Lösung besteht darin, den Datenschutz von virtuellen Maschinen
 ====
 
 
+[[high-level-architecture]]
 == High-Level-Architektur
 
 Die Prüfung/Validierung dieser Lösung wurde in einem Labor durchgeführt, das möglicherweise nicht der endgültigen Bereitstellungsumgebung entspricht.  Weitere Informationen finden Sie in den folgenden Abschnitten.
@@ -106,6 +110,7 @@ Der Zweck dieser Lösung besteht darin, den Datenschutz von virtuellen Maschinen
 ====
 
 
+[[solution-deployment]]
 == Lösungsbereitstellung
 
 In dieser Lösung bieten wir detaillierte Anweisungen zum Bereitstellen und Validieren einer Lösung unter Verwendung der Veeam Backup and Replication-Software zum Durchführen von Backups und Wiederherstellungen von virtuellen Maschinen mit SQL Server, Oracle sowie Windows- und Linux-Dateiservern in einem VMware Cloud SDDC auf AWS.  Die virtuellen Maschinen in dieser Lösung befinden sich auf einem zusätzlichen NFS-Datenspeicher, der von FSx ONTAP gehostet wird.  Darüber hinaus wird ein separates FSx ONTAP Dateisystem zum Hosten von iSCSI-Volumes verwendet, die für Veeam-Backup-Repositorys verwendet werden.
@@ -120,6 +125,7 @@ Hinweise und Einschränkungen zur Verwendung von Veeam Backup and Replication mi
 
 
 
+[[deploy-veeam-proxy-server]]
 === Veeam-Proxyserver bereitstellen
 
 Ein Veeam-Proxyserver ist eine Komponente der Veeam Backup & Replication-Software, die als Vermittler zwischen der Quelle und dem Backup- oder Replikationsziel fungiert.  Der Proxyserver trägt zur Optimierung und Beschleunigung der Datenübertragung während Sicherungsaufträgen bei, indem er die Daten lokal verarbeitet und verschiedene Transportmodi für den Datenzugriff mithilfe von VMware vStorage-APIs für den Datenschutz oder über direkten Speicherzugriff nutzen kann.
@@ -178,6 +184,7 @@ image:aws-vmc-veeam-010.png["Konfigurieren von Netzwerkverkehrsregeln"]
 ====
 
 
+[[configure-storage-and-backup-repositories]]
 === Konfigurieren von Speicher- und Sicherungsrepositorys
 
 Der primäre Veeam Backup-Server und der Veeam Proxy-Server haben Zugriff auf ein Backup-Repository in Form eines direkt verbundenen Speichers.  In diesem Abschnitt behandeln wir das Erstellen eines FSx ONTAP Dateisystems, das Mounten von iSCSI-LUNs auf den Veeam-Servern und das Erstellen von Backup-Repositorys.
@@ -278,6 +285,7 @@ image:aws-vmc-veeam-016.png["Wählen Sie Mount-Server"]
 ====
 
 
+[[configure-veeam-backup-jobs]]
 === Konfigurieren von Veeam-Sicherungsaufträgen
 
 Sicherungsaufträge sollten unter Verwendung der Sicherungsrepositorys im vorherigen Abschnitt erstellt werden.  Das Erstellen von Sicherungsaufträgen gehört zum normalen Repertoire eines jeden Speicheradministrators und wir behandeln hier nicht alle Schritte.  Ausführlichere Informationen zum Erstellen von Sicherungsaufträgen in Veeam finden Sie im https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam Help Center Technische Dokumentation"^] .
@@ -307,6 +315,7 @@ image:aws-vmc-veeam-018.png["Richtlinie zur langfristigen Aufbewahrung"]
 ====
 
 
+[[restore-application-vms-with-veeam-full-restore]]
 === Wiederherstellen von Anwendungs-VMs mit der vollständigen Wiederherstellung von Veeam
 
 Die Durchführung einer vollständigen Wiederherstellung mit Veeam ist der erste Schritt bei der Wiederherstellung einer Anwendung.  Wir haben überprüft, dass die vollständige Wiederherstellung unserer VMs aktiviert war und alle Dienste normal ausgeführt wurden.
@@ -315,6 +324,7 @@ Das Wiederherstellen von Servern gehört zum normalen Repertoire eines jeden Spe
 
 
 
+[[restore-sql-server-databases]]
 === Wiederherstellen von SQL Server-Datenbanken
 
 Veeam Backup & Replication bietet mehrere Optionen zum Wiederherstellen von SQL Server-Datenbanken.  Für diese Validierung haben wir den Veeam Explorer für SQL Server mit Instant Recovery verwendet, um Wiederherstellungen unserer SQL Server-Datenbanken durchzuführen.  SQL Server Instant Recovery ist eine Funktion, mit der Sie SQL Server-Datenbanken schnell wiederherstellen können, ohne auf eine vollständige Datenbankwiederherstellung warten zu müssen.  Dieser schnelle Wiederherstellungsprozess minimiert Ausfallzeiten und gewährleistet die Geschäftskontinuität.  So funktioniert es:
@@ -360,6 +370,7 @@ Ausführlichere Informationen zum Durchführen von SQL Server-Wiederherstellungs
 
 
 
+[[restore-oracle-databases-with-veeam-explorer]]
 === Wiederherstellen von Oracle-Datenbanken mit Veeam Explorer
 
 Veeam Explorer für Oracle-Datenbanken bietet die Möglichkeit, eine Standardwiederherstellung der Oracle-Datenbank oder eine unterbrechungsfreie Wiederherstellung mithilfe von Instant Recovery durchzuführen.  Es unterstützt auch die Veröffentlichung von Datenbanken für schnellen Zugriff, die Wiederherstellung von Data Guard-Datenbanken und die Wiederherstellung aus RMAN-Backups.
@@ -443,6 +454,7 @@ image:aws-vmc-veeam-036.png["Wählen Sie einen Wiederherstellungspunkt aus der L
 ====
 
 
+[[conclusion]]
 == Abschluss
 
 VMware Cloud ist eine leistungsstarke Plattform zum Ausführen geschäftskritischer Anwendungen und zum Speichern vertraulicher Daten.  Für Unternehmen, die auf VMware Cloud angewiesen sind, ist eine sichere Datenschutzlösung unerlässlich, um die Geschäftskontinuität sicherzustellen und zum Schutz vor Cyberbedrohungen und Datenverlust beizutragen.  Durch die Wahl einer zuverlässigen und robusten Datenschutzlösung können Unternehmen darauf vertrauen, dass ihre kritischen Daten unter allen Umständen sicher sind.
@@ -451,6 +463,7 @@ Der in dieser Dokumentation vorgestellte Anwendungsfall konzentriert sich auf be
 
 
 
+[[additional-information]]
 == Weitere Informationen
 
 Weitere Informationen zu den in dieser Lösung vorgestellten Technologien finden Sie in den folgenden zusätzlichen Informationen.

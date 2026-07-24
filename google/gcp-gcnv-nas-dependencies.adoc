@@ -47,6 +47,7 @@ Bei der Verwendung von Google Cloud NetApp Volumes für NAS-Freigaben sind mögl
 |===
 
 
+[[kerberos-keytab-rotationpassword-resets-for-machine-account-objects]]
 == Kerberos-Keytab-Rotation/Kennwortrücksetzung für Maschinenkontoobjekte
 
 Bei SMB-Maschinenkonten plant Google Cloud NetApp Volumes regelmäßige Kennwortzurücksetzungen für das SMB-Maschinenkonto.  Diese Kennwortzurücksetzungen erfolgen mithilfe der Kerberos-Verschlüsselung und werden jeden vierten Sonntag zu einer zufälligen Uhrzeit zwischen 23:00 und 01:00 Uhr durchgeführt.  Diese Kennwortzurücksetzungen ändern die Kerberos-Schlüsselversionen, rotieren die auf dem Google Cloud NetApp Volumes System gespeicherten Keytabs und tragen dazu bei, ein höheres Maß an Sicherheit für SMB-Server aufrechtzuerhalten, die in Google Cloud NetApp Volumes ausgeführt werden.  Die Passwörter der Computerkonten werden nach dem Zufallsprinzip erstellt und sind den Administratoren nicht bekannt.
@@ -55,12 +56,14 @@ Bei NFS-Kerberos-Maschinenkonten werden Passwörter nur zurückgesetzt, wenn ein
 
 
 
+[[network-ports-for-use-with-ldap-and-kerberos]]
 == Netzwerkports zur Verwendung mit LDAP und Kerberos
 
 Wenn Sie LDAP und Kerberos verwenden, sollten Sie die von diesen Diensten verwendeten Netzwerkports ermitteln.  Eine vollständige Liste der von Google Cloud NetApp Volumes verwendeten Ports finden Sie im https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["Google Cloud NetApp Volumes -Dokumentation zu Sicherheitsaspekten"^] .
 
 
 
+[[ldap]]
 == LDAP
 
 Google Cloud NetApp Volumes fungiert als LDAP-Client und verwendet standardmäßige LDAP-Suchabfragen für Benutzer- und Gruppensuchen nach UNIX-Identitäten.  LDAP ist erforderlich, wenn Sie Benutzer und Gruppen außerhalb der von Google Cloud NetApp Volumes bereitgestellten Standardbenutzer verwenden möchten.  LDAP ist auch erforderlich, wenn Sie NFS Kerberos mit Benutzerprinzipalen (z. B. user1@domain.com) verwenden möchten.  Derzeit wird nur LDAP mit Microsoft Active Directory unterstützt.
@@ -120,6 +123,7 @@ Weitere Informationen zum Festlegen von LDAP-Attributen in Active Directory find
 
 
 
+[[ldap-bind-information]]
 === LDAP-Bindungsinformationen
 
 Um Benutzer in LDAP abzufragen, muss Google Cloud NetApp Volumes eine Bindung (Anmeldung) zum LDAP-Dienst herstellen.  Diese Anmeldung verfügt über schreibgeschützte Berechtigungen und wird zum Abfragen von LDAP-UNIX-Attributen für Verzeichnissuchen verwendet.  Derzeit sind LDAP-Bindungen nur über ein SMB-Computerkonto möglich.
@@ -136,6 +140,7 @@ Wenn LDAP aktiviert ist, geschieht in bestimmten Szenarien Folgendes.
 
 
 
+[[ldap-queries]]
 === LDAP-Abfragen
 
 Obwohl LDAP-Bindungen verschlüsselt sind, werden LDAP-Abfragen im Klartext über den gemeinsamen LDAP-Port 389 übertragen.  Dieser bekannte Port kann derzeit in Google Cloud NetApp Volumes nicht geändert werden.  Dies hat zur Folge, dass jemand mit Zugriff auf die Paketüberwachung im Netzwerk Benutzer- und Gruppennamen, numerische IDs und Gruppenmitgliedschaften sehen kann.
@@ -144,6 +149,7 @@ Google Cloud-VMs können jedoch den Unicast-Verkehr anderer VMs nicht abhören. 
 
 
 
+[[ldap-client-configuration-defaults]]
 === LDAP-Client-Konfigurationsvorgaben
 
 Wenn LDAP in einer Google Cloud NetApp Volumes Instanz aktiviert ist, wird standardmäßig eine LDAP-Clientkonfiguration mit bestimmten Konfigurationsdetails erstellt.  In einigen Fällen gelten Optionen entweder nicht für Google Cloud NetApp Volumes (werden nicht unterstützt) oder sind nicht konfigurierbar.
@@ -228,6 +234,7 @@ Wenn LDAP in einer Google Cloud NetApp Volumes Instanz aktiviert ist, wird stand
 |===
 
 
+[[using-ldap-for-asymmetric-name-mapping]]
 === Verwenden von LDAP für die asymmetrische Namenszuordnung
 
 Google Cloud NetApp Volumes ordnet standardmäßig Windows-Benutzer und UNIX-Benutzer mit identischen Benutzernamen bidirektional zu, ohne dass eine spezielle Konfiguration erforderlich ist.  Solange Google Cloud NetApp Volumes einen gültigen UNIX-Benutzer (mit LDAP) finden kann, erfolgt eine 1:1-Namenszuordnung.  Wenn beispielsweise ein Windows-Benutzer `johnsmith` verwendet wird, dann, wenn Google Cloud NetApp Volumes einen UNIX-Benutzer namens finden kann `johnsmith` in LDAP, die Namenszuordnung für diesen Benutzer erfolgreich ist, alle Dateien/Ordner, die von `johnsmith` zeigen die korrekte Benutzereigentümerschaft und alle ACLs an, die `johnsmith` werden unabhängig vom verwendeten NAS-Protokoll berücksichtigt.  Dies wird als symmetrische Namenszuordnung bezeichnet.
@@ -301,6 +308,7 @@ TEXT
 ....
 
 
+[[ldap-channel-binding]]
 === LDAP-Kanalbindung
 
 Aufgrund einer Sicherheitslücke in Windows Active Directory-Domänencontrollern https://msrc.microsoft.com/update-guide/vulnerability/ADV190023["Microsoft-Sicherheitsempfehlung ADV190023"^] ändert, wie DCs LDAP-Bindungen zulassen.
@@ -309,6 +317,7 @@ Die Auswirkungen auf Google Cloud NetApp Volumes sind dieselben wie für jeden L
 
 
 
+[[dns]]
 == DNS
 
 Sowohl Active Directory als auch Kerberos sind für die Auflösung von Hostnamen zu IP bzw. von IP zu Hostnamen von DNS abhängig.  DNS erfordert, dass Port 53 geöffnet ist.  Google Cloud NetApp Volumes nimmt keine Änderungen an DNS-Einträgen vor und unterstützt derzeit auch nicht die Verwendung von https://support.google.com/domains/answer/6147083?hl=en["dynamisches DNS"^] auf Netzwerkschnittstellen.
@@ -324,12 +333,14 @@ NOTE: Google Cloud NetApp Volumes unterstützt derzeit kein DNSSEC und DNS-Abfra
 
 
 
+[[file-access-auditing]]
 == Dateizugriffsüberwachung
 
 Wird derzeit für Google Cloud NetApp Volumes nicht unterstützt.
 
 
 
+[[antivirus-protection]]
 == Virenschutz
 
 Sie müssen auf dem Client einer NAS-Freigabe einen Virenscan in Google Cloud NetApp Volumes durchführen.  Derzeit gibt es keine native Antivirenintegration mit Google Cloud NetApp Volumes.

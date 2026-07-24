@@ -31,6 +31,7 @@ Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validi
 
 
 
+[[scenario-1-data-protection-and-migration-within-the-on-premises-environment-using-trident-protect]]
 == Szenario 1: Datenschutz und Migration innerhalb der lokalen Umgebung mit Trident Protect
 
 **Vor Ort: selbstverwaltete OpenShift-Cluster und selbstverwalteter NetApp Speicher**
@@ -40,12 +41,14 @@ Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validi
 
 
 
+[[scenario-1]]
 === Szenario 1
 
 image:rhhc-on-premises.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 
 
 
+[[scenario-2-data-protection-and-migration-from-the-on-premises-environment-to-aws-environment-using-trident-protect]]
 == Szenario 2: Datenschutz und Migration von der lokalen Umgebung in die AWS-Umgebung mit Trident Protect
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher**
@@ -55,12 +58,14 @@ image:rhhc-on-premises.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 
 
+[[scenario-2]]
 === Szenario 2
 
 image:rhhc-self-managed-aws.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 
 
 
+[[scenario-3-data-protection-and-migration-from-the-on-premises-environment-to-aws-environment]]
 == Szenario 3: Datenschutz und Migration von der lokalen Umgebung in die AWS-Umgebung
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Vom Anbieter verwalteter OpenShift-Cluster (ROSA) und vom Anbieter verwalteter Speicher (FSx ONTAP)**
@@ -71,12 +76,14 @@ image:rhhc-self-managed-aws.png["Abbildung, die einen Eingabe-/Ausgabedialog zei
 
 
 
+[[scenario-3]]
 === Szenario 3
 
 image:rhhc-rosa-with-fsxn.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 
 
 
+[[scenario-4-data-protection-and-migration-from-the-on-premises-environment-to-gcp-environment-using-trident-protect]]
 === Szenario 4: Datenschutz und Migration von der lokalen Umgebung zur GCP-Umgebung mit Trident Protect
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Google Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **
@@ -90,6 +97,7 @@ Hinweise zur Verwendung von ONTAP in einer MetroCluster -Konfiguration finden Si
 
 
 
+[[scenario-5-data-protection-and-migration-from-the-on-premises-environment-to-azure-environment-using-trident-protect]]
 === Szenario 5: Datenschutz und Migration von der lokalen Umgebung in die Azure-Umgebung mit Trident Protect
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **Azure Cloud: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher **

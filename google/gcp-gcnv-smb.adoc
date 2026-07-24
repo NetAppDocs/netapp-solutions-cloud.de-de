@@ -20,6 +20,7 @@ Google Cloud NetApp Volumes bietet Unterstützung für die SMB-Versionen 2.1 und
 
 
 
+[[access-controlsmb-shares]]
 == Zugriffskontrolle/SMB-Freigaben
 
 * Wenn ein Windows-Benutzername Zugriff auf das Google Cloud NetApp Volumes -Volume anfordert, sucht Google Cloud NetApp Volumes mithilfe der von den Google Cloud NetApp Volumes Administratoren konfigurierten Methoden nach einem UNIX-Benutzernamen.
@@ -65,6 +66,7 @@ Optional kann eine stärkere Zugriffskontrolle angewendet werden, indem die SMB-
 
 
 
+[[using-smb-name-aliases]]
 === Verwenden von SMB-Namensaliasen
 
 In einigen Fällen kann es für Endbenutzer ein Sicherheitsrisiko darstellen, den für Google Cloud NetApp Volumes verwendeten Computerkontonamen zu kennen.  In anderen Fällen möchten Sie Ihren Endbenutzern möglicherweise einfach einen einfacheren Zugriffspfad bereitstellen.  In diesen Fällen können Sie SMB-Aliase erstellen.
@@ -93,6 +95,7 @@ image:ncvs-gc-009.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder sc
 
 
 
+[[smb-authentication-dialects]]
 === SMB-Authentifizierungsdialekte
 
 Google Cloud NetApp Volumes unterstützt Folgendes https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/8df1a501-ce4e-4287-8848-5f1d4733e280["Dialekte"^] für die SMB-Authentifizierung:
@@ -111,10 +114,12 @@ Informationen zum Konfigurieren/Anzeigen Ihrer unterstützten Authentifizierungs
 
 
 
+[[permission-models]]
 == Berechtigungsmodelle
 
 
 
+[[ntfsfile-permissions]]
 === NTFS/Dateiberechtigungen
 
 NTFS-Berechtigungen sind die Berechtigungen, die auf Dateien und Ordner in Dateisystemen angewendet werden, die der NTFS-Logik entsprechen.  Sie können NTFS-Berechtigungen in `Basic` oder `Advanced` und kann eingestellt werden auf `Allow` oder `Deny` zur Zugangskontrolle.
@@ -138,6 +143,7 @@ NTFS-Berechtigungen werden von Windows SMB-Clients gesteuert.
 
 
 
+[[share-permissions]]
 === Freigabeberechtigungen
 
 Freigabeberechtigungen sind allgemeiner als NTFS-Berechtigungen (nur Lesen/Ändern/Vollzugriff) und steuern den ersten Zugriff auf eine SMB-Freigabe – ähnlich wie NFS-Exportrichtlinienregeln funktionieren.
@@ -163,6 +169,7 @@ Um optimale Sicherheitsergebnisse zu erzielen, gehen Sie wie folgt vor:
 
 
 
+[[smb-share-security-features]]
 == Sicherheitsfunktionen für SMB-Freigaben
 
 Wenn Sie zum ersten Mal ein Volume mit SMB-Zugriff in Google Cloud NetApp Volumes erstellen, werden Ihnen eine Reihe von Auswahlmöglichkeiten zum Sichern dieses Volumes angezeigt.
@@ -184,6 +191,7 @@ Das Verbergen von Snapshot-Kopien vor Endbenutzern kann aus Sicherheitsgründen,
 
 
 
+[[default-hidden-shares]]
 == Standardmäßig ausgeblendete Freigaben
 
 Wenn ein SMB-Server in Google Cloud NetApp Volumes erstellt wird, gibt es https://library.netapp.com/ecmdocs/ECMP1366834/html/GUID-5B56B12D-219C-4E23-B3F8-1CB1C4F619CE.html["versteckte administrative Freigaben"^] (unter Verwendung der $-Namenskonvention), die zusätzlich zur SMB-Freigabe des Datenvolumes erstellt werden.  Hierzu zählen C$ (Namespace-Zugriff) und IPC$ (gemeinsame Nutzung benannter Pipes für die Kommunikation zwischen Programmen, wie etwa die Remote Procedure Calls (RPC), die für den Zugriff auf die Microsoft Management Console (MMC) verwendet werden).
@@ -194,6 +202,7 @@ Die C$-Freigabe ermöglicht BUILTIN/Administratoren standardmäßig den Zugriff,
 
 
 
+[[accounts-with-localbuiltin-administratorbackup-rights]]
 == Konten mit lokalen/integrierten Administrator-/Backup-Rechten
 
 Google Cloud NetApp Volumes SMB-Server verfügen über eine ähnliche Funktionalität wie normale Windows SMB-Server, da es lokale Gruppen (wie z. B. BUILTIN\Administrators) gibt, die Zugriffsrechte auf ausgewählte Domänenbenutzer und -gruppen anwenden.
@@ -238,6 +247,7 @@ image:ncvs-gc-016.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder sc
 
 
 
+[[mmccomputer-management-access]]
 == MMC/Computerverwaltungszugriff
 
 Der SMB-Zugriff in Google Cloud NetApp Volumes bietet Konnektivität zur Computerverwaltungs-MMC, mit der Sie Freigaben anzeigen, Freigabe-ACLs verwalten und SMB-Sitzungen anzeigen/verwalten und Dateien öffnen können.
@@ -282,6 +292,7 @@ Die folgende Tabelle zeigt eine Liste der unterstützten/nicht unterstützten Fu
 |===
 
 
+[[smb-server-security-information]]
 == Sicherheitsinformationen für SMB-Server
 
 Der SMB-Server in Google Cloud NetApp Volumes verwendet eine Reihe von Optionen, die Sicherheitsrichtlinien für SMB-Verbindungen definieren, darunter Dinge wie Kerberos-Taktabweichung, Ticketalter, Verschlüsselung und mehr.

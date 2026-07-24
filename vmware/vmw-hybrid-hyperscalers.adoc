@@ -32,6 +32,8 @@ Springen Sie zum Abschnitt mit dem gewünschten Inhalt, indem Sie eine der folge
 
 
 
+[[vmware-in-the-hyperscalers-configuration]]
+[[config]]
 == VMware in der Hyperscaler-Konfiguration
 
 Wie bei der lokalen Umgebung ist die Planung einer Cloud-basierten Virtualisierungsumgebung entscheidend für eine erfolgreiche produktionsbereite Umgebung zum Erstellen und Migrieren von VMs.
@@ -90,6 +92,8 @@ Sehen Sie sich die detailliertelink:../vmware/vmw-gcp-gcve-setup.html["Konfigura
 ====
 
 
+[[netapp-storage-options]]
+[[datastore]]
 == NetApp Storage-Optionen
 
 NetApp Speicher kann innerhalb jedes der drei großen Hyperscaler auf verschiedene Weise genutzt werden – entweder als Gastverbindung oder als zusätzlicher NFS-Datenspeicher.
@@ -139,6 +143,8 @@ Lesen Sie mehr überlink:https://www.netapp.com/blog/cloud-volumes-service-googl
 ====
 
 
+[[netapp-vmware-cloud-solutions]]
+[[solutions]]
 == NetApp / VMware Cloud-Lösungen
 
 Mit den Cloud-Lösungen von NetApp und VMware lassen sich viele Anwendungsfälle ganz einfach in Ihrem bevorzugten Hyperscaler implementieren.  VMware definiert die wichtigsten Anwendungsfälle für Cloud-Workloads wie folgt:

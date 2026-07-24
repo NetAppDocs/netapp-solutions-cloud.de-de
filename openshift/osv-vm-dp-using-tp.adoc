@@ -35,6 +35,7 @@ Trident Protect ermöglicht Snapshots, Backups, Wiederherstellungen und die Notf
 
 
 
+[[create-appvault-for-object-storage]]
 == Erstellen Sie AppVault für Objektspeicherung
 
 .AppVault erstellen
@@ -105,6 +106,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-008.png["ONTAP S3 Appvault erstellt"]
 ====
 
 
+[[create-a-vm-in-openshift-virtualization]]
 == Erstellen einer VM in OpenShift Virtualization
 
 .Erstellen einer VM in OpenShift Virtualization
@@ -132,6 +134,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-007.png["VM, Pods und PVC erstellt"]
 ====
 
 
+[[create-an-app]]
 == Erstellen einer App
 
 .App erstellen
@@ -163,6 +166,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-009.png["App erstellt"]
 ====
 
 
+[[protect-the-app-by-creating-a-backup]]
 == Schützen Sie die App, indem Sie ein Backup erstellen
 
 .Backups erstellen
@@ -217,6 +221,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-017.png["Backups werden auf Anfrage und nach Z
 ====
 
 
+[[restore-from-backup]]
 == Wiederherstellen aus einer Sicherung
 
 .Wiederherstellen aus Backups
@@ -301,6 +306,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-023.png["VM im neuen Namespace"]
 ====
 
 
+[[protect-the-app-using-snapshots]]
 == Schützen Sie die App mit Snapshots
 
 .Snapshots erstellen
@@ -373,6 +379,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-026.png["Geplanter Schnappschuss"]
 ====
 
 
+[[restore-from-snapshot]]
 == Wiederherstellen aus Snapshot
 
 .Wiederherstellen aus Snapshot
@@ -455,6 +462,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-032.png["VM im neuen Namespace wiederhergestel
 ====
 
 
+[[restore-a-specific-vm]]
 == Wiederherstellen einer bestimmten VM
 
 .Auswählen bestimmter VMs in einem Namespace zum Erstellen von Snapshots/Backups und Wiederherstellen
@@ -548,6 +556,7 @@ image:rh-os-n-use-case-ocpv-tp-dp-038.png["Centos-VM erstellt"]
 ====
 
 
+[[video-demonstration]]
 == Videodemonstration
 
 Das folgende Video zeigt eine Demonstration zum Schutz einer VM mit Snapshots

@@ -18,6 +18,7 @@ Eine bewährte Disaster Recovery-Umgebung (DR) und ein entsprechender Plan sind 
 
 
 
+[[overview]]
 == Überblick
 
 NetApp verfügt über eine lange Tradition der Integration mit VMware, wie die Zehntausende von Kunden belegen, die sich für NetApp als Speicherpartner für ihre virtualisierte Umgebung entschieden haben.  Diese Integration wird mit Gastverbindungsoptionen in der Cloud und kürzlichen Integrationen mit NFS-Datenspeichern fortgesetzt.  Diese Lösung konzentriert sich auf den Anwendungsfall, der allgemein als gastverbundener Speicher bezeichnet wird.
@@ -28,6 +29,7 @@ image:dr-vmc-aws-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder
 
 
 
+[[assumptions-pre-requisites-and-component-overview]]
 == Annahmen, Voraussetzungen und Komponentenübersicht
 
 Lesen Sie vor der Bereitstellung dieser Lösung die Übersicht über die Komponenten, die erforderlichen Voraussetzungen für die Bereitstellung der Lösung und die Annahmen, die bei der Dokumentation dieser Lösung getroffen wurden.
@@ -36,6 +38,7 @@ link:vmw-aws-vmc-dr-prereqs.html["Anforderungen, Voraussetzungen und Planung der
 
 
 
+[[performing-dr-with-snapcenter]]
 == Durchführen von DR mit SnapCenter
 
 In dieser Lösung bietet SnapCenter anwendungskonsistente Snapshots für SQL Server- und Oracle-Anwendungsdaten.  Diese Konfiguration bietet zusammen mit der SnapMirror -Technologie eine Hochgeschwindigkeits-Datenreplikation zwischen unserem lokalen AFF und FSx ONTAP Cluster.  Darüber hinaus bietet Veeam Backup & Replication Sicherungs- und Wiederherstellungsfunktionen für unsere virtuellen Maschinen.
@@ -46,6 +49,8 @@ In den folgenden Abschnitten werden die Konfiguration und die Schritte beschrieb
 
 
 
+[[configure-snapmirror-relationships-and-retention-schedules]]
+[[config-snapmirror]]
 === Konfigurieren Sie SnapMirror -Beziehungen und Aufbewahrungspläne
 
 SnapCenter kann SnapMirror -Beziehungen innerhalb des primären Speichersystems (primär > Spiegel) und zu sekundären Speichersystemen (primär > Tresor) zum Zweck der langfristigen Archivierung und Aufbewahrung aktualisieren.  Dazu müssen Sie mithilfe von SnapMirror eine Datenreplikationsbeziehung zwischen einem Zielvolume und einem Quellvolume herstellen und initialisieren.
@@ -215,6 +220,7 @@ FSx-Dest::> snapmirror initialize -destination-path DestSVM:DestVol
 ====
 
 
+[[deploy-and-configure-windows-snapcenter-server-on-premises]]
 === Stellen Sie den Windows SnapCenter -Server vor Ort bereit und konfigurieren Sie ihn.
 
 .Bereitstellen von Windows SnapCenter Server vor Ort
@@ -315,6 +321,7 @@ Zum Sichern von Oracle-Ressourcen folgen Sie https://docs.netapp.com/us-en/snapc
 ====
 
 
+[[deploy-and-configure-veeam-backup-server]]
 === Bereitstellen und Konfigurieren des Veeam Backup Servers
 
 In der Lösung wird die Software Veeam Backup & Replication verwendet, um unsere virtuellen Anwendungsmaschinen zu sichern und eine Kopie der Sicherungen mithilfe eines Veeam Scale-Out Backup Repository (SOBR) in einem Amazon S3-Bucket zu archivieren.  Veeam wird in dieser Lösung auf einem Windows-Server bereitgestellt.  Spezifische Anleitungen zur Bereitstellung von Veeam finden Sie im https://www.veeam.com/documentation-guides-datasheets.html["Veeam-Hilfecenter Technische Dokumentation"^] .
@@ -421,6 +428,7 @@ Der letzte Schritt zur Konfiguration von Veeam besteht darin, Sicherungsaufträg
 ====
 
 
+[[bluexp-backup-and-recovery-tools-and-configuration]]
 === BlueXP backup and recovery und Wiederherstellungstools und -Konfiguration
 
 Um ein Failover von Anwendungs-VMs und Datenbank-Volumes auf VMware Cloud Volume-Dienste durchzuführen, die in AWS ausgeführt werden, müssen Sie eine laufende Instanz von SnapCenter Server und Veeam Backup and Replication Server installieren und konfigurieren.  Nachdem das Failover abgeschlossen ist, müssen Sie diese Tools auch so konfigurieren, dass der normale Sicherungsvorgang fortgesetzt wird, bis ein Failback zum lokalen Rechenzentrum geplant und ausgeführt wird.
@@ -474,6 +482,7 @@ Weitere Informationen zum Wiederherstellen von VMs mit Veeam finden Sie im Absch
 ====
 
 
+[[snapcenter-database-backup-for-disaster-recovery]]
 === SnapCenter -Datenbanksicherung für die Notfallwiederherstellung
 
 SnapCenter ermöglicht die Sicherung und Wiederherstellung der zugrunde liegenden MySQL-Datenbank und Konfigurationsdaten, um den SnapCenter -Server im Katastrophenfall wiederherzustellen.  Für unsere Lösung haben wir die SnapCenter -Datenbank und -Konfiguration auf einer AWS EC2-Instanz wiederhergestellt, die sich in unserem VPC befindet.  Weitere Informationen zur Notfallwiederherstellung von SnapCenter finden Sie unter https://docs.netapp.com/us-en/snapcenter/index.html["dieser Link"^] .
@@ -582,6 +591,7 @@ xcopy c:\SC_Backups\SnapCenter_DR \\10.61.181.185\snapcenter_dr /O /X /E /H /K
 ====
 
 
+[[failover]]
 === Ausfallsicherung
 
 .Katastrophe am Primärstandort
@@ -651,6 +661,8 @@ NOTE: Siehe Kommentare zu zusätzlichen Verfahren.
 ====
 
 
+[[restore-application-vms-with-veeam-full-restore]]
+[[restore-veeam-full]]
 === Wiederherstellen von Anwendungs-VMs mit der vollständigen Wiederherstellung von Veeam
 
 .Erstellen Sie ein Backup-Repository und importieren Sie Backups von S3
@@ -742,6 +754,7 @@ image:dr-vmc-aws-067.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder
 ====
 
 
+[[restore-sql-server-application-data]]
 === Wiederherstellen von SQL Server-Anwendungsdaten
 
 Der folgende Prozess enthält Anweisungen zum Wiederherstellen eines SQL-Servers in VMware Cloud Services in AWS im Falle einer Katastrophe, die den lokalen Standort funktionsunfähig macht.
@@ -857,6 +870,7 @@ image:dr-vmc-aws-076.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder
 ====
 
 
+[[restore-oracle-application-data]]
 === Wiederherstellen von Oracle-Anwendungsdaten
 
 Der folgende Prozess enthält Anweisungen zum Wiederherstellen von Oracle-Anwendungsdaten in VMware Cloud Services in AWS im Falle einer Katastrophe, die den lokalen Standort funktionsunfähig macht.
@@ -934,6 +948,7 @@ NOTE: Um die NFS-Einbindung beim Neustart dauerhaft zu machen, bearbeiten Sie di
 ====
 
 
+[[failback]]
 === Failback
 
 Nach erfolgreichem Abschluss des in dieser Lösung beschriebenen Failover-Prozesses nehmen SnapCenter und Veeam ihre in AWS ausgeführten Sicherungsfunktionen wieder auf und FSx ONTAP wird nun als primärer Speicher ohne bestehende SnapMirror Beziehungen mit dem ursprünglichen lokalen Rechenzentrum ausgewiesen.  Nachdem der normale Betrieb vor Ort wieder aufgenommen wurde, können Sie einen Prozess verwenden, der mit dem in dieser Dokumentation beschriebenen identisch ist, um die Daten zurück auf das lokale ONTAP Speichersystem zu spiegeln.
@@ -944,6 +959,7 @@ Failback liegt außerhalb des Rahmens dieser Dokumentation, unterscheidet sich j
 
 
 
+[[conclusion]]
 == Abschluss
 
 Der in dieser Dokumentation vorgestellte Anwendungsfall konzentriert sich auf bewährte Disaster Recovery-Technologien, die die Integration zwischen NetApp und VMware hervorheben.  NetApp ONTAP Speichersysteme bieten bewährte Datenspiegelungstechnologien, mit denen Unternehmen Disaster Recovery-Lösungen entwickeln können, die sowohl lokale als auch ONTAP -Technologien der führenden Cloud-Anbieter umfassen.

@@ -18,6 +18,7 @@ In diesem Abschnitt wird beschrieben, wie Sie mithilfe von Velero Backups und Wi
 
 
 
+[[list-all-backups]]
 == Alle Backups auflisten
 
 Sie können alle Backup-CRs auflisten, indem Sie das OC CLI-Tool oder das Velero CLI-Tool verwenden.  Laden Sie die Velero CLI gemäß den Anweisungen imlink:https://velero.io/docs/v1.3.0/basic-install/#install-the-cli["Velero-Dokumentation"] .
@@ -26,6 +27,7 @@ image:redhat-openshift-oadp-delete-001.png["Listensicherung"]
 
 
 
+[[deleting-a-backup]]
 == Löschen einer Sicherung
 
 Sie können ein Backup-CR löschen, ohne die Object Storage-Daten zu löschen, indem Sie das OC CLI-Tool verwenden.  Die Sicherung wird aus der CLI-/Konsolenausgabe entfernt.  Da das entsprechende Backup jedoch nicht aus dem Objektspeicher entfernt wird, wird es erneut in der CLI-/Konsolenausgabe angezeigt.
@@ -38,6 +40,7 @@ image:redhat-openshift-oadp-delete-003.png["Backup UND zugehörigen Object Stora
 
 
 
+[[deleting-the-restore]]
 == Löschen der Wiederherstellung
 
 Sie können das Restore CR-Objekt entweder mit der OC CLI oder der Velero CLI löschen.

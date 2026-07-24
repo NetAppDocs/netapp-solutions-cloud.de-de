@@ -29,6 +29,7 @@ Wenn Sie die Angriffsflächen verstehen, können Sie Ihre Umgebungen besser sch�
 
 
 
+[[ensuring-secure-logins]]
 == Sichere Anmeldungen gewährleisten
 
 Beim Sichern Ihrer kritischen Infrastrukturkomponenten müssen Sie unbedingt sicherstellen, dass sich nur autorisierte Benutzer anmelden und Ihre Umgebungen verwalten können.  Wenn böswillige Akteure Ihre Administratoranmeldeinformationen verletzen, haben sie die Schlüssel zum Schloss und können alles tun, was sie wollen – Konfigurationen ändern, Volumes und Backups löschen, Hintertüren erstellen oder Snapshot-Zeitpläne deaktivieren.
@@ -39,12 +40,14 @@ Wenn eine Anmeldung erforderlich ist, sichert Google Cloud NetApp Volumes in Goo
 
 
 
+[[cluster-administration-and-upgrades]]
 == Clusterverwaltung und Upgrades
 
 Zwei Bereiche mit potenziellen Sicherheitsrisiken sind die Clusterverwaltung (was passiert, wenn ein böswilliger Akteur Administratorzugriff hat) und Upgrades (was passiert, wenn ein Software-Image kompromittiert wird).
 
 
 
+[[storage-administration-protection]]
 === Schutz der Speicherverwaltung
 
 Durch die Bereitstellung von Speicher als Service wird das zusätzliche Risiko einer Gefährdung der Administratoren beseitigt, indem Endbenutzern außerhalb des Cloud-Rechenzentrums der Zugriff entzogen wird.  Stattdessen wird von den Kunden nur die Konfiguration für die Datenzugriffsebene vorgenommen.  Jeder Mandant verwaltet seine eigenen Volumes und kein Mandant kann auf andere Google Cloud NetApp Volumes -Instanzen zugreifen.  Der Dienst wird automatisiert verwaltet, wobei einer sehr kleinen Liste vertrauenswürdiger Administratoren über die im Abschnitt beschriebenen Prozesse Zugriff auf die Systeme gewährt wird.link:gcp-gcnv-service-operation.html["Servicebetrieb."]
@@ -53,6 +56,7 @@ Der Servicetyp „NetApp Volumes-Performance“ bietet die Möglichkeit einer re
 
 
 
+[[service-upgrades]]
 === Service-Upgrades
 
 Updates helfen, anfällige Systeme zu schützen.  Jedes Update bietet Sicherheitsverbesserungen und Fehlerbehebungen, die Angriffsflächen minimieren.  Software-Updates werden aus zentralen Repositories heruntergeladen und vor der Freigabe der Updates validiert, um sicherzustellen, dass offizielle Images verwendet werden und die Upgrades nicht durch böswillige Akteure kompromittiert wurden.
@@ -63,6 +67,7 @@ Informationen zum Administratorteam, das diese Service-Upgrades durchführt, fin
 
 
 
+[[securing-data-at-rest]]
 == Sicherung ruhender Daten
 
 Die Verschlüsselung ruhender Daten ist wichtig, um vertrauliche Daten zu schützen, falls eine Festplatte gestohlen, zurückgegeben oder zweckentfremdet wird.  Daten in Google Cloud NetApp Volumes werden im Ruhezustand durch softwarebasierte Verschlüsselung geschützt.
@@ -79,6 +84,7 @@ Weitere Informationen zur Architektur finden Sie im Abschnittlink:gcp-gcnv-arch-
 
 
 
+[[securing-data-in-flight]]
 === Datensicherung während der Übertragung
 
 Zusätzlich zur Sicherung ruhender Daten müssen Sie auch in der Lage sein, Daten zu sichern, wenn diese zwischen der Google Cloud NetApp Volumes -Instanz und einem Client oder Replikationsziel übertragen werden.  Google Cloud NetApp Volumes bietet Verschlüsselung für In-Flight-Daten über NAS-Protokolle durch den Einsatz von Verschlüsselungsmethoden wie SMB-Verschlüsselung mit Kerberos, Signieren/Versiegeln von Paketen und NFS Kerberos 5p für die End-to-End-Verschlüsselung von Datenübertragungen.
@@ -91,6 +97,7 @@ Informationen zur NAS-Protokollverschlüsselung finden Sie im Abschnittlink:gcp-
 
 
 
+[[users-and-groups-for-nas-permissions]]
 == Benutzer und Gruppen für NAS-Berechtigungen
 
 Zur Sicherung Ihrer Daten in der Cloud gehört unter anderem eine ordnungsgemäße Benutzer- und Gruppenauthentifizierung, bei der die Benutzer, die auf die Daten zugreifen, als echte Benutzer in der Umgebung verifiziert werden und die Gruppen gültige Benutzer enthalten.  Diese Benutzer und Gruppen bieten anfänglichen Freigabe- und Exportzugriff sowie eine Berechtigungsüberprüfung für Dateien und Ordner im Speichersystem.
@@ -102,6 +109,7 @@ NOTE: Derzeit wird für die LDAP-Funktionalität nur Active Directory LDAP mit G
 
 
 
+[[detection-prevention-and-mitigation-of-ransomware-malware-and-viruses]]
 == Erkennung, Prävention und Eindämmung von Ransomware, Malware und Viren
 
 Ransomware, Malware und Viren stellen eine ständige Bedrohung für Administratoren dar und die Erkennung, Prävention und Eindämmung dieser Bedrohungen hat für Unternehmen stets oberste Priorität.  Ein einziger Ransomware-Angriff auf einen kritischen Datensatz kann potenziell Millionen von Dollar kosten. Daher ist es sinnvoll, alles zu tun, um das Risiko zu minimieren.
@@ -126,6 +134,7 @@ Diese Liste ist bei weitem nicht vollständig, stellt jedoch eine gute Vorlage f
 
 
 
+[[immutable-snapshot-copies]]
 === Unveränderliche Snapshot-Kopien
 
 Google Cloud NetApp Volumes bietet nativ unveränderliche, schreibgeschützte Snapshot-Kopien, die nach einem anpassbaren Zeitplan erstellt werden, um im Falle einer Datenlöschung oder wenn ein ganzes Volume Opfer eines Ransomware-Angriffs wurde, eine schnelle Wiederherstellung zu einem bestimmten Zeitpunkt zu ermöglichen.  Snapshot-Wiederherstellungen auf vorherige, fehlerfreie Snapshot-Kopien erfolgen schnell und minimieren den Datenverlust basierend auf der Aufbewahrungsdauer Ihrer Snapshot-Zeitpläne und RTO/RPO.  Der Leistungseffekt der Snapshot-Technologie ist vernachlässigbar.
@@ -134,6 +143,7 @@ Da Snapshot-Kopien in Google Cloud NetApp Volumes schreibgeschützt sind, könne
 
 
 
+[[backups-and-restores]]
 === Sicherungen und Wiederherstellungen
 
 Google Cloud NetApp Volumes bietet standardmäßige NAS-Client-Backup-Funktionen (z. B. Backups über NFS oder SMB).
@@ -146,6 +156,7 @@ Die Volume-Replikation bietet eine exakte Kopie des Quellvolumes für ein schnel
 
 
 
+[[cross-region-replication]]
 === Regionsübergreifende Replikation
 
 Mit NetApp Volumes-Performance können Sie Volumes für Datenschutz- und Archivierungsanwendungsfälle sicher über Google Cloud-Regionen hinweg replizieren, indem Sie die TLS1.2 AES 256 GCM-Verschlüsselung in einem von NetApp gesteuerten Back-End-Servicenetzwerk mithilfe spezifischer Schnittstellen verwenden, die für die Replikation im Google-Netzwerk verwendet werden.  Ein primäres (Quell-)Volume enthält die aktiven Produktionsdaten und wird auf ein sekundäres (Ziel-)Volume repliziert, um eine exakte Replik des primären Datensatzes bereitzustellen.
@@ -160,6 +171,8 @@ Darüber hinaus können Sie mit der Verwaltung der regionsübergreifenden Replik
 
 
 
+[[google-cloud-netapp-volumes-backup]]
+[[cloud-volumes-service-backup]]
 === Google Cloud NetApp Volumes Backup
 
 Obwohl Google Cloud NetApp Volumes eine hohe Datenbeständigkeit bietet, können externe Ereignisse zu Datenverlust führen.  Im Falle eines Sicherheitsvorfalls wie einem Virus oder Ransomware sind Sicherungen und Wiederherstellungen für die zeitnahe Wiederherstellung des Datenzugriffs von entscheidender Bedeutung.  Ein Administrator könnte versehentlich ein Google Cloud NetApp Volumes -Volume löschen.  Oder Benutzer möchten einfach Sicherungsversionen ihrer Daten viele Monate lang aufbewahren und die Beibehaltung des zusätzlichen Speicherplatzes für Snapshot-Kopien innerhalb des Volumes wird zu einer Kostenherausforderung.  Obwohl Snapshot-Kopien die bevorzugte Methode sein sollten, um Sicherungsversionen der letzten Wochen aufzubewahren und verlorene Daten daraus wiederherzustellen, bleiben sie auf dem Datenträger und gehen verloren, wenn dieser gelöscht wird.

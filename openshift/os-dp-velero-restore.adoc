@@ -18,6 +18,7 @@ In diesem Abschnitt wird beschrieben, wie Sie Apps aus einer Sicherung wiederher
 
 
 
+[[prerequisites]]
 == Voraussetzungen
 
 Um eine Wiederherstellung aus einer Sicherung durchzuführen, gehen wir davon aus, dass der Namespace, in dem die App vorhanden war, versehentlich gelöscht wurde.

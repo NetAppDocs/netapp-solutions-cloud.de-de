@@ -18,6 +18,8 @@ Azure unterstützt über Gäste verbundene NetApp -Speicher mit dem nativen Azur
 
 
 
+[[azure-netapp-files-anf]]
+[[anf]]
 == Azure NetApp Files (ANF)
 
 Azure netApp Files bringt Datenverwaltung und -speicherung auf Unternehmensniveau zu Azure, sodass Sie Ihre Workloads und Anwendungen problemlos verwalten können.  Migrieren Sie Ihre Workloads in die Cloud und führen Sie sie ohne Leistungseinbußen aus.
@@ -28,6 +30,7 @@ Da der Dienst über das Microsoft Azure-Portal bereitgestellt wird, profitieren 
 
 
 
+[[azure-netapp-files-anf-as-guest-connected-storage]]
 === Azure NetApp Files (ANF) als mit dem Gast verbundener Speicher
 
 .Konfigurieren von Azure NetApp Files mit Azure VMware Solution (AVS)
@@ -100,6 +103,8 @@ Weitere Informationen finden Sie unter link:https://docs.microsoft.com/en-us/azu
 ====
 
 
+[[cloud-volumes-ontap-cvo]]
+[[azure-cvo]]
 == Cloud Volumes ONTAP (CVO)
 
 Cloud Volumes ONTAP oder CVO ist die branchenführende Cloud-Datenverwaltungslösung, die auf der ONTAP -Speichersoftware von NetApp basiert und nativ auf Amazon Web Services (AWS), Microsoft Azure und Google Cloud Platform (GCP) verfügbar ist.
@@ -112,6 +117,7 @@ CVO bietet von Haus aus extreme Leistung und erweiterte Datenverwaltungsfunktion
 
 
 
+[[cloud-volumes-ontap-cvo-as-guest-connected-storage]]
 === Cloud Volumes ONTAP (CVO) als mit dem Gast verbundener Speicher
 
 .Stellen Sie das neue Cloud Volumes ONTAP in Azure bereit

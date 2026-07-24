@@ -18,6 +18,7 @@ Im folgenden Abschnitt wird gezeigt, wie Sie Datenbanken, die auf VMware VMDKs l
 
 
 
+[[setting-up-scsql]]
 == SCSQL einrichten
 
 Die Einrichtung für die Verwendung von SCSQL zum Schutz von Datenbanken auf VMDKs ist wie folgt:
@@ -49,6 +50,7 @@ image:evs-protect-fsxn-027.png["Abbildung, die den Dialog für den obigen Schrit
 
 
 
+[[setting-up-a-backup-policy]]
 == Einrichten einer Backup-Richtlinie
 
 Die folgenden Schritte zeigen, wie Sie eine Backup-Richtlinie einrichten.
@@ -81,6 +83,7 @@ image:evs-protect-fsxn-032.png["Abbildung, die den Dialog für den obigen Schrit
 
 
 
+[[monitoring-a-backup]]
 == Überwachung eines Backups
 
 Sobald Sie eine Backup-Richtlinie eingerichtet haben, können Sie Ihre Backup-Vorgänge überwachen, während sie stattfinden. Sie können dies entweder tun, indem Sie auf Backup now klicken, um eine On-Demand-Backup-Operation auszulösen, oder indem Sie warten, bis Ihre geplante Backup-Richtlinie aktiviert wird.
@@ -94,6 +97,7 @@ image:evs-protect-fsxn-033.png["Abbildung, die den Dialog für den obigen Schrit
 
 
 
+[[restore-of-databases-residing-on-the-vmdks]]
 == Wiederherstellung von Datenbanken, die sich auf den VMDKs befinden
 
 Die Datenbank auf der VMDK kann zu einem bestimmten Zeitpunkt wiederhergestellt werden.

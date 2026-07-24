@@ -18,6 +18,7 @@ Die Notfallwiederherstellung in der Cloud ist eine robuste und kostengünstige M
 
 
 
+[[overview]]
 == Überblick
 
  This covers application data; however, what about the actual VMs themselves. Disaster recovery should cover all dependent components, including virtual machines, VMDKs, application data, and more. To accomplish this, SnapMirror along with Jetstream can be used to seamlessly recover workloads replicated from on-premises to Cloud Volumes ONTAP while using vSAN storage for VM VMDKs.
@@ -27,6 +28,7 @@ image:dr-cvo-avs-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder
 
 
 
+[[assumptions]]
 == Annahmen
 
 Dieses Dokument konzentriert sich auf die In-Guest-Speicherung für Anwendungsdaten (auch als Gastverbindung bezeichnet) und wir gehen davon aus, dass die lokale Umgebung SnapCenter für anwendungskonsistente Sicherungen verwendet.
@@ -41,10 +43,12 @@ NOTE: Es gibt mehrere Optionen zum Verbinden lokaler Rechenzentren mit Azure, we
 
 
 
+[[deploying-the-dr-solution]]
 == Bereitstellen der DR-Lösung
 
 
 
+[[solution-deployment-overview]]
 === Übersicht über die Lösungsbereitstellung
 
 . Stellen Sie sicher, dass Anwendungsdaten mit SnapCenter unter Einhaltung der erforderlichen RPO-Anforderungen gesichert werden.
@@ -66,6 +70,7 @@ NOTE: Es gibt mehrere Optionen zum Verbinden lokaler Rechenzentren mit Azure, we
 
 
 
+[[deployment-details]]
 === Bereitstellungsdetails
 
 .Konfigurieren Sie CVO auf Azure und replizieren Sie Volumes nach CVO
@@ -424,6 +429,7 @@ Testen Sie wie immer die Schritte zur Wiederherstellung der kritischen Workloads
 ====
 
 
+[[benefits-of-this-solution]]
 == Vorteile dieser Lösung
 
 * Verwendet die effiziente und stabile Replikation von SnapMirror.

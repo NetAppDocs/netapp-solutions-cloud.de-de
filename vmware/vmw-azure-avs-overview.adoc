@@ -25,6 +25,8 @@ Springen Sie zum Abschnitt mit dem gewünschten Inhalt, indem Sie eine der folge
 
 
 
+[[configuring-avs-in-azure]]
+[[config]]
 == Konfigurieren von AVS in Azure
 
 Wie bei der lokalen Umgebung ist die Planung einer Cloud-basierten Virtualisierungsumgebung entscheidend für eine erfolgreiche produktionsbereite Umgebung zum Erstellen und Migrieren von VMs.
@@ -45,6 +47,8 @@ Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-setup.html["Konfigur
 
 
 
+[[netapp-storage-options-for-avs]]
+[[datastore]]
 == NetApp Storage-Optionen für AVS
 
 NetApp Speicher kann innerhalb von Azure AVS auf verschiedene Weise genutzt werden – entweder als verbundener Speicher oder als zusätzlicher NFS-Datenspeicher.
@@ -62,6 +66,8 @@ Sehen Sie sich die detailliertelink:../vmware/vmw-azure-avs-guest-storage.html["
 
 
 
+[[solution-use-cases]]
+[[solutions]]
 == Anwendungsfälle der Lösung
 
 Mit NetApp und VMware-Cloudlösungen lassen sich viele Anwendungsfälle einfach in Azure AVS bereitstellen. Diese Fälle sind für jeden der von VMware definierten Cloudbereiche definiert:

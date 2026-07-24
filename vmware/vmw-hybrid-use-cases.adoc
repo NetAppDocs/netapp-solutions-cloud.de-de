@@ -18,6 +18,7 @@ Eine Übersicht über die Anwendungsfälle, die für die IT-Organisation bei der
 
 
 
+[[popular-use-cases]]
 == Beliebte Anwendungsfälle
 
 Anwendungsfälle umfassen:
@@ -39,6 +40,7 @@ In dieser Dokumentation werden Verweise auf Cloud-Workloads anhand der VMware-An
 
 
 
+[[inside-the-it-journey]]
 === Einblicke in die IT-Reise
 
 Die meisten Organisationen befinden sich auf dem Weg der Transformation und Modernisierung.  Im Rahmen dieses Prozesses versuchen Unternehmen, ihre vorhandenen VMware-Investitionen zu nutzen, gleichzeitig die Vorteile der Cloud zu nutzen und nach Möglichkeiten zu suchen, den Migrationsprozess so nahtlos wie möglich zu gestalten.  Dieser Ansatz würde ihre Modernisierungsbemühungen sehr einfach machen, da sich die Daten bereits in der Cloud befinden.
@@ -47,6 +49,7 @@ Die einfachste Antwort auf dieses Szenario sind VMware-Angebote in jedem Hypersc
 
 
 
+[[understanding-the-importance-of-supplemental-nfs-storage-options]]
 === Die Bedeutung zusätzlicher NFS-Speicheroptionen verstehen
 
 Während VMware in jeder Cloud jedem Kunden einzigartige Hybridfunktionen bietet, ist die Nützlichkeit von VMware für Unternehmen mit speicherintensiven Workloads aufgrund der begrenzten zusätzlichen NFS-Speicheroptionen eingeschränkt.  Da der Speicher direkt an Hosts gebunden ist, besteht die einzige Möglichkeit zur Skalierung des Speichers darin, weitere Hosts hinzuzufügen – und das kann die Kosten bei speicherintensiven Workloads um 35–40 Prozent oder mehr erhöhen.  Diese Arbeitslasten benötigen lediglich zusätzlichen Speicher, nicht zusätzliche Leistung.  Das bedeutet jedoch, dass für zusätzliche Hosts bezahlt werden muss.

@@ -18,6 +18,7 @@ Ein häufiger Anwendungsfall für VMware Cloud (VMC) auf Amazon Web Services (AW
 
 
 
+[[overview-migrating-virtual-machines-with-vmware-hcx-fsx-ontap-supplemental-datastores-and-vmware-cloud]]
 == Übersicht: Migrieren virtueller Maschinen mit VMware HCX, FSx ONTAP -Zusatzdatenspeichern und VMware Cloud
 
 VMware HCX ist in erster Linie eine Mobilitätsplattform, die die Workload-Migration, die Workload-Neuverteilung und die Geschäftskontinuität über Clouds hinweg vereinfachen soll.  Es ist Teil von VMware Cloud auf AWS und bietet zahlreiche Möglichkeiten zur Migration von Workloads und kann für Disaster Recovery (DR)-Vorgänge verwendet werden.
@@ -68,6 +69,7 @@ image:fsx-hcx-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder sc
 ====
 
 
+[[solution-deployment]]
 == Lösungsbereitstellung
 
 Befolgen Sie die Schritte, um die Bereitstellung dieser Lösung abzuschließen:
@@ -318,12 +320,14 @@ NOTE: Der Zieldatenspeicher von VMC FSx ONTAP muss über ausreichend Speicherpla
 ====
 
 
+[[conclusion]]
 == Abschluss
 
 Unabhängig davon, ob Sie eine reine Cloud oder eine Hybrid-Cloud anstreben und Ihre Daten sich auf Speichersystemen beliebiger Art/Anbieter vor Ort befinden, bieten Amazon FSx ONTAP und HCX hervorragende Optionen zum Bereitstellen und Migrieren der Workloads bei gleichzeitiger Reduzierung der Gesamtbetriebskosten, indem die Datenanforderungen nahtlos in die Anwendungsebene integriert werden.  Wählen Sie für jeden Anwendungsfall VMC zusammen mit dem FSx ONTAP -Datenspeicher, um die Vorteile der Cloud schnell zu nutzen, eine konsistente Infrastruktur und Vorgänge vor Ort und in mehreren Clouds zu nutzen, Workloads in beide Richtungen zu portieren und Kapazität und Leistung auf Unternehmensniveau zu erreichen.  Es handelt sich um denselben bekannten Prozess und dieselben bekannten Verfahren, die zum Verbinden des Speichers und Migrieren von VMs mithilfe der VMware vSphere-Replikation, VMware vMotion oder sogar NFC-Kopie verwendet werden.
 
 
 
+[[takeaways]]
 == Imbiss
 
 Zu den wichtigsten Punkten dieses Dokuments gehören:
@@ -335,6 +339,7 @@ Zu den wichtigsten Punkten dieses Dokuments gehören:
 
 
 
+[[where-to-find-additional-information]]
 == Wo Sie weitere Informationen finden
 
 Weitere Informationen zu den in diesem Dokument beschriebenen Informationen finden Sie unter den folgenden Website-Links:

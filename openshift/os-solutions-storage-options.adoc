@@ -34,6 +34,7 @@ image:rhhc-storage-opt-pod2vol.png["Beziehung zwischen Pod und ONTAP Volume"]
 
 
 
+[[container-storage-interface-csi-options]]
 == Optionen für die Container Storage Interface (CSI)
 
 In vSphere-Umgebungen können Kunden den VMware CSI-Treiber und/oder Trident CSI zur Integration mit ONTAP auswählen.  Bei VMware CSI werden die persistenten Volumes als lokale SCSI-Festplatten verwendet, während sie bei Trident über das Netzwerk verwendet werden.
@@ -42,6 +43,7 @@ Da VMware CSI keine RWX-Zugriffsmodi mit ONTAP unterstützt, müssen Anwendungen
 
 
 
+[[vmware-csi-supports]]
 === VMware CSI unterstützt
 
 * Core Block-basierte Datenspeicher (FC, FCoE, iSCSI, NVMeoF)
@@ -51,6 +53,7 @@ Da VMware CSI keine RWX-Zugriffsmodi mit ONTAP unterstützt, müssen Anwendungen
 
 
 
+[[trident-has-following-drivers-to-support-ontap]]
 === Trident verfügt über folgende Treiber zur Unterstützung von ONTAP
 
 * ontap-san (dediziertes Volume)

@@ -18,6 +18,7 @@ In diesem Dokument geben wir eine detaillierte Schritt-für-Schritt-Anleitung f�
 
 
 
+[[conclusion]]
 == Abschluss
 
 Zusammenfassend lässt sich sagen, dass bei der Verwendung von FSx für ONTAP zur Optimierung der Gesamtbetriebskosten (TCO) einer Amazon EVS-Bereitstellung SCV eine einfache und effiziente Methode zur Sicherung von VMs bietet. Es kann VMs nahtlos und schnell sichern und wiederherstellen, da es auf Snapshot-Kopien basiert, deren Erstellung buchstäblich nur Sekunden dauert.

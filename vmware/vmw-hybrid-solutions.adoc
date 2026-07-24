@@ -18,6 +18,7 @@ Erfahren Sie mehr über die Lösungen, die NetApp in die VMware-Umgebung jedes H
 
 
 
+[[netapp-solutions-for-vmware-environments]]
 == NetApp -Lösungen für VMware-Umgebungen
 
 Unabhängig davon, ob Sie in einem Hybrid-Cloud-Modell oder einem „Cloud First“-Modell arbeiten, bietet NetApp eine große Vielfalt an Lösungen für die gängigsten Anwendungsfälle zur Verwaltung von Workloads in einem Cloud- oder Hybrid-Cloud-Modell.

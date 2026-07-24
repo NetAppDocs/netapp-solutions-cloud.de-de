@@ -26,6 +26,7 @@ image:dr-draas-nfs-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 
 
+[[getting-started]]
 == Erste Schritte
 
 Um mit der BlueXP disaster recovery zu beginnen, verwenden Sie die BlueXP -Konsole und greifen Sie dann auf den Dienst zu.
@@ -58,6 +59,7 @@ image:dr-draas-nfs-003.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 
 
+[[bluexp-disaster-recovery-configuration]]
 == BlueXP disaster recovery
 
 Der erste Schritt bei der Vorbereitung der Notfallwiederherstellung besteht darin, die lokalen vCenter- und Speicherressourcen zu ermitteln und zur BlueXP disaster recovery hinzuzufügen.
@@ -82,6 +84,7 @@ Sobald die vCenter hinzugefügt wurden, wird die automatische Erkennung ausgelö
 
 
 
+[[configuring-storage-replication-between-source-site-array-and-destination-site-array]]
 == Konfigurieren der Speicherreplikation zwischen Quellstandort-Array und Zielstandort-Array
 
 SnapMirror bietet Datenreplikation in einer NetApp Umgebung.  Die SnapMirror -Replikation basiert auf der NetApp Snapshot-Technologie und ist äußerst effizient, da sie nur die Blöcke repliziert, die seit dem letzten Update geändert oder hinzugefügt wurden.  SnapMirror lässt sich einfach mithilfe des NetApp OnCommand System Manager oder der ONTAP CLI konfigurieren.  BlueXP DRaaS erstellt auch die SnapMirror -Beziehung, sofern Cluster- und SVM-Peering zuvor konfiguriert wurden.
@@ -93,6 +96,7 @@ NOTE: Wenn die SnapMirror -Beziehung für das Volume bereits über CLI oder Syst
 
 
 
+[[how-to-set-it-up-for-vmware-disaster-recovery]]
 == So richten Sie es für VMware Disaster Recovery ein
 
 Der Vorgang zum Erstellen der SnapMirror Replikation bleibt für jede Anwendung derselbe.  Der Vorgang kann manuell oder automatisiert erfolgen.  Am einfachsten ist es, BlueXP zu nutzen, um die SnapMirror -Replikation zu konfigurieren. Dazu ziehen Sie das Quell ONTAP -System in der Umgebung einfach per Drag & Drop auf das Ziel, um den Assistenten zu starten, der Sie durch den Rest des Prozesses führt.
@@ -113,6 +117,7 @@ NOTE: Wenn die SnapMirror -Beziehung für das Volume bereits über die CLI konfi
 
 
 
+[[what-can-bluexp-disaster-recovery-do-for-you]]
 == Was kann BlueXP disaster recovery für Sie tun?
 
 Nachdem die Quell- und Zielsites hinzugefügt wurden, führt die BlueXP disaster recovery eine automatische Tiefenerkennung durch und zeigt die VMs zusammen mit den zugehörigen Metadaten an.  Die BlueXP disaster recovery erkennt außerdem automatisch die von den VMs verwendeten Netzwerke und Portgruppen und füllt sie.
@@ -194,6 +199,7 @@ BlueXP DRaaS besteht aus den folgenden Workflows:
 
 
 
+[[test-failover]]
 == Testen des Failovers
 
 Test-Failover in BlueXP DRaaS ist ein Betriebsverfahren, das es VMware-Administratoren ermöglicht, ihre Wiederherstellungspläne vollständig zu validieren, ohne ihre Produktionsumgebungen zu stören.
@@ -220,6 +226,7 @@ image:dr-draas-nfs-026.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 
 
+[[cleanup-failover-test-operation]]
 == Bereinigungs-Failover-Testvorgang
 
 Der Bereinigungs-Failover-Testvorgang wird ausgeführt, nachdem der Replikationsplantest abgeschlossen wurde und der VMware-Administrator auf die Bereinigungsaufforderung reagiert.
@@ -236,6 +243,7 @@ Wenn der VMware-Administrator einen Wiederherstellungsvorgang durchführt, führ
 
 
 
+[[planned-migration-and-fail-over]]
 == Geplante Migration und Failover
 
 BlueXP DRaaS bietet zwei Methoden zur Durchführung eines echten Failovers: geplante Migration und Failover.  Bei der ersten Methode, der geplanten Migration, werden das Herunterfahren der VM und die Synchronisierung der Speicherreplikation in den Prozess integriert, um die VMs wiederherzustellen oder effektiv an den Zielstandort zu verschieben.  Für die geplante Migration ist Zugriff auf die Quellsite erforderlich.  Die zweite Methode, Failover, ist ein geplantes/ungeplantes Failover, bei dem die VMs am Zielstandort aus dem letzten Speicherreplikationsintervall wiederhergestellt werden, das abgeschlossen werden konnte.  Abhängig vom RPO, das in die Lösung integriert wurde, ist im DR-Szenario mit einem gewissen Datenverlust zu rechnen.
@@ -256,6 +264,7 @@ image:dr-draas-nfs-029.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 
 
 
+[[failback]]
 == Failback
 
 Ein Failback ist ein optionales Verfahren, das nach einer Wiederherstellung die ursprüngliche Konfiguration der Quell- und Zielsites wiederherstellt.
@@ -276,6 +285,7 @@ Weitere Informationen zum Zugriff auf und zur Konfiguration von BlueXP DRaaS fin
 
 
 
+[[monitoring-and-dashboard]]
 == Überwachung und Dashboard
 
 Von BlueXP oder der ONTAP CLI aus können Sie den Replikationszustand für die entsprechenden Datenspeichervolumes überwachen und den Status eines Failovers oder Testfailovers über die Jobüberwachung verfolgen.

@@ -18,6 +18,7 @@ In diesem Abschnitt werden die Schritte zum Bereitstellen von FSx für ONTAP als
 
 
 
+[[high-level-deployment-steps]]
 == Allgemeine Bereitstellungsschritte
 
 Die Bereitstellung des FSx for ONTAP Dateisystems zur Verwendung als NFS-Datenspeicher für Amazon EVS und die Herstellung der Konnektivität zwischen den beiden Diensten umfasst die folgenden Schritte:
@@ -29,6 +30,7 @@ Die Bereitstellung des FSx for ONTAP Dateisystems zur Verwendung als NFS-Datensp
 
 
 
+[[prerequisites]]
 == Voraussetzungen
 
 Die folgenden Voraussetzungen sollten erfüllt sein, bevor Sie mit der Einrichtung eines FSx for ONTAP als NFS-Datenspeicher für Amazon EVS beginnen:
@@ -49,6 +51,7 @@ NOTE: Ihr FSx for ONTAP -Dateisystem sollte in derselben AZ wie das Amazon EVS S
 
 
 
+[[create-an-fsx-for-ontap-file-system]]
 == Erstellen Sie ein FSx für ONTAP -Dateisystem
 
 Die folgenden Schritte zeigen Ihnen, wie Sie ein FSx für ONTAP Dateisystem bereitstellen und mounten:
@@ -154,6 +157,7 @@ NOTE: Um zusätzliche FSx für ONTAP Dateisysteme zu erstellen, können Sie die 
 
 
 
+[[validating-vpc-and-virtualization-environment-routing-and-security-groups]]
 == Validieren von Routing- und Sicherheitsgruppen für VPC- und Virtualisierungsumgebungen
 
 Die Validierung der VPC- und SDDC-Routing- und Sicherheitsgruppen ist wichtig, um sicherzustellen, dass die Amazon EVS-Virtualisierungsumgebung und die FSx for ONTAP Dateisystemkomponenten ordnungsgemäß zusammenarbeiten können.
@@ -207,6 +211,7 @@ image:evs-mount-fsxn-017.png["Abbildung, die den Dialog für den obigen Schritt 
 
 
 
+[[attaching-an-fsx-for-ontap-nfs-volume-to-amazon-evs-for-use-as-a-datastore]]
 == Anhängen eines FSx for ONTAP NFS-Volumes an Amazon EVS zur Verwendung als Datenspeicher
 
 Nachdem Ihr FSx for ONTAP Dateisystem bereitgestellt und alle erforderlichen Konnektivitätsparameter validiert wurden, ist es an der Zeit, ein FSx for ONTAP -Speichervolume an Amazon EVS anzuhängen.  Die folgenden Schritte zeigen, wie Sie auf vCenter zugreifen und das FSx for ONTAP Volume als NFS-Datenspeicher mounten:

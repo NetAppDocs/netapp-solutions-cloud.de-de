@@ -18,24 +18,28 @@ Entdecken Sie die umfassende Videobibliothek von NetApp mit hybriden Multicloud-
 
 
 
+[[snapshots-and-restore]]
 == Snapshots und Wiederherstellung
 
 .Snapshot/Wiederherstellung für Anwendungen auf Red Hat OpenShift Service auf AWS (ROSA)-Clustern mit Amazon FSx ONTAP -Speicher
 video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto,width=360]
 
 
+[[storage-integration]]
 == Speicherintegration
 
 .Integration von FSx ONTAP mit Trident
 video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto,width=360]
 
 
+[[failover-and-fail-back]]
 == Failover und Failback
 
 .Failover und Failback von Apps auf ROSA mit FSx ONTAP
 video::e9a07d79-42a1-4480-86be-b01200fa62f5[panopto,width=360]
 
 
+[[solution-automation]]
 == Lösungsautomatisierung
 
 .Automatisierte Oracle 19c RAC-Bereitstellung auf FlexPod mit Ansible

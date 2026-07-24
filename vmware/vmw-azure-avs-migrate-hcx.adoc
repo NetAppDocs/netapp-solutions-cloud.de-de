@@ -18,6 +18,7 @@ Einer der häufigsten Anwendungsfälle für die Azure VMware Solution und den Az
 
 
 
+[[overview-migrating-virtual-machines-with-vmware-hcx-azure-netapp-files-datastores-and-azure-vmware-solution]]
 == Übersicht: Migrieren virtueller Maschinen mit VMware HCX, Azure NetApp Files Datenspeichern und Azure VMware-Lösung
 
 VMware HCX ist in erster Linie eine Migrationsplattform, die die Anwendungsmigration, die Neuverteilung der Arbeitslast und sogar die Geschäftskontinuität über Clouds hinweg vereinfachen soll.  Es ist Teil der Azure VMware Solution Private Cloud und bietet viele Möglichkeiten zum Migrieren von Workloads und kann für Disaster Recovery-Vorgänge (DR) verwendet werden.
@@ -69,6 +70,7 @@ image:anfd-hcx-001.png["Dieses Bild zeigt die in dieser Lösung verwendete High-
 ====
 
 
+[[solution-deployment]]
 == Lösungsbereitstellung
 
 Befolgen Sie die Schritte, um die Bereitstellung dieser Lösung abzuschließen:
@@ -315,12 +317,14 @@ NOTE: Der Ziel-ANF-Datenspeicher sollte über ausreichend Speicherplatz verfüge
 ====
 
 
+[[conclusion]]
 == Abschluss
 
 Unabhängig davon, ob Sie eine reine Cloud oder eine Hybrid Cloud anstreben und Ihre Daten sich auf Speichersystemen beliebiger Art/Anbieter vor Ort befinden, bieten Azure NetApp Files und HCX hervorragende Optionen zum Bereitstellen und Migrieren der Anwendungsworkloads und senken gleichzeitig die Gesamtbetriebskosten, indem die Datenanforderungen nahtlos in die Anwendungsebene integriert werden.  Wählen Sie für jeden Anwendungsfall Azure VMware Solution zusammen mit Azure NetApp Files, um die Vorteile der Cloud schnell zu nutzen, eine konsistente Infrastruktur und Vorgänge vor Ort und in mehreren Clouds zu gewährleisten, Workloads bidirektional zu portieren und Kapazität und Leistung auf Unternehmensniveau zu erreichen.  Es handelt sich um denselben bekannten Prozess und dieselben bekannten Verfahren, die zum Verbinden des Speichers und Migrieren von VMs mithilfe von VMware vSphere Replication, VMware vMotion oder sogar Network File Copy (NFC) verwendet werden.
 
 
 
+[[takeaways]]
 == Imbiss
 
 Zu den wichtigsten Punkten dieses Dokuments gehören:
@@ -332,6 +336,7 @@ Zu den wichtigsten Punkten dieses Dokuments gehören:
 
 
 
+[[where-to-find-additional-information]]
 == Wo Sie weitere Informationen finden
 
 Weitere Informationen zu den in diesem Dokument beschriebenen Informationen finden Sie unter den folgenden Website-Links:

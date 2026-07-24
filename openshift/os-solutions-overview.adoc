@@ -18,6 +18,7 @@ NetApp verzeichnet einen deutlichen Anstieg der Zahl der Kunden, die ihre alten 
 
 
 
+[[overview]]
 == Überblick
 
 Da immer mehr Kunden Container in ihren Unternehmen einsetzen, ist NetApp optimal aufgestellt, um die persistenten Speicheranforderungen ihrer Stateful-Anwendungen und die klassischen Datenverwaltungsanforderungen wie Datenschutz, Datensicherheit und Datenmigration zu erfüllen.  Diese Anforderungen werden jedoch mithilfe unterschiedlicher Strategien, Tools und Methoden erfüllt.

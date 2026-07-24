@@ -18,6 +18,7 @@ In diesem Dokument wird beschrieben, wie Sie Amazon FSx ONTAP als NFS-Datenspeic
 
 
 
+[[introduction]]
 == Einführung
 
 Jede erfolgreiche Organisation befindet sich auf dem Weg der Transformation und Modernisierung.  Im Rahmen dieses Prozesses nutzen Unternehmen in der Regel ihre vorhandenen VMware-Investitionen, um die Vorteile der Cloud zu nutzen und zu erkunden, wie sie Prozesse möglichst nahtlos migrieren, erweitern und für die Notfallwiederherstellung bereitstellen können.  Kunden, die in die Cloud migrieren, müssen die Anwendungsfälle hinsichtlich Elastizität und Burst, Rechenzentrumsausstieg, Rechenzentrumskonsolidierung, End-of-Life-Szenarien, Fusionen, Übernahmen usw. bewerten.
@@ -33,6 +34,7 @@ NOTE: Diese Lösung ist auch von VMware erhältlich.  Bitte besuchen Sie dielink
 
 
 
+[[connectivity-options]]
 == Konnektivitätsoptionen
 
 
@@ -58,6 +60,7 @@ NOTE: FSx ONTAP wird derzeit nicht mit Stretched Clustern unterstützt.
 
 
 
+[[conclusion]]
 == Abschluss
 
 Dieses Dokument behandelt die notwendigen Schritte zur Konfiguration von Amazon FSx ONTAP mit VMware Cloud auf AWS.  Amazon FSx ONTAP bietet hervorragende Optionen zum Bereitstellen und Verwalten von Anwendungs-Workloads zusammen mit Dateidiensten und reduziert gleichzeitig die Gesamtbetriebskosten, indem die Datenanforderungen nahtlos in die Anwendungsebene integriert werden.  Wählen Sie für jeden Anwendungsfall VMware Cloud on AWS zusammen mit Amazon FSx ONTAP , um die Vorteile der Cloud schnell zu nutzen, eine konsistente Infrastruktur und Betriebsabläufe von On-Premises zu AWS zu gewährleisten, Workloads bidirektional zu portieren und Kapazität und Leistung auf Unternehmensniveau zu erreichen.  Es handelt sich um denselben bekannten Prozess und dieselben bekannten Verfahren, die zum Verbinden von Speichern verwendet werden.  Denken Sie daran, dass sich neben den neuen Namen nur die Position der Daten geändert hat. Die Tools und Prozesse bleiben alle gleich und Amazon FSx ONTAP trägt zur Optimierung der gesamten Bereitstellung bei.

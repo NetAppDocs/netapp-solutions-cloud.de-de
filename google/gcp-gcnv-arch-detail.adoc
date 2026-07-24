@@ -24,12 +24,14 @@ Der Teil über der gepunkteten Linie zeigt die Steuerebene des Dienstes, die den
 
 
 
+[[tenancy-model]]
 == Mietmodell
 
 In Google Cloud NetApp Volumes werden einzelne Projekte als eindeutige Mandanten betrachtet.  Dies bedeutet, dass die Manipulation von Volumes, Snapshot-Kopien usw. auf Projektbasis erfolgt.  Mit anderen Worten: Alle Volumes gehören dem Projekt, in dem sie erstellt wurden, und nur dieses Projekt kann standardmäßig die darin enthaltenen Daten verwalten und darauf zugreifen.  Dies wird als die Steuerungsebenenansicht des Dienstes betrachtet.
 
 
 
+[[shared-vpcs]]
 === Gemeinsam genutzte VPCs
 
 In der Datenebenenansicht können Google Cloud NetApp Volumes eine Verbindung zu einem gemeinsam genutzten VPC herstellen.  Sie können Volumes im Hosting-Projekt oder in einem der mit der gemeinsam genutzten VPC verbundenen Serviceprojekte erstellen.  Alle mit diesem gemeinsam genutzten VPC verbundenen Projekte (Host oder Dienst) können die Volumes auf der Netzwerkebene (TCP/IP) erreichen.  Da alle Clients mit Netzwerkkonnektivität auf der gemeinsam genutzten VPC potenziell über NAS-Protokolle auf die Daten zugreifen können, muss die Zugriffskontrolle auf dem einzelnen Volume (z. B. Benutzer-/Gruppen-Zugriffskontrolllisten (ACLs) und Hostnamen/IP-Adressen für NFS-Exporte) verwendet werden, um zu steuern, wer auf die Daten zugreifen kann.
@@ -42,6 +44,7 @@ Mit anderen Worten: Auf der Netzwerkebene können alle mit der gemeinsam genutzt
 
 
 
+[[vpc-service-controls]]
 === VPC-Dienststeuerungen
 
 VPC Service Controls richten einen Zugriffskontrollbereich um Google Cloud-Dienste ein, die mit dem Internet verbunden und weltweit zugänglich sind.  Diese Dienste ermöglichen eine Zugriffskontrolle über Benutzeridentitäten, können jedoch nicht einschränken, von welchem Netzwerkstandort die Anfragen stammen.  VPC Service Controls schließt diese Lücke, indem es die Möglichkeit einführt, den Zugriff auf definierte Netzwerke einzuschränken.
@@ -52,6 +55,8 @@ Kurz gesagt: Die Datenebene von Google Cloud NetApp Volumes bietet die Möglichk
 
 
 
+[[packet-sniffingtrace-considerations]]
+[[packet-sniffing]]
 === Überlegungen zum Packet Sniffing/Trace
 
 Paketerfassungen können bei der Behebung von Netzwerkproblemen oder anderen Problemen (wie NAS-Berechtigungen, LDAP-Konnektivität usw.) hilfreich sein, können aber auch böswillig missbraucht werden, um Informationen über Netzwerk-IP-Adressen, MAC-Adressen, Benutzer- und Gruppennamen und die auf den Endpunkten verwendete Sicherheitsstufe zu erhalten.  Aufgrund der Art und Weise, wie Google Cloud-Netzwerke, VPCs und Firewall-Regeln konfiguriert sind, sollte es ohne Benutzeranmeldeinformationen schwierig sein, unerwünschten Zugriff auf Netzwerkpakete zu erhalten oderlink:gcp-gcnv-control-plane-arch.html#jwt-tokens["JWT-Token"] in die Cloud-Instanzen.  Paketerfassungen sind nur auf Endpunkten (wie virtuellen Maschinen (VMs)) und nur auf Endpunkten innerhalb der VPC möglich, es sei denn, es wird eine gemeinsam genutzte VPC und/oder ein externer Netzwerktunnel/eine IP-Weiterleitung verwendet, um externen Datenverkehr zu Endpunkten ausdrücklich zuzulassen.  Es gibt keine Möglichkeit, den Datenverkehr außerhalb der Clients abzuhören.
@@ -71,6 +76,7 @@ image:ncvs-gc-004.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder sc
 
 
 
+[[vm-network-interfaces]]
 === VM-Netzwerkschnittstellen
 
 Ein Trick, den Angreifer versuchen könnten, besteht darin, einer VM eine neue Netzwerkkarte (NIC) hinzuzufügen in https://en.wikipedia.org/wiki/Promiscuous_mode["Promiscuous-Modus"^] (Portspiegelung) oder aktivieren Sie den Promiscuous-Modus auf einer vorhandenen Netzwerkkarte, um den gesamten Datenverkehr abzuhören.  In Google Cloud erfordert das Hinzufügen einer neuen Netzwerkkarte das vollständige Herunterfahren einer VM, wodurch Warnungen ausgelöst werden, sodass Angreifer dies nicht unbemerkt tun können.

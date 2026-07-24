@@ -18,6 +18,7 @@ Google Cloud NetApp Volumes bietet die Möglichkeit, dieselben Datensätze sowoh
 
 
 
+[[access-control]]
 == Zugriffskontrolle
 
 * *Zugriffskontrollen teilen.*  Bestimmen Sie, welche Clients und/oder Benutzer und Gruppen auf eine NAS-Freigabe zugreifen können.  Bei NFS steuern Exportrichtlinien und -regeln den Clientzugriff auf Exporte.  NFS-Exporte werden von der Google Cloud NetApp Volumes Instanz verwaltet.  SMB nutzt CIFS/SMB-Freigaben und Freigabe-ACLs, um eine detailliertere Kontrolle auf Benutzer- und Gruppenebene zu ermöglichen.  Sie können ACLs auf Freigabeebene von SMB-Clients nur konfigurieren, indem Sie https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html[MMC/Computerverwaltung^] mit einem Konto verwenden, das über Administratorrechte für die Google Cloud NetApp Volumes Instanz verfügt (siehe Abschnitt link:gcp-gcnv-smb.html#Konten mit lokalen/INTEGRIERTEN Administrator-/Sicherungsrechten["Konten mit lokalen/INTEGRIERTEN Administrator-/Sicherungsrechten."]).
@@ -28,6 +29,7 @@ Die Zugriffskontrolle für Volumes, die Daten sowohl an NFS als auch an SMB bere
 
 
 
+[[user-mapping]]
 == Benutzerzuordnung
 
 Wenn ein Client auf ein Volume zugreift, versucht Google Cloud NetApp Volumes, den eingehenden Benutzer einem gültigen Benutzer in die entgegengesetzte Richtung zuzuordnen.  Dies ist notwendig, damit der ordnungsgemäße Zugriff über alle Protokolle hinweg sichergestellt werden kann und um sicherzustellen, dass der Benutzer, der den Zugriff anfordert, tatsächlich derjenige ist, für den er sich ausgibt.
@@ -40,6 +42,7 @@ Derzeit wird für die externe UNIX-Identitätsverwaltung mit LDAP nur Active Dir
 
 
 
+[[permission-model]]
 == Berechtigungsmodell
 
 Bei der Verwendung von Dual-Protokoll-Setups verwendet Google Cloud NetApp Volumes Sicherheitsstile für Volumes, um den ACL-Typ zu bestimmen.  Diese Sicherheitsstile werden basierend auf dem angegebenen NAS-Protokoll festgelegt. Im Fall eines dualen Protokolls wird die Auswahl zum Zeitpunkt der Erstellung des Google Cloud NetApp Volumes -Volumes getroffen.

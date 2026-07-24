@@ -20,6 +20,7 @@ Jeder Kunde erhält sein eigenes, einzigartiges Subnetz, dessen Zugriff standard
 
 
 
+[[physical-security]]
 == Physische Sicherheit
 
 Mit der entsprechenden Vorabgenehmigung haben nur Techniker vor Ort und Field Support Engineers (FSEs) mit NetApp Ausweis Zugriff auf den Käfig und die Racks für physische Arbeiten.  Speicher- und Netzwerkverwaltung ist nicht zulässig.  Nur diese Ressourcen vor Ort können Hardware-Wartungsaufgaben durchführen.
@@ -28,6 +29,7 @@ Für Techniker vor Ort wird ein Ticket für die Leistungsbeschreibung (SOW) erst
 
 
 
+[[operations-team]]
 == Betriebsteam
 
 Das Betriebsteam für Google Cloud NetApp Volumes besteht aus einem Produktionsingenieur und einem Site Reliability Engineer (SRE) für Google Cloud NetApp Volumes sowie NetApp Field Support Engineers und Partnern für die Hardware.  Alle Mitglieder des Betriebsteams sind für die Arbeit in Google Cloud akkreditiert und für jedes erstellte Ticket werden detaillierte Arbeitsaufzeichnungen geführt.  Darüber hinaus gibt es einen strengen Änderungskontroll- und Genehmigungsprozess, um sicherzustellen, dass jede Entscheidung angemessen geprüft wird.
@@ -36,6 +38,7 @@ Das SRE-Team verwaltet die Steuerebene und die Art und Weise, wie die Daten von 
 
 
 
+[[customer-responsibilities]]
 == Kundenpflichten
 
 Kunden von Google Cloud NetApp Volumes verwalten das Active Directory und die Benutzerrollenverwaltung ihres Unternehmens sowie die Volume- und Datenvorgänge.  Kunden können über Administratorrollen verfügen und Berechtigungen an andere Endbenutzer innerhalb desselben Google Cloud-Projekts delegieren, indem sie die beiden vordefinierten Rollen verwenden, die NetApp und Google Cloud bereitstellen (Administrator und Viewer).
@@ -44,6 +47,7 @@ Der Administrator kann jedes VPC innerhalb des Kundenprojekts mit Google Cloud N
 
 
 
+[[malicious-sre-protection]]
 == Schutz vor bösartigen SREs
 
 Eine mögliche Frage ist, wie Google Cloud NetApp Volumes vor Szenarien schützt, in denen ein bösartiger SRE vorhanden ist oder SRE-Anmeldeinformationen kompromittiert wurden.
@@ -52,6 +56,7 @@ Der Zugriff auf die Produktionsumgebung ist nur einer begrenzten Anzahl von SRE-
 
 
 
+[[volume-life-cycle]]
 == Volume-Lebenszyklus
 
 Google Cloud NetApp Volumes verwaltet nur die Objekte innerhalb des Dienstes, nicht die Daten innerhalb der Volumes.  Nur Clients, die auf die Volumes zugreifen, können die Daten, die ACLs, Dateieigentümer usw. verwalten.  Die Daten in diesen Volumes werden im Ruhezustand verschlüsselt und der Zugriff ist auf Mandanten der Google Cloud NetApp Volumes Instanz beschränkt.
@@ -62,12 +67,14 @@ In Fällen, in denen ein Google Cloud NetApp Volumes -Vertrag gekündigt wird, m
 
 
 
+[[certifications]]
 == Zertifizierungen
 
 Google Cloud NetApp Volumes für Google Cloud ist derzeit nach den Standards ISO/IEC 27001:2013 und ISO/IEC 27018:2019 zertifiziert.  Der Dienst hat außerdem vor Kurzem seinen SOC2 Typ I-Bescheinigungsbericht erhalten.  Informationen zum Engagement von NetApp für Datensicherheit und Datenschutz finden Sie unter https://www.netapp.com/company/trust-center/compliance/["Compliance: Datensicherheit und Datenschutz"^] .
 
 
 
+[[gdpr]]
 == DSGVO
 
 Unsere Verpflichtungen zum Datenschutz und zur Einhaltung der DSGVO sind in einer Reihe unserer https://www.netapp.com/how-to-buy/sales-terms-and-conditions%22%20/o%20%22SEO%20-%20Sales%20Terms%20and%20Conditions["Kundenverträge"^] , wie zum Beispiel unsere https://netapp.na1.echosign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCqPPgcufskl_71q-FelD4DHz5EMJVOkqqT0iiORT10DlfZnZeMpDrse5W6K9LEw6o*["Nachtrag zur Data Processing"^] , die die https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc_en["Standardvertragsklauseln"^] bereitgestellt von der Europäischen Kommission.  Diese Verpflichtungen gehen wir auch in unserer Datenschutzrichtlinie ein, die durch die in unserem Unternehmensverhaltenskodex festgelegten Grundwerte gestützt wird.

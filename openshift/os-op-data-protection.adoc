@@ -24,6 +24,7 @@ Für Details zum Schutz und zur Migration von Container-Workloads mit Trident Pr
 
 
 
+[[business-continuity-with-metrocluster]]
 == Geschäftskontinuität mit MetroCluster
 
 Die meisten unserer Hardwareplattformen für ONTAP verfügen über Hochverfügbarkeitsfunktionen zum Schutz vor Geräteausfällen, sodass keine Notfallwiederherstellung erforderlich ist.  Zum Schutz vor Feuer oder anderen Katastrophen und um das Geschäft mit Null-RPO und niedrigem RTO fortzuführen, wird jedoch häufig eine MetroCluster Lösung verwendet.

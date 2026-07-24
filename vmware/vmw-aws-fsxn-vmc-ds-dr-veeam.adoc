@@ -18,6 +18,7 @@ Die Amazon FSx ONTAP Integration mit VMware Cloud auf AWS ist ein von AWS verwal
 
 
 
+[[overview]]
 == Überblick
 
 Kunden, die VMware Cloud on AWS SDDC als Disaster Recovery-Ziel verwenden möchten, können FSx ONTAP Datenspeicher verwenden, um Daten vor Ort mithilfe jeder validierten Drittanbieterlösung zu replizieren, die VM-Replikationsfunktionen bietet.  Durch das Hinzufügen des FSx ONTAP Datenspeichers wird eine kostenoptimierte Bereitstellung ermöglicht, als beim Aufbau einer VMware Cloud auf AWS SDDC mit einer enormen Anzahl von ESXi-Hosts, nur um den Speicher unterzubringen.
@@ -26,6 +27,7 @@ Dieser Ansatz hilft Kunden auch dabei, Pilot Light Cluster in VMC zusammen mit F
 
 
 
+[[problem-statement]]
 == Problemstellung
 
 In diesem Dokument wird beschrieben, wie Sie mithilfe des FSx ONTAP Datenspeichers und der Veeam-Sicherung und -Replikation die Notfallwiederherstellung für lokale VMware-VMs in VMware Cloud auf AWS unter Verwendung der VM-Replikationsfunktion einrichten.
@@ -42,10 +44,12 @@ image:dr-veeam-fsx-001.png["Diagramm eines DR-Szenarios mit Veeam Replication un
 
 
 
+[[solution-deployment]]
 == Lösungsbereitstellung
 
 
 
+[[high-level-steps]]
 === Schritte auf hohem Niveau
 
 . Die Veeam Backup- und Replication-Software wird in einer lokalen Umgebung mit entsprechender Netzwerkkonnektivität ausgeführt.
@@ -57,6 +61,7 @@ image:dr-veeam-fsx-001.png["Diagramm eines DR-Szenarios mit Veeam Replication un
 
 
 
+[[pre-requisites-for-veeam-vm-replication-to-vmc-and-fsx-ontap-datastores]]
 === Voraussetzungen für die Veeam VM-Replikation auf VMC- und FSx ONTAP Datenspeicher
 
 . Stellen Sie sicher, dass die Sicherungs-VM von Veeam Backup & Replication mit dem Quell-vCenter sowie den Ziel-VMware-Cloud-on-AWS-SDDC-Clustern verbunden ist.
@@ -68,6 +73,7 @@ Weitere Informationen finden Sie unter "Überlegungen und Einschränkungen"link:
 
 
 
+[[deployment-details]]
 === Bereitstellungsdetails
 
 .Schritt 1: VMs replizieren
@@ -217,6 +223,7 @@ image:dr-veeam-fsx-019.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt od
 ====
 
 
+[[conclusion]]
 == Abschluss
 
 Die FSx ONTAP Datenspeicherfunktion ermöglicht es Veeam oder jedem validierten Drittanbietertool, eine kostengünstige DR-Lösung mithilfe des Pilot Light Clusters bereitzustellen, ohne eine große Anzahl von Hosts im Cluster bereitstellen zu müssen, nur um die VM-Replikatkopie unterzubringen.  Dies bietet eine leistungsstarke Lösung zur Handhabung eines maßgeschneiderten, individuellen Notfallwiederherstellungsplans und ermöglicht außerdem die Wiederverwendung vorhandener Backup-Produkte im Unternehmen, um die DR-Anforderungen zu erfüllen. Dadurch wird eine Cloud-basierte Notfallwiederherstellung durch Verlassen der DR-Rechenzentren vor Ort ermöglicht.  Das Failover kann als geplantes Failover oder per Mausklick erfolgen, wenn ein Notfall eintritt und die Entscheidung zur Aktivierung der DR-Site getroffen wird.

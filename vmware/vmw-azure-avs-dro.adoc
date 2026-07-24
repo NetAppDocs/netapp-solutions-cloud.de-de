@@ -18,6 +18,7 @@ Die Notfallwiederherstellung mithilfe der Replikation auf Blockebene zwischen Re
 
 
 
+[[overview]]
 == Überblick
 
 Mit der regionsübergreifenden Volumereplikation von Azure NetApp Files (ANF) können VMware-Workloads, die auf einem Azure VMware Solution (AVS) SDDC-Standort ausgeführt werden und Azure NetApp Files-Volumes als NFS-Datenspeicher auf dem primären AVS-Standort verwenden, auf einen bestimmten sekundären AVS-Standort in der Zielwiederherstellungsregion repliziert werden.
@@ -28,6 +29,7 @@ image:azure-dro-001.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder 
 
 
 
+[[prerequisites-and-general-recommendations]]
 === Voraussetzungen und allgemeine Empfehlungen
 
 * Stellen Sie sicher, dass Sie die regionsübergreifende Replikation aktiviert haben, indem Sie ein Replikations-Peering erstellen. Sehen https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering["Erstellen einer Volumereplikation für Azure NetApp Files"^] .
@@ -42,10 +44,12 @@ NOTE: Kaskadierungs- und Fan-In- und Fan-Out-Topologien werden nicht unterstütz
 
 
 
+[[getting-started]]
 == Erste Schritte
 
 
 
+[[deploy-azure-vmware-solution]]
 === Bereitstellen der Azure VMware-Lösung
 
 Der https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["Azure VMware-Lösung"^] (AVS) ist ein Hybrid-Cloud-Dienst, der voll funktionsfähige VMware SDDCs innerhalb einer öffentlichen Microsoft Azure-Cloud bereitstellt.  AVS ist eine First-Party-Lösung, die vollständig von Microsoft verwaltet und unterstützt und von VMware verifiziert wird und die Azure-Infrastruktur nutzt.  Daher erhalten Kunden VMware ESXi für die Computervirtualisierung, vSAN für hyperkonvergenten Speicher und NSX für Netzwerke und Sicherheit und profitieren gleichzeitig von der globalen Präsenz von Microsoft Azure, den erstklassigen Rechenzentrumseinrichtungen und der Nähe zum umfangreichen Ökosystem nativer Azure-Dienste und -Lösungen.  Eine Kombination aus Azure VMware Solution SDDC und Azure NetApp Files bietet die beste Leistung bei minimaler Netzwerklatenz.
@@ -57,6 +61,7 @@ NOTE: In der ersten Version unterstützt DRO einen vorhandenen AVS SDDC-Cluster.
 
 
 
+[[provision-and-configure-azure-netapp-files]]
 === Bereitstellen und Konfigurieren von Azure NetApp Files
 
 https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-introduction["Azure NetApp Files"^]ist ein leistungsstarker, gebührenpflichtiger Dateispeicherdienst der Enterprise-Klasse.  Befolgen Sie die Schritte in diesem https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["Link"^] zum Bereitstellen und Konfigurieren von Azure NetApp Files als NFS-Datenspeicher zur Optimierung der AVS-Bereitstellungen in privaten Clouds.
@@ -76,6 +81,7 @@ NOTE: Eine regionsübergreifende Replikationsbeziehung ist Voraussetzung und mus
 
 
 
+[[dro-installation]]
 == DRO-Installation
 
 Um mit DRO zu beginnen, verwenden Sie das Ubuntu-Betriebssystem auf der vorgesehenen virtuellen Azure-Maschine und stellen Sie sicher, dass Sie die Voraussetzungen erfüllen.  Installieren Sie dann das Paket.
@@ -129,6 +135,7 @@ image:azure-dro-003.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder 
 
 
 
+[[dro-configuration]]
 == DRO-Konfiguration
 
 Nachdem Azure NetApp Files und AVS ordnungsgemäß konfiguriert wurden, können Sie mit der Konfiguration von DRO beginnen, um die Wiederherstellung von Workloads vom primären AVS-Standort zum sekundären AVS-Standort zu automatisieren.  NetApp empfiehlt, den DRO-Agenten am sekundären AVS-Standort bereitzustellen und die ExpressRoute-Gateway-Verbindung so zu konfigurieren, dass der DRO-Agent über das Netzwerk mit den entsprechenden AVS- und Azure NetApp Files Komponenten kommunizieren kann.
@@ -202,6 +209,7 @@ Der nächste Schritt besteht darin, die benötigten VMs in ihren Funktionsgruppe
 
 
 
+[[resource-groupings]]
 === Ressourcengruppierungen
 
 Nachdem die Plattformen hinzugefügt wurden, gruppieren Sie die VMs, die Sie wiederherstellen möchten, in Ressourcengruppen.  Mit DRO-Ressourcengruppen können Sie eine Reihe abhängiger VMs in logische Gruppen gruppieren, die ihre Startreihenfolgen, Startverzögerungen und optionalen Anwendungsvalidierungen enthalten, die bei der Wiederherstellung ausgeführt werden können.
@@ -233,6 +241,7 @@ image:azure-dro-011.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder 
 
 
 
+[[replication-plans]]
 === Replikationspläne
 
 Sie müssen über einen Plan zur Wiederherstellung von Anwendungen im Katastrophenfall verfügen.  Wählen Sie die Quell- und Ziel-vCenter-Plattformen aus der Dropdown-Liste aus, wählen Sie die Ressourcengruppen aus, die in diesen Plan aufgenommen werden sollen, und geben Sie auch die Gruppierung an, wie Anwendungen wiederhergestellt und eingeschaltet werden sollen (z. B. Domänencontroller, Tier-1, Tier-2 usw.).  Pläne werden oft auch als Blaupausen bezeichnet.  Um den Wiederherstellungsplan zu definieren, navigieren Sie zur Registerkarte „Replikationsplan“ und klicken Sie auf *Neuer Replikationsplan*.
@@ -298,6 +307,7 @@ Im Azure-Portal können wir sehen, dass die Replikationsintegrität für die ent
 
 
 
+[[ransomware-recovery]]
 === Ransomware-Wiederherstellung
 
 Die Wiederherstellung nach Ransomware kann eine gewaltige Aufgabe sein.  Insbesondere kann es für IT-Organisationen schwierig sein, den sicheren Zeitpunkt der Rückkehr zu bestimmen und, sobald dieser ermittelt ist, sicherzustellen, dass wiederhergestellte Workloads vor erneuten Angriffen (beispielsweise durch ruhende Malware oder anfällige Anwendungen) geschützt sind.
@@ -306,6 +316,7 @@ DRO geht auf diese Bedenken ein, indem es Unternehmen die Wiederherstellung von 
 
 
 
+[[conclusion]]
 == Abschluss
 
 Die Notfallwiederherstellungslösung Azure NetApp Files und Azure VMware bietet Ihnen die folgenden Vorteile:
@@ -322,6 +333,7 @@ Die Notfallwiederherstellungslösung Azure NetApp Files und Azure VMware bietet 
 
 
 
+[[where-to-find-additional-information]]
 === Wo Sie weitere Informationen finden
 
 Weitere Informationen zu den in diesem Dokument beschriebenen Informationen finden Sie in den folgenden Dokumenten und/oder auf den folgenden Websites:

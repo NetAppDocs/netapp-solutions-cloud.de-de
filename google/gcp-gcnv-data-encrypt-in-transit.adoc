@@ -18,6 +18,7 @@ Während der Übertragung übertragene Daten können auf der NAS-Protokollebene 
 
 
 
+[[google-cloud-network]]
 == Google Cloud-Netzwerk
 
 Google Cloud verschlüsselt den Datenverkehr auf Netzwerkebene wie in https://cloud.google.com/security/encryption-in-transit["Verschlüsselung während der Übertragung"^] in der Google-Dokumentation.  Wie im Abschnitt „Architektur von Google Cloud NetApp Volumes “ erwähnt, wird Google Cloud NetApp Volumes aus einem von NetApp gesteuerten PSA-Produzentenprojekt bereitgestellt.
@@ -28,12 +29,14 @@ Obwohl der Datenpfad für NetApp Volumes-Performance auf der Netzwerkebene nicht
 
 
 
+[[nas-protocols]]
 == NAS-Protokolle
 
 NFS- und SMB-NAS-Protokolle bieten optionale Transportverschlüsselung auf Protokollebene.
 
 
 
+[[smb-encryption]]
 === SMB-Verschlüsselung
 
 https://docs.microsoft.com/en-us/windows-server/storage/file-server/smb-security["SMB-Verschlüsselung"^]bietet eine End-to-End-Verschlüsselung von SMB-Daten und schützt Daten vor Abhörmaßnahmen in nicht vertrauenswürdigen Netzwerken.  Sie können die Verschlüsselung sowohl für die Client/Server-Datenverbindung (nur für SMB3.x-fähige Clients verfügbar) als auch für die Server-/Domänencontroller-Authentifizierung aktivieren.
@@ -44,6 +47,7 @@ Google Cloud NetApp Volumes unterstützt die Sicherheitschiffren RC4-HMAC, AES-1
 
 
 
+[[nfsv4-1-kerberos]]
 === NFSv4.1 Kerberos
 
 Für NFSv4.1 bietet NetApp Volumes-Performance Kerberos-Authentifizierung wie in https://datatracker.ietf.org/doc/html/rfc7530["RFC7530"^] Sie können Kerberos auf Volume-Basis aktivieren.

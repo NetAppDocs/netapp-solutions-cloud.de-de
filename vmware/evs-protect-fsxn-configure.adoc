@@ -18,6 +18,7 @@ Dieser Abschnitt beschreibt die Schritte zur Konfiguration des SnapCenter Plug-i
 
 
 
+[[adding-the-storage-system]]
 == Hinzufügen des Speichersystems
 
 Der nächste Schritt zum Schutz von Workloads mit Switched Virtual Connection ist das Hinzufügen von link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_add_storage_01.html["Speichersystem"]. Durch das Hinzufügen von Speicher kann SCV Sicherungs- und Wiederherstellungsvorgänge innerhalb von vCenter erkennen und verwalten. Fügen Sie den FSx for NetApp ONTAP Management-Endpunkt oder die IP-Adresse des Verwaltungsendpunkts der Storage Virtual Machine (SVM) als Speichersystem hinzu, um die Sicherung und Wiederherstellung von VMs zu aktivieren.
@@ -37,6 +38,7 @@ Wenn die SCV-Version 6.2 ist, gehen Sie zu link:https://mysupport.netapp.com/sit
 
 
 
+[[create-a-backup-policy]]
 == Erstellen Sie eine Sicherungsrichtlinie
 
 Eine robuste Backup-Strategie sollte Schlüsselfaktoren wie den Backup-Zeitplan, die zu sichernden Daten und die Aufbewahrungsdauer der Backups definieren. Snapshot-Kopien können stündlich oder täglich geplant werden, um ganze Datastores zu schützen. Durch diese Art der Backup-Planung werden nicht nur die Datastores gesichert, sondern auch Backup- und Wiederherstellungsvorgänge für die darin enthaltenen VMs und VMDKs unterstützt.
@@ -69,6 +71,7 @@ Sobald die Richtlinie erstellt ist, besteht der nächste Schritt darin, die Ress
 
 
 
+[[create-a-resource-group]]
 == Erstellen Sie eine Ressourcengruppe
 
 Eine Ressourcengruppe dient als Container für VMs und Datenspeicher, die Schutz benötigen. Ressourcen können jederzeit zu oder aus einer Ressourcengruppe hinzugefügt oder entfernt werden, was Flexibilität bei der Verwaltung von Sicherungskonfigurationen bietet.
@@ -92,6 +95,7 @@ image:evs-protect-fsxn-005.png["Abbildung, die den Dialog für den obigen Schrit
 
 
 
+[[backing-up-resource-groups]]
 == Backup von Ressourcengruppen
 
 Sicherungsvorgänge werden für alle Ressourcen innerhalb einer Ressourcengruppe ausgeführt. Wenn einer Ressourcengruppe eine Richtlinie zugewiesen und ein Zeitplan konfiguriert ist, werden Sicherungen automatisch gemäß dem Zeitplan durchgeführt.

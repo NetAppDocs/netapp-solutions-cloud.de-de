@@ -36,7 +36,7 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 
 
 .Installieren Sie Trident auf ROSA-Clustern (mithilfe des Helm-Diagramms).
-* Verwenden Sie das Helm-Diagramm, um Trident auf ROSA-Clustern zu installieren.  Siehe den Dokumentationslink: https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html[hier].
+* Für die Installation von Trident auf ROSA Clustern wird das Helm Chart verwendet. Der Link zur Dokumentation befindet sich https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy-helm.html[hier^].
 
 
 .Integration von FSx ONTAP mit Trident für ROSA-Cluster
@@ -58,6 +58,6 @@ image:rhhc-default-storage-class.png["Abbildung, die einen Eingabe-/Ausgabedialo
 * Richten Sie eine neue Argo CD-Instanz für den Cluster ein.  Siehe Anweisungenlink:https://docs.openshift.com/container-platform/4.10/cicd/gitops/setting-up-argocd-instance.html["hier,"] .
 
 
-Öffnen Sie die Konsole von Argo CD und stellen Sie eine App bereit.  Beispielsweise können Sie eine Jenkins-App mithilfe von Argo CD mit einem Helm-Diagramm bereitstellen.  Beim Erstellen der Anwendung wurden folgende Angaben gemacht: Projekt: Standardcluster:'https://kubernetes.default.svc'[] (ohne Anführungszeichen) Namespace: Jenkins Die URL für das Helm-Diagramm:'https://charts.bitnami.com/bitnami'[] (ohne Anführungszeichen)
+Die Konsole von Argo CD wird geöffnet und eine App wird bereitgestellt. Als Beispiel kann eine Jenkins App mit Argo CD unter Verwendung eines Helm Chart bereitgestellt werden. Beim Erstellen der Anwendung wurden die folgenden Details angegeben: Project: default cluster: +'https://kubernetes.default.svc'+[] (without the quotes) Namespace: Jenkins The url for the Helm Chart: +'https://charts.bitnami.com/bitnami'+[] (without the quotes)
 
 Helm-Parameter: global.storageClass: fsxn-nas

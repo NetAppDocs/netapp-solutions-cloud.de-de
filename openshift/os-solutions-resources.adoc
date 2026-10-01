@@ -25,7 +25,7 @@ Hier finden Sie einige zusätzliche Dokumentationen als Referenz:
 . link:https://docs.netapp.com/us-en/trident/["Trident"]
 . link:https://docs.netapp.com/us-en/ontap/["ONTAP 9"]
 . link:https://github.com/NetApp/Verda["NetApp Verda"]- Verda (Open Source) verfügt über eine Sammlung von Referenzausführungs-Hooks für beliebte Cloud-native datenintensive Anwendungen
-. link:https://docs.netapp.com/us-en/cloud-manager-family/["NetApp BlueXP"]
+. link:https://bluexp.netapp.com/["NetApp BlueXP"]
 . link:https://docs.openshift.com/rosa/welcome/index.html["Red Hat OpenShift Service auf AWS"]
 . link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/["Amazon FSx ONTAP"]
 . link:https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/preparing-to-install-on-gcp.html["Installieren von OpenShift-Clustern auf GCP"]

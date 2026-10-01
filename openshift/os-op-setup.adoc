@@ -70,7 +70,7 @@ Dies wird mithilfe des Advanced Cluster Management Operator auf dem Hub-Cluster 
 [%collapsible%open]
 ====
 * Installieren Sie NetApp Trident auf allen drei Clustern: Hub-, Quell- und Zielcluster
-* Beachten Sie die Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["hier,"] .
+* Siehe die Anweisungen link:https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy-operator.html["hier,"].
 * Erstellen Sie ein Speicher-Backend für ontap-nas.
 * Erstellen Sie eine Speicherklasse für ontap-nas.
 * Siehe Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["hier,"] .

@@ -58,8 +58,8 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 
 
 .Installieren Sie Trident im OCP-Cluster in GCP
-* Es gibt viele Methoden, Trident einzusetzen, wie gezeigt https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["hier,"] .
-* Für dieses Projekt wurde Trident durch manuelles Bereitstellen von Trident Operator gemäß den Anweisungen installiert. https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["hier,"] .
+* Es gibt viele Methoden, Trident wie gezeigt bereitzustellen https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy.html["hier,"^].
+* Für dieses Projekt wurde Trident durch die manuelle Bereitstellung von Trident Operator anhand der Anleitung  https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy-operator.html["hier,"^] installiert.
 * Erstellen Sie ein Backend und Speicherklassen.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/trident/trident-use/backends.html["hier,"] .
 
 

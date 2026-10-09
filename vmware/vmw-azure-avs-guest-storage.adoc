@@ -128,7 +128,7 @@ Cloud Volumes ONTAP Freigaben und LUNs können von VMs bereitgestellt werden, di
 Um Volumes aus einer lokalen Umgebung zur Notfallwiederherstellung oder Migration in die Cloud zu replizieren, stellen Sie eine Netzwerkverbindung zu Azure her, entweder über ein Site-to-Site-VPN oder ExpressRoute.  Das Replizieren von Daten von lokalen Standorten auf Cloud Volumes ONTAP fällt nicht in den Geltungsbereich dieses Dokuments.  Informationen zum Replizieren von Daten zwischen lokalen und Cloud Volumes ONTAP Systemen finden Sie unterlink:https://docs.netapp.com/us-en/occm/task_replicating_data.html#setting-up-data-replication-between-systems["Einrichten der Datenreplikation zwischen Systemen"] .
 
 
-NOTE: Verwendenlink:https://cloud.netapp.com/cvo-sizer["Cloud Volumes ONTAP Sizer"] um die Cloud Volumes ONTAP -Instanzen genau zu dimensionieren.  Überwachen Sie auch die Leistung vor Ort, um sie als Eingaben im Cloud Volumes ONTAP Sizer zu verwenden.
+NOTE: Mit link:https://bluexp.netapp.com/cvo-sizer["Cloud Volumes ONTAP Sizer"^] lassen sich die Cloud Volumes ONTAP Instanzen präzise dimensionieren. Außerdem dient die Überwachung der On-Premises-Performance als Eingabedaten für den Cloud Volumes ONTAP Sizer.
 
 . Melden Sie sich bei NetApp Cloud Central an – der Fabric View-Bildschirm wird angezeigt.  Suchen Sie die Registerkarte „Cloud Volumes ONTAP“ und wählen Sie „Gehe zu Cloud Manager“ aus.  Nachdem Sie sich angemeldet haben, wird der Canvas-Bildschirm angezeigt.
 +

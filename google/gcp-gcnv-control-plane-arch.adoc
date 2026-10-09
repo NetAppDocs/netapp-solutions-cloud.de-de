@@ -28,7 +28,7 @@ Identitäts- und Zugriffsverwaltung(https://cloud.google.com/iam/docs/overview["
 [[authorizationpermission-overview]]
 === Übersicht über Autorisierungen/Berechtigungen
 
-IAM bietet integrierte, granulare Berechtigungen für Google Cloud NetApp Volumes.  Sie finden eine https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["vollständige Liste der detaillierten Berechtigungen hier"^] .
+IAM bietet integrierte, granulare Berechtigungen für Google Cloud NetApp Volumes. Sie finden eine https://docs.cloud.google.com/netapp/volumes/docs/plan-and-prepare/iam["vollständige Liste der detaillierten Berechtigungen hier"^].
 
 IAM bietet außerdem zwei vordefinierte Rollen namens `netappcloudvolumes.admin` Und `netappcloudvolumes.viewer` .  Diese Rollen können bestimmten Benutzern oder Dienstkonten zugewiesen werden.
 
@@ -52,14 +52,14 @@ Um Google Cloud NetApp Volumes API-Aufrufe über Skripte oder https://registry.t
 * Verwenden https://cloud.google.com/iam/docs/impersonating-service-accounts["Identitätswechsel beim Dienstkonto"^] mit `roles/iam.serviceAccountTokenCreator` .  Der Code (Skript, Terraform usw.) wird ausgeführt mit https://google.aip.dev/auth/4110["Standardanmeldeinformationen für Anwendungen"^] und gibt sich als Dienstkonto aus, um dessen Berechtigungen zu erhalten.  Dieser Ansatz spiegelt die bewährten Sicherheitspraktiken von Google wider.
 
 
-Sehen https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Erstellen Ihres Dienstkontos und Ihres privaten Schlüssels"^] Weitere Informationen finden Sie in der Google Cloud-Dokumentation.
+Weitere Informationen sind  https://docs.cloud.google.com/netapp/volumes/docs/apis["Erstellen Ihres Dienstkontos und Ihres privaten Schlüssels"^] in der Google Cloud-Dokumentation verfügbar.
 
 
 
 [[google-cloud-netapp-volumes-api]]
 == Google Cloud NetApp Volumes API
 
-Die Google Cloud NetApp Volumes API verwendet eine REST-basierte API, indem sie HTTPS (TLSv1.2) als zugrunde liegenden Netzwerktransport verwendet.  Die neueste API-Definition finden Sie https://cloudvolumesgcp-api.netapp.com/swagger.json["hier,"^] und Informationen zur Verwendung der API unter https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Cloud Volumes-APIs in der Google Cloud-Dokumentation"^] .
+Die Google Cloud NetApp Volumes API verwendet eine REST-basierte API und nutzt HTTPS (TLSv1.2) als zugrunde liegendes Netzwerkprotokoll. Die aktuelle API-Definition und Informationen zur Verwendung der API sind unter https://docs.cloud.google.com/netapp/volumes/docs/apis["Cloud Volumes-APIs in der Google Cloud-Dokumentation"^] zu finden.
 
 Der API-Endpunkt wird von NetApp mithilfe der Standard-HTTPS-Funktionalität (TLSv1.2) betrieben und gesichert.
 

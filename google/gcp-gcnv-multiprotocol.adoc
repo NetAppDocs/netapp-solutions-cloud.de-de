@@ -14,7 +14,7 @@ summary: Google Cloud NetApp Volumes bietet die Möglichkeit, dieselben Datensä
 
 
 [role="lead"]
-Google Cloud NetApp Volumes bietet die Möglichkeit, dieselben Datensätze sowohl für SMB- als auch für NFS-Clients freizugeben und dabei die entsprechenden Zugriffsberechtigungen beizubehalten.(https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["Dual-Protokoll"^] ).  Dies geschieht durch die Koordinierung der Identitätszuordnung zwischen Protokollen und die Verwendung eines zentralen Backend-LDAP-Servers, um die UNIX-Identitäten für Google Cloud NetApp Volumes bereitzustellen.  Sie können Windows Active Directory verwenden, um sowohl Windows- als auch UNIX-Benutzern eine einfache Verwendung zu ermöglichen.
+Google Cloud NetApp Volumes ermöglicht die gemeinsame Nutzung derselben Datensätze für SMB- und NFS-Clients unter Beibehaltung der korrekten Zugriffsberechtigungen (https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/ad-ldap-access["Dual-Protokoll"^]). Dies wird durch die Koordination der Identitätszuordnung zwischen den Protokollen und die Verwendung eines zentralen LDAP-Servers im Backend erreicht, der Google Cloud NetApp Volumes die UNIX-Identitäten bereitstellt. Windows Active Directory kann verwendet werden, um sowohl Windows- als auch UNIX-Benutzer für eine höhere Anwenderfreundlichkeit bereitzustellen.
 
 
 
@@ -38,7 +38,7 @@ Wenn beispielsweise ein Windows-Benutzer mit dem Namen `joe` versucht, über SMB
 
 Alternativ, wenn ein UNIX-Benutzer mit dem Namen `joe` versucht, mit Windows-Berechtigungen auf ein Google Cloud NetApp Volumes -Volume zuzugreifen, muss der UNIX-Benutzer einem gültigen Windows-Benutzer zugeordnet werden können.  Andernfalls wird der Zugriff auf das Volume verweigert.
 
-Derzeit wird für die externe UNIX-Identitätsverwaltung mit LDAP nur Active Directory unterstützt.  Weitere Informationen zum Konfigurieren des Zugriffs auf diesen Dienst finden Sie unter https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["Erstellen einer AD-Verbindung"^] .
+Aktuell wird für die externe UNIX-Identitätsverwaltung mit LDAP nur Active Directory unterstützt. Weitere Informationen zur Konfiguration des Zugriffs auf diesen Dienst sind unter https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/create-ad-policy["Erstellen einer AD-Verbindung"^] verfügbar.
 
 
 

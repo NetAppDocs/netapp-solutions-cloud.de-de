@@ -14,7 +14,7 @@ summary: SMB ist ein von Microsoft entwickeltes Netzwerk-Dateifreigabeprotokoll,
 
 
 [role="lead"]
-https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831795(v=ws.11)["KMU"^]ist ein von Microsoft entwickeltes Netzwerk-Dateifreigabeprotokoll, das eine zentrale Benutzer-/Gruppenauthentifizierung, Berechtigungen, Sperrung und Dateifreigabe für mehrere SMB-Clients über ein Ethernet-Netzwerk ermöglicht.  Dateien und Ordner werden den Clients über Freigaben präsentiert, die mit einer Vielzahl von Freigabeeigenschaften konfiguriert werden können und Zugriffskontrolle durch Berechtigungen auf Freigabeebene bieten.  SMB kann jedem Client präsentiert werden, der Unterstützung für das Protokoll bietet, einschließlich Windows-, Apple- und Linux-Clients.
+https://learn.microsoft.com/en-us/windows-server/storage/file-server/file-server-smb-overview["KMU"^] ist ein von Microsoft entwickeltes Netzwerkdateifreigabeprotokoll, das eine zentrale Benutzer-/Gruppenauthentifizierung, Berechtigungen, Sperren und Dateifreigabe für mehrere SMB Clients über ein Ethernet-Netzwerk bereitstellt. Dateien und Ordner werden Clients über Freigaben präsentiert, die mit verschiedenen Freigabeeigenschaften konfiguriert werden können und eine Zugriffskontrolle über Berechtigungen auf Freigabeebene bieten. SMB kann jedem Client bereitgestellt werden, der das Protokoll unterstützt, darunter Windows-, Apple- und Linux-Clients.
 
 Google Cloud NetApp Volumes bietet Unterstützung für die SMB-Versionen 2.1 und 3.x des Protokolls.
 

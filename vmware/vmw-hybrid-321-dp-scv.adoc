@@ -581,7 +581,7 @@ NOTE: Das hier eingegebene SnapMirror -Label wird verwendet, um zu identifiziere
 ====
 Der letzte Schritt besteht darin, den Datenschutz für die einzelnen Datenspeicher und virtuellen Maschinen zu aktivieren.  Die folgenden Schritte beschreiben, wie Sie Backups in AWS aktivieren.
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/bluexp-backup-recovery/task-backup-vm-data-to-aws.html["Sichern Sie Datenspeicher auf Amazon Web Services"] .
+Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-backup.html["VMware Workloads sichern"^].
 
 . Rufen Sie auf der Hauptseite von BlueXP backup and recovery für virtuelle Maschinen das Dropdown-Menü „Einstellungen“ für den zu sichernden Datenspeicher auf und wählen Sie „Sicherung aktivieren“ aus.
 +
@@ -663,7 +663,7 @@ image:bxp-scv-hybrid-035.png["Wählen Sie primär oder sekundär"]
 
 BlueXP backup and recovery für virtuelle Maschinen ermöglicht die Wiederherstellung virtueller Maschinen an ihrem ursprünglichen Speicherort.  Der Zugriff auf die Wiederherstellungsfunktionen erfolgt über die BlueXP Webkonsole.
 
-Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/bluexp-backup-recovery/task-restore-vm-data.html["Wiederherstellen von Daten virtueller Maschinen aus der Cloud"] .
+Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-vmware-restore.html["Wiederherstellen von Daten virtueller Maschinen aus der Cloud"^].
 
 .Wiederherstellen virtueller Maschinen aus BlueXP backup and recovery
 [%collapsible%open]

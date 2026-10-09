@@ -16,7 +16,7 @@ summary: Sicherheit ist insbesondere in der Cloud, wo die Infrastruktur außerha
 Oliver Krause, Justin Parisi, NetApp
 
 [role="lead"]
-Sicherheit ist insbesondere in der Cloud, wo die Infrastruktur außerhalb der Kontrolle der Speicheradministratoren liegt, von größter Bedeutung, wenn Sie Ihre Daten den Serviceangeboten der Cloud-Anbieter anvertrauen möchten.  Dieses Dokument gibt einen Überblick über die Sicherheitsangebote, die https://cloud.netapp.com/cloud-volumes-service-for-gcp["Google Cloud NetApp Volumes bietet in Google Cloud"^] .
+Sicherheit, insbesondere in der Cloud, wo sich die Infrastruktur außerhalb der Kontrolle von Storage-Administratoren befindet, ist von größter Bedeutung, wenn Sie Ihre Daten den von Cloud-Anbietern bereitgestellten Services anvertrauen. Dieses Dokument bietet einen Überblick über die Sicherheitsangebote, die https://www.netapp.com/google-cloud/netapp-volumes/["Google Cloud NetApp Volumes bietet in Google Cloud"^].
 
 
 

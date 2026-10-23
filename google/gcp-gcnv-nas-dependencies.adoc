@@ -70,7 +70,7 @@ Google Cloud NetApp Volumes fungiert als LDAP-Client und verwendet standardmäß
 
 Um Active Directory als UNIX-LDAP-Server zu verwenden, müssen Sie die erforderlichen UNIX-Attribute für Benutzer und Gruppen angeben, die Sie für UNIX-Identitäten verwenden möchten.  Google Cloud NetApp Volumes verwendet eine Standard-LDAP-Schemavorlage, die Attribute basierend auf https://tools.ietf.org/id/draft-howard-rfc2307bis-01.txt["RFC-2307-bis"^] .  Daher zeigt die folgende Tabelle die unbedingt erforderlichen Active Directory-Attribute zum Ausfüllen für Benutzer und Gruppen und wofür jedes Attribut verwendet wird.
 
-Weitere Informationen zum Festlegen von LDAP-Attributen in Active Directory finden Sie unter https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["Verwalten des Dualprotokollzugriffs."^]
+Weitere Informationen zum Festlegen von LDAP-Attributen in Active Directory finden Sie unter https://docs.cloud.google.com/netapp/volumes/docs/configure-and-use/active-directory/ad-ldap-access["Verwalten des Dualprotokollzugriffs."^]
 
 |===
 | Attribut | Was es bewirkt 

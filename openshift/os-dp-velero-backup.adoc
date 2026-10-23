@@ -21,7 +21,7 @@ In diesem Abschnitt wird beschrieben, wie Sie On-Demand-Backups für VMs in Open
 [[steps-to-create-a-backup-of-an-app]]
 == Schritte zum Erstellen einer Sicherungskopie einer App
 
-Um ein On-Demand-Backup einer App (App-Metadaten und persistente Volumes der App) zu erstellen, klicken Sie auf die Registerkarte **Backup**, um eine benutzerdefinierte Backup-Ressource (CR) zu erstellen.  Zum Erstellen des Backup-CR wird ein YAML-Beispiel bereitgestellt.  Mithilfe dieses YAML werden die App und ihr dauerhafter Speicher im angegebenen Namespace gesichert.  Weitere Parameter können wie in der Abbildung gezeigt eingestellt werden.link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["Dokumentation"] .
+Zum Erstellen eines On-Demand-Backups einer App (App-Metadaten und persistente Volumes der App) wird über die Registerkarte **Backup** eine Backup Custom Resource (CR) erstellt. Zum Erstellen der Backup CR wird ein Beispiel-yaml bereitgestellt. Mit diesem yaml werden die App und ihr persistentes Storage im angegebenen Namespace gesichert. Zusätzliche Parameter können wie in link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/backup_and_restore/oadp-application-backup-and-restore#oadp-creating-backup-cr-doc["Dokumentation"^] gezeigt festgelegt werden.
 
 Ein Snapshot der persistenten Volumes und der App-Ressourcen im angegebenen Namespace wird vom CSI erstellt.  Dieser Snapshot wird am im YAML angegebenen Sicherungsspeicherort gespeichert.  Das Backup bleibt gemäß TTL 30 Tage lang im System.
 

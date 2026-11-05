@@ -34,7 +34,7 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 * Erstellen Sie eine privat gehostete Route 53-Zone und einen DNS-Resolver für die VPC.
 
 
-Erstellen Sie einen OpenShift-Cluster auf AWS mit dem Advanced Cluster Management (ACM)-Assistenten.  Siehe Anweisungenlink:https://docs.openshift.com/dedicated/osd_install_access_delete_cluster/creating-an-aws-cluster.html["hier,"] .
+Erstellung eines OpenShift Clusters auf AWS mit dem Assistenten Advanced Cluster Management (ACM). Weitere Informationen enthalten die Anweisungen link:https://docs.redhat.com/en/documentation/openshift_dedicated/4/html/openshift_dedicated_clusters_on_aws/osd-creating-a-cluster-on-aws["hier,"^].
 
 
 NOTE: Sie können den Cluster auch in AWS über die OpenShift Hybrid Cloud Konsole erstellen. Anweisungen finden sich link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.10/html/installing/installing-on-aws["hier,"^].

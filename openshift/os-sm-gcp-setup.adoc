@@ -26,7 +26,7 @@ NOTE: Es gibt mehrere Möglichkeiten, Red Hat OpenShift Container-Plattformclust
 Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 
 .Installieren Sie einen OCP-Cluster auf GCP über die CLI
-* Stellen Sie sicher, dass Sie alle genannten Voraussetzungen erfüllt habenlink:https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["hier,"] .
+* Es ist sicherzustellen, dass Sie alle genannten Voraussetzungen erfüllt haben link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.13/html/installing_on_google_cloud/index#installing-gcp-default["hier,"^].
 * Für die VPN-Konnektivität zwischen lokalen Standorten und GCP wurde eine pfsense-VM erstellt und konfiguriert.  Anweisungen hierzu finden Sie unter https://docs.netgate.com/pfsense/en/latest/recipes/ipsec-s2s-psk.html["hier,"] .
 +
 ** Die Remote-Gateway-Adresse in pfsense kann erst konfiguriert werden, nachdem Sie ein VPN-Gateway in Google Cloud Platform erstellt haben.
@@ -36,7 +36,7 @@ Der Einrichtungsprozess kann in die folgenden Schritte unterteilt werden:
 
 * Installieren Sie jetzt den OpenShift-Cluster auf GCP.
 +
-** Besorgen Sie sich das Installationsprogramm und das Pull-Geheimnis und stellen Sie den Cluster gemäß den in der Dokumentation angegebenen Schritten bereit. https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["hier,"] .
+** Das Installationsprogramm und das Pull-Secret abrufen und den Cluster gemäß den in der Dokumentation beschriebenen Schritten einsetzen https://docs.redhat.com/en/documentation/openshift_container_platform/4.13/html/installing_on_google_cloud/index#installing-gcp-default["hier,"^].
 ** Die Installation erstellt ein VPC-Netzwerk in der Google Cloud Platform.  Außerdem wird eine private Zone in Cloud DNS erstellt und A-Einträge hinzugefügt.
 +
 *** Verwenden Sie die CIDR-Blockadresse des VPC-Netzwerks, um pfsense zu konfigurieren und die VPN-Verbindung herzustellen.  Stellen Sie sicher, dass die Firewalls richtig eingerichtet sind.

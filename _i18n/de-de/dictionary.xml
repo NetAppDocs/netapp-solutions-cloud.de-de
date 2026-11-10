@@ -1323,7 +1323,6 @@
   <block id="643c48205940ae10b1f2c5f6f8aa5f64" category="paragraph">Dies wird mithilfe des Advanced Cluster Management Operator auf dem Hub-Cluster installiert.  Beachten Sie die Anweisungen<block ref="4bb39576c102d9630dc961b3998ecbd9" category="inline-link-macro-rx"></block> .</block>
   <block id="c0090a527266898baf1b6d9a9978eeb3" category="example-title">Installieren Sie zwei zusätzliche OCP-Cluster (Quelle und Ziel).</block>
   <block id="a4fcf9c2586b5e93f63d9c1290438839" category="list-text">Die zusätzlichen Cluster können mithilfe des ACM auf dem Hub-Cluster bereitgestellt werden.</block>
-  <block id="24ed1bd1ba2dc78d194e4186a2a7b0a1" category="list-text">Beachten Sie die Anweisungen<block ref="61a11e403c83c9c41ff797a7a780dbff" category="inline-link-macro-rx"></block> .</block>
   <block id="4cb2dca6265c22cd883513131d603c5f" category="example-title">Konfigurieren des NetApp ONTAP -Speichers</block>
   <block id="31114fdb67ca9ac1afd2af9e1a830e4e" category="list-text">Installieren Sie einen ONTAP Cluster mit Konnektivität zu den OCP-VMs in der VMWare-Umgebung.</block>
   <block id="15a89333d6100097518836f27ebc981d" category="list-text">Erstellen Sie eine SVM.</block>
@@ -6304,4 +6303,5 @@
   <block id="aeaece73e35427cd110235fe07465efa" category="inline-link-macro">Red Hat OpenShift Service auf AWS klassische Architektur</block>
   <block id="71dc7e7b294a93352ae90298511cd77a" category="list-text"><block ref="71dc7e7b294a93352ae90298511cd77a" category="inline-link-macro-rx"></block></block>
   <block id="5e8103bb1916579dd98fa386e2c79112" category="list-text">Informationen zur Konfiguration von VMware Cloud on AWS sind im VMware Cloud Tech Zone-Artikel <block ref="e8043ec5591ebbd4394405d542308830" category="inline-link-macro-rx"></block> zum Einsetzen und Konfigurieren von VMware Cloud on AWS SDDC und FSx ONTAP als NFS-Datenspeicher zu finden. (Eine Pilot-Light-Umgebung mit einer minimalen Konfiguration kann für DR-Zwecke verwendet werden. Im Falle eines Incident erfolgt das Failover der VMs auf diesen Cluster, und zusätzliche Knoten können hinzugefügt werden.)</block>
+  <block id="5b1325f759c14b5e2dece9541c225fe7" category="list-text">Siehe die Anweisungen <block ref="79bea77f03fef0626d8f9094b6973fe2" category="inline-link-macro-rx"></block>.</block>
 </blocks>

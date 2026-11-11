@@ -150,7 +150,7 @@ image:azure-cvo-guest-004.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt
 +
 image:azure-cvo-guest-005.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 
-. Wählen Sie die Zusatzdienste für die Bereitstellung von Cloud Volumes ONTAP aus, darunter BlueXP Classification, BlueXP backup and recovery und Cloud Insights.  Wählen Sie die Dienste aus und klicken Sie dann auf „Weiter“.
+. Es sind die Add-on Services für das Deployment von Cloud Volumes ONTAP auszuwählen, darunter NetApp Data Classification, NetApp Backup and Recovery und Data Infrastructure Insights. Die Services sind auszuwählen, und anschließend ist auf „Weiter“ zu klicken.
 +
 image:azure-cvo-guest-006.png["Abbildung, die einen Eingabe-/Ausgabedialog zeigt oder schriftlichen Inhalt darstellt"]
 

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: vmware/vmw-hybrid-dr-overview.html 
-keywords: dr, draas, bluexp, disaster recovery, vmfs datastore, nfs datastore, overview 
-summary: In diesem Abschnitt des Dokuments wird die Konfiguration von BlueXP DRaaS zum Einrichten der Notfallwiederherstellung für lokale VMware-VMs an einem anderen bestimmten Standort beschrieben. 
+keywords: dr, draas, Console, disaster recovery, vmfs datastore, nfs datastore, overview 
+summary: Dieser Abschnitt des Dokuments beschreibt die Konfiguration von NetApp Disaster Recovery, um die Notfallwiederherstellung für lokale VMware VMs an einem anderen festgelegten Standort einzurichten. 
 ---
 = Überblick
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: In diesem Abschnitt des Dokuments wird die Konfiguration von BlueXP DRa
 
 
 [role="lead"]
-Die Notfallwiederherstellung hat für jeden VMware-Administrator oberste Priorität.  Da VMware ganze Server in einer Reihe von Dateien kapselt, aus denen die virtuelle Maschine besteht, nutzen Administratoren blockspeicherbasierte Techniken wie Klone, Snapshots und Replikate, um diese VMs zu schützen.  ONTAP -Arrays bieten integrierte Replikation zum Übertragen von Volume-Daten und damit der virtuellen Maschinen, die sich auf den angegebenen Datastore-LUNs befinden, von einem Standort zum anderen.  BlueXP DRaaS lässt sich in vSphere integrieren und automatisiert den gesamten Workflow für nahtloses Failover und Failback im Katastrophenfall.  Durch die Kombination von Speicherreplikation mit intelligenter Automatisierung verfügen Administratoren jetzt über eine handhabbare Möglichkeit, Notfallwiederherstellungspläne nicht nur zu konfigurieren, zu automatisieren und zu testen, sondern sie im Katastrophenfall auch problemlos auszuführen.
+Disaster Recovery steht bei jedem VMware-Administrator an erster Stelle. Da VMware ganze Server in eine Reihe von Dateien kapselt, aus denen die virtuelle Maschine besteht, nutzen Administratoren block-Storage-basierte Techniken wie Klone, Snapshots und Replikate, um diese VMs zu schützen. ONTAP Arrays bieten integrierte Replizierung, um Volume-Daten und damit die virtuellen Maschinen auf den vorgesehenen Datastore-LUNs von einem Standort zum anderen zu übertragen. NetApp Disaster Recovery integriert sich in vSphere und automatisiert den gesamten Workflow für nahtloses Failover und Failback im Katastrophenfall. Durch die Kombination von Storage-Replizierung mit intelligenter Automatisierung verfügen Administratoren nun über eine praktikable Möglichkeit, Disaster-Recovery-Pläne nicht nur zu konfigurieren, zu automatisieren und zu testen, sondern sie im Katastrophenfall auch einfach auszuführen.
 
 Der zeitaufwändigste Teil eines DR-Failovers in einer VMware vSphere-Umgebung ist die Ausführung der Schritte, die zum Inventarisieren, Registrieren, Neukonfigurieren und Einschalten der VMs am DR-Standort erforderlich sind.  Eine ideale Lösung hat sowohl einen niedrigen RPO (gemessen in Minuten) als auch einen niedrigen RTO (gemessen in Minuten bis Stunden).  Ein Faktor, der bei einer DR-Lösung oft übersehen wird, ist die Möglichkeit, die DR-Lösung in regelmäßigen Abständen effizient zu testen.
 
@@ -27,6 +27,6 @@ Berücksichtigen Sie beim Entwerfen einer DR-Lösung die folgenden Faktoren:
 
 Weitere technische Informationen zu den verfügbaren Lösungen finden Sie unter:
 
-* link:vmw-hybrid-dr-nfs.html["DR mit BlueXP DRaaS für NFS-Datenspeicher"]
-* link:vmw-hybrid-dr-vmfs.html["DR mit BlueXP DRaaS für VMFS-Datenspeicher"]
+* link:vmw-hybrid-dr-nfs.html["NetApp Disaster Recovery für NFS Datastores"]
+* link:vmw-hybrid-dr-vmfs.html["NetApp Disaster Recovery für VMFS-Datastores"]
 

@@ -310,14 +310,14 @@ Verwenden Sie Azure NetApp Files Snapshot-Kopien zum allgemeinen Schutz und verw
 
 NOTE: Bei ANF-Datenspeichern kann mit der Option „Auf neuem Volume wiederherstellen“ ein gesamtes Datenspeichervolume geklont werden. Das wiederhergestellte Volume kann dann als weiterer Datenspeicher auf Hosts innerhalb von AVS SDDC bereitgestellt werden.  Nachdem ein Datenspeicher bereitgestellt wurde, können darin enthaltene VMs registriert, neu konfiguriert und angepasst werden, als wären sie einzeln geklonte VMs.
 
-.BlueXP backup and recovery für virtuelle Maschinen
+.NetApp Backup und Recovery für virtuelle Maschinen
 [%collapsible%open]
 =====
-BlueXP backup and recovery für virtuelle Maschinen bietet eine vSphere-Webclient-GUI auf vCenter, um virtuelle Azure VMware Solution-Maschinen und Azure NetApp -Dateidatenspeicher über Sicherungsrichtlinien zu schützen.  Diese Richtlinien können Zeitpläne, Aufbewahrungszeiten und andere Funktionen definieren.  Die BlueXP backup and recovery für die virtuelle Maschine kann mithilfe des Befehls „Ausführen“ bereitgestellt werden.
+NetApp Backup and Recovery for Virtual Machines bietet eine vSphere Web Client-GUI auf vCenter, um virtuelle Azure VMware Solution Maschinen und Azure NetApp Files Datastores über Backup-Richtlinien zu schützen. Diese Richtlinien können Zeitpläne, Aufbewahrung und weitere Funktionen definieren. Die Funktionalität von NetApp Backup and Recovery for Virtual Machines lässt sich über den Befehl „Run“ einsetzen.
 
 Die Installation der Setup- und Schutzrichtlinien kann durch Ausführen der folgenden Schritte erfolgen:
 
-. Installieren Sie BlueXP backup and recovery für virtuelle Maschinen in der privaten Azure VMware Solution-Cloud mit dem Befehl „Ausführen“.
+. Die Installation von NetApp Backup and Recovery for Virtual Machine in der Azure VMware Solution Private Cloud erfolgt mithilfe des Befehls „Run“.
 . Fügen Sie Anmeldeinformationen für das Cloud-Abonnement (Client und geheimer Wert) hinzu und fügen Sie dann ein Cloud-Abonnementkonto (NetApp -Konto und zugehörige Ressourcengruppe) hinzu, das die Ressourcen enthält, die Sie schützen möchten.
 . Erstellen Sie eine oder mehrere Sicherungsrichtlinien, die die Aufbewahrung, Häufigkeit und andere Einstellungen für Ressourcengruppensicherungen verwalten.
 . Erstellen Sie einen Container, um eine oder mehrere Ressourcen hinzuzufügen, die mit Sicherungsrichtlinien geschützt werden müssen.

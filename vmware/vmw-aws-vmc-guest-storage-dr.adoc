@@ -428,8 +428,8 @@ Der letzte Schritt zur Konfiguration von Veeam besteht darin, Sicherungsaufträg
 ====
 
 
-[[bluexp-backup-and-recovery-tools-and-configuration]]
-=== BlueXP backup and recovery und Wiederherstellungstools und -Konfiguration
+[[netapp-backup-and-recovery-tools-and-configuration]]
+=== NetApp Backup und Recovery Tools und Konfiguration
 
 Um ein Failover von Anwendungs-VMs und Datenbank-Volumes auf VMware Cloud Volume-Dienste durchzuführen, die in AWS ausgeführt werden, müssen Sie eine laufende Instanz von SnapCenter Server und Veeam Backup and Replication Server installieren und konfigurieren.  Nachdem das Failover abgeschlossen ist, müssen Sie diese Tools auch so konfigurieren, dass der normale Sicherungsvorgang fortgesetzt wird, bis ein Failback zum lokalen Rechenzentrum geplant und ausgeführt wird.
 

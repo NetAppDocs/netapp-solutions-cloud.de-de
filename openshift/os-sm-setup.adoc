@@ -43,7 +43,7 @@ NOTE: Sie können den Cluster auch in AWS über die OpenShift Hybrid Cloud Konso
 TIP: Wenn Sie den Cluster mit ACM erstellen, können Sie die Installation anpassen, indem Sie die YAML-Datei bearbeiten, nachdem Sie die Details in der Formularansicht eingegeben haben.  Nachdem der Cluster erstellt wurde, können Sie sich zur Fehlerbehebung oder für zusätzliche manuelle Konfigurationen per SSH bei den Knoten des Clusters anmelden.  Verwenden Sie zur Anmeldung den SSH-Schlüssel, den Sie während der Installation angegeben haben, und den Benutzernamen „core“.
 
 ====
-.Stellen Sie Cloud Volumes ONTAP in AWS mit BlueXP bereit.
+.Deployment von Cloud Volumes ONTAP in AWS mit NetApp Console.
 [%collapsible%open]
 ====
 * Installieren Sie den Connector in einer lokalen VMware-Umgebung.  Siehe Anweisungenlink:https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-install-connector-on-prem.html#install-the-connector["hier,"] .

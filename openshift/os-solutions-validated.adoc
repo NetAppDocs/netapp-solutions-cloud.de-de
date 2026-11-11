@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-Die Lösung testet und validiert Migration & Centralized Data Protection mit OpenShift Container Platform (OCP), OpenShift Advanced Cluster Manager (ACM), NetApp ONTAP, NetApp BlueXP und NetApp Trident Protect.
+Die Lösung testet und validiert Migration und zentralisierten Datenschutz mit OpenShift Container Platform (OCP), OpenShift Advanced Cluster Manager (ACM), NetApp ONTAP, NetApp Console und NetApp Trident Protect.
 
 Für diese Lösung wurden die folgenden Szenarien von NetApp getestet und validiert.  Die Lösung ist basierend auf den folgenden Merkmalen in mehrere Szenarien unterteilt:
 
@@ -70,7 +70,7 @@ image:rhhc-self-managed-aws.png["Abbildung, die einen Eingabe-/Ausgabedialog zei
 
 **Vor Ort: Selbstverwalteter OpenShift-Cluster und selbstverwalteter Speicher** **AWS Cloud: Vom Anbieter verwalteter OpenShift-Cluster (ROSA) und vom Anbieter verwalteter Speicher (FSx ONTAP)**
 
-* Führen Sie mit BlueXP die Replikation persistenter Volumes (FSx ONTAP) durch.
+* Die Replikation persistenter Volumes (FSx ONTAP) erfolgt in der NetApp Console.
 * Erstellen Sie mithilfe von OpenShift GitOps Anwendungsmetadaten neu.
 
 

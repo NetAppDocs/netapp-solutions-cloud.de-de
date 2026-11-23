@@ -46,7 +46,7 @@ TIP: Denken Sie an Folgendes: – Erstellen Sie einen öffentlichen und privaten
 .Installieren Sie Advanced Cluster Management auf dem Hub-Cluster
 [%collapsible%open]
 ====
-Dies wird mithilfe des Advanced Cluster Management Operator auf dem Hub-Cluster installiert.  Beachten Sie die Anweisungenlink:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/install/installing#doc-wrapper["hier,"] .
+Die Installation erfolgt mithilfe des Advanced Cluster Management Operator auf dem Hub Cluster. Maßgeblich sind die Anweisungen link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/install/installing#doc-wrapper["hier,"^].
 
 ====
 .Installieren Sie zwei zusätzliche OCP-Cluster (Quelle und Ziel).
